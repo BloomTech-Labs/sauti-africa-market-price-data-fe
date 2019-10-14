@@ -1,17 +1,15 @@
 import React from "react";
 import ReactGA from "react-ga";
-//import auth from './auth.js'; // Sample authentication provider
 
 import "./App.scss";
 
-const trackingId = process.env.GOOGLE_ID; // Replace with your Google Analytics tracking ID
-ReactGA.initialize(trackingId);
+/*=== function that initializes Google Analytics ===*/
+/*=== https://medium.com/google-cloud/tracking-site-visits-on-react-app-hosted-in-google-cloud-using-google-analytics-f49c2411d398 ===*/
 
-/*ReactGA.set({
-  userId: auth.currentUserId()
-  // any data that is relevant to the user session
-  // that you would like to track with google analytics
-});*/
+const initializeReactGA = () => {
+  ReactGA.initialize("UA-150018840-1");
+  ReactGA.pageview("/");
+};
 
 const App = () => (
   <div className="App">
