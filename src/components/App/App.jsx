@@ -14,6 +14,7 @@ const initializeReactGA = () => {
 const App = () => (
   <div className="App">
     <p>Hello World 😎</p>
+    <button onClick={methodDoesNotExist}>Break the world</button>
   </div>
 );
 
