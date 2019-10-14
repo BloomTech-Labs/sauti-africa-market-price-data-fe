@@ -1,13 +1,12 @@
 import React from "react";
 
-import Image from "../../assets/ogImage.jpeg";
-
 import "./App.scss";
 
 function App() {
   return (
     <div className="App">
       <p>Hello World 😎</p>
+      <button onClick={methodDoesNotExistHere}>Break the world</button>;
     </div>
   );
 }
