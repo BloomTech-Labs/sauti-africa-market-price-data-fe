@@ -12,14 +12,16 @@ import { Redirect } from "react-router-dom";
 
 import { useSession } from "../../hooks/useAuth";
 
+import "./Login.scss";
+
 const Login = () => {
   const { auth: user } = useSession();
   if (user) {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <div className="login">
-      <h3>Login</h3>
+    <div className="Login">
+      <h1>Login</h1>
       <button onClick={() => authHandler(GOOGLE_AUTH_PROVIDER)}>
         Login with Google
       </button>
