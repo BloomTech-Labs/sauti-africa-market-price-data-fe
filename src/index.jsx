@@ -5,6 +5,7 @@ import * as Sentry from "@sentry/browser";
 import "./index.scss";
 
 import App from "./components/App";
+
 import * as serviceWorker from "./serviceWorker";
 
 Sentry.init({
