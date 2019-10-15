@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import * as Sentry from "@sentry/browser";
 
 import "./index.scss";
+import * as serviceWorker from "./serviceWorker";
 
 import App from "./components/App";
 
