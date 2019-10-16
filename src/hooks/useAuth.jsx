@@ -163,9 +163,11 @@ export const authHandler = (type, values) => {
             .set(
               {
                 email: res.user.email,
-                name: res.additionalUserInfo.profile.name,
-                username: res.additionalUserInfo.username,
-                profile: res.additionalUserInfo.profile.avatar_url,
+                name:
+                  res.additionalUserInfo.profile.name || res.user.screenName,
+                profile:
+                  res.additionalUserInfo.profile.avatar_url ||
+                  res.user.photoURL,
                 apiKey: res.user.apiKey || uuidv5()
               },
               { merge: true }
