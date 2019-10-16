@@ -83,31 +83,9 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          size="medium"
-          className={classes.submit}
-          onClick={() => authHandler(GOOGLE_AUTH_PROVIDER)}
-        >
-          Sign in with Google
-        </Button>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          size="medium"
-          className={classes.submit}
-          onClick={() => authHandler(GITHUB_AUTH_PROVIDER)}
-        >
-          Sign in with Github
-        </Button>
-        <Typography variant="body2" color="textSecondary" align="center">
+        {/* <Typography variant="body2" color="textSecondary" align="center">
           or
-        </Typography>
+        </Typography> */}
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -157,6 +135,28 @@ const Login = () => {
               </Link>
             </Grid>
           </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            size="medium"
+            className={classes.submit}
+            onClick={() => authHandler(GOOGLE_AUTH_PROVIDER)}
+          >
+            Sign in with Google
+          </Button>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            size="medium"
+            className={classes.submit}
+            onClick={() => authHandler(GITHUB_AUTH_PROVIDER)}
+          >
+            Sign in with Github
+          </Button>
         </form>
       </div>
       <Box mt={8}>
