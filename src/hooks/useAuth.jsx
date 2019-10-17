@@ -93,30 +93,31 @@ export const SIGN_OUT = "SIGN_OUT";
 export const authHandler = (type, values) => {
   switch (type) {
     case GOOGLE_AUTH_PROVIDER:
+      console.log("Signing in with Google...");
       return firebase
         .auth()
         .signInWithPopup(googleProvider)
         .then(res => {
-          firestore
-            .collection("users")
-            .doc(res.user.uid)
-            .set(
-              {
-                email: res.user.email,
-                name: res.user.displayName,
-                profile: res.user.photoURL,
-                apiKey: res.user.apiKey || uuidv5()
-              },
-              { merge: true }
-            )
-            .then(user => {
-              if (user.additionalUserInfo.isNewUser) {
-                // Do something extra for new users
-              }
-            })
-            .catch(err => {
-              console.log("Google auth error", err);
-            });
+          console.log(res);
+          // firestore
+          //   .collection("users")
+          //   .doc(res.user.uid)
+          //   .set(
+          //     {
+          //       email: res.user.email,
+          //       name: res.user.displayName,
+          //       profile: res.user.photoURL,
+          //       apiKey: res.user.apiKey || uuidv5()
+          //     },
+          //     { merge: true }
+          //   )
+          //   .then(user => {
+          //     if (user.additionalUserInfo.isNewUser) {
+          //       // Do something extra for new users
+          //     }
+        })
+        .catch(err => {
+          console.log("Google auth error", err);
         });
     case EMAIL_AUTH_PROVIDER_LOGIN:
       return firebase
@@ -127,59 +128,60 @@ export const authHandler = (type, values) => {
         .auth()
         .createUserWithEmailAndPassword(values.email, values.password);
     case FACEBOOK_AUTH_PROVIDER:
+      console.log("Signing in with Facebook...");
       return firebase
         .auth()
         .signInWithPopup(facebookProvider)
         .then(res => {
-          firestore
-            .collection("users")
-            .doc(res.user.uid)
-            .set(
-              {
-                email: res.user.email,
-                name: res.user.displayName,
-                profile: res.user.photoURL,
-                apiKey: res.user.apiKey || uuidv5()
-              },
-              { merge: true }
-            )
-            .then(user => {
-              if (user.additionalUserInfo.isNewUser) {
-                // Do something extra for new users
-              }
-            });
+          //   console.log(res);
+          //   firestore
+          //     .collection("users")
+          //     .doc(res.user.uid)
+          //     .set(
+          //       {
+          //         email: res.user.email,
+          //         name: res.user.displayName,
+          //         profile: res.user.photoURL,
+          //         apiKey: res.user.apiKey || uuidv5()
+          //       },
+          //       { merge: true }
+          //     )
+          //     .then(user => {
+          //       if (user.additionalUserInfo.isNewUser) {
+          //         // Do something extra for new users
+          //       }
+          //     });
         })
         .catch(err => {
           console.log("Facebook auth error", err);
         });
     case GITHUB_AUTH_PROVIDER:
+      console.log("Signing in with Github...");
       return firebase
         .auth()
         .signInWithPopup(githubProvider)
         .then(res => {
-          firestore
-            .collection("users")
-            .doc(res.user.uid)
-            .set(
-              {
-                email: res.user.email,
-                name:
-                  res.additionalUserInfo.profile.name || res.user.screenName,
-                profile:
-                  res.additionalUserInfo.profile.avatar_url ||
-                  res.user.photoURL,
-                apiKey: res.user.apiKey || uuidv5()
-              },
-              { merge: true }
-            )
-            .then(user => {
-              if (user.additionalUserInfo.isNewUser) {
-                // Do something extra for new users
-              }
-            })
-            .catch(err => {
-              console.log("Github auth error", err);
-            });
+          console.log(res);
+          //   firestore
+          //     .collection("users")
+          //     .doc(res.user.uid)
+          //     .set(
+          //       {
+          //         email: res.user.email,
+          //         name: res.additionalUserInfo.profile.name,
+          //         username: res.additionalUserInfo.username,
+          //         profile: res.additionalUserInfo.profile.avatar_url,
+          //         apiKey: res.user.apiKey || uuidv5()
+          //       },
+          //       { merge: true }
+          //     )
+          //     .then(user => {
+          //       if (user.additionalUserInfo.isNewUser) {
+          //         // Do something extra for new users
+          //       }
+        })
+        .catch(err => {
+          console.log("Github auth error", err);
         });
     default:
       return firebase.auth().signOut();

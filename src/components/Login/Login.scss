@@ -1,0 +1,21 @@
+.Login {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+  
+    button {
+      width: 200px;
+      padding: 20px 30px;
+      margin: 10px;
+      background: white;
+      border: 1px solid black;
+      border-radius: 15px;
+      color: black;
+      font-size: 18px;
+  
+      &:hover {
+        background: black;
+        color: white;
+      }
+    }
+  }
