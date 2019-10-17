@@ -17,11 +17,10 @@
     "react-helmet": "^5.2.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
-    "sentry": "^0.1.2",
     "uuid": "^3.3.3"
   },
   "scripts": {
-    "start": "HOST=localhost; react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --coverage",
     "eject": "react-scripts eject",
