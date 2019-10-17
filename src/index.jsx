@@ -8,6 +8,7 @@ import "./index.scss";
 import * as serviceWorker from "./serviceWorker";
 
 import { Auth0Provider } from "./hooks/useAuth0";
+import { BrowserRouter as Router } from "react-router-dom";
 import history from "./utils/history";
 
 Sentry.init({
@@ -23,14 +24,16 @@ const onRedirectCallback = appState => {
 };
 
 ReactDOM.render(
-  <Auth0Provider
-    domain={process.env.REACT_APP_DOMAIN}
-    client_id={process.env.REACT_APP_CLIENT_ID}
-    redirect_uri={window.location.origin}
-    onRedirectCallback={onRedirectCallback}
-  >
-    <App />
-  </Auth0Provider>,
+  <Router history={history}>
+    <Auth0Provider
+      domain={process.env.REACT_APP_DOMAIN}
+      client_id={process.env.REACT_APP_CLIENT_ID}
+      redirect_uri={window.location.origin}
+      onRedirectCallback={onRedirectCallback}
+    >
+      <App />
+    </Auth0Provider>
+  </Router>,
   document.getElementById("root")
 );
 

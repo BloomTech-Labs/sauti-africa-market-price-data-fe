@@ -1,8 +1,8 @@
 import React from "react";
 import ReactGA from "react-ga";
 
-import { Router, Route, Switch } from "react-router-dom";
-import PrivateRoute from "../PrivateRoute";
+import { Route, Switch } from "react-router-dom";
+import PrivateRoute from "../../hoc/PrivateRoute";
 
 import { Container } from "reactstrap";
 
@@ -12,7 +12,6 @@ import Footer from "../Footer";
 import Home from "../Home";
 import Profile from "../Profile";
 import { useAuth0 } from "../../hooks/useAuth0";
-import history from "../../utils/history";
 
 import "./App.scss";
 
@@ -36,18 +35,16 @@ const App = () => {
   }
 
   return (
-    <Router history={history}>
-      <div id="app" className="d-flex flex-column h-100">
-        <NavBar />
-        <Container className="flex-grow-1 mt-5">
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <PrivateRoute path="/profile" component={Profile} />
-          </Switch>
-        </Container>
-        <Footer />
-      </div>
-    </Router>
+    <div id="app" className="d-flex flex-column h-100">
+      <NavBar />
+      <Container className="flex-grow-1 mt-5">
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <PrivateRoute path="/profile" component={Profile} />
+        </Switch>
+      </Container>
+      <Footer />
+    </div>
   );
 };
 
