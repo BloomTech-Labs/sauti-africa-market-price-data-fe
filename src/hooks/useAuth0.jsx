@@ -19,25 +19,31 @@ export const Auth0Provider = ({
 
   useEffect(() => {
     const initAuth0 = async () => {
+      console.log("awaiting createAuth0Client");
       const auth0FromHook = await createAuth0Client(initOptions);
       setAuth0(auth0FromHook);
 
+      console.log("awaiting handleRedirectCallback");
       if (window.location.search.includes("code=")) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
         onRedirectCallback(appState);
       }
 
+      console.log("awaiting isAuthenticated");
       const isAuthenticated = await auth0FromHook.isAuthenticated();
 
       setIsAuthenticated(isAuthenticated);
 
       if (isAuthenticated) {
+        console.log("awaiting getUser()");
         const user = await auth0FromHook.getUser();
         setUser(user);
       }
 
+      console.log("setLoading(false)");
       setLoading(false);
     };
+    console.log("initAuth0");
     initAuth0();
     // eslint-disable-next-line
   }, []);
@@ -58,6 +64,7 @@ export const Auth0Provider = ({
 
   const handleRedirectCallback = async () => {
     setLoading(true);
+    console.log("handleRedirectCallback called");
     await auth0Client.handleRedirectCallback();
     const user = await auth0Client.getUser();
     setLoading(false);

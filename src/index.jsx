@@ -8,7 +8,7 @@ import "./index.scss";
 // import * as serviceWorker from "./serviceWorker";
 
 import { Auth0Provider } from "./hooks/useAuth0";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import history from "./utils/history";
 
 Sentry.init({
