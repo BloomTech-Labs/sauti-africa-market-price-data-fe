@@ -11,6 +11,10 @@ const Hero = () => (
       width="120"
     />
     <h1 className="mb-4">Sauti Market Prices API</h1>
+    <p>
+      A public-facing API that allows you to access Sauti Africa's market price
+      data
+    </p>
   </div>
 );
 
