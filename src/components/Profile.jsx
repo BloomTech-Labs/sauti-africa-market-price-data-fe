@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 
-import Highlight from "../components/Highlight/Highlight";
-import Loading from "../components/Loading/Loading";
+import Highlight from "./Highlight/Highlight";
+import Loading from "./Loading/Loading";
 import { useAuth0 } from "../hooks/useAuth0";
 
 const Profile = () => {
