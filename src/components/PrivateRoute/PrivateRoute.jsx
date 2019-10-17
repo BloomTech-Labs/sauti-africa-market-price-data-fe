@@ -1,13 +1,35 @@
-import React from "react";
-import { useSession } from "../../hooks/useAuth";
-import { Redirect, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { Route } from "react-router-dom";
+import { useAuth0 } from "../../hooks/useAuth0";
 
-const PrivateRoute = ({ view: Component, ...rest }) => {
-  const { auth: user } = useSession();
-  if (user) {
-    return <Route {...rest} render={props => <Component {...props} />} />;
-  }
-  return <Redirect to="/login" />;
+const PrivateRoute = ({ component: Component, path, ...rest }) => {
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
+
+  useEffect(() => {
+    const fn = async () => {
+      if (!isAuthenticated) {
+        await loginWithRedirect({
+          appState: { targetUrl: path }
+        });
+      }
+    };
+    fn();
+  }, [isAuthenticated, loginWithRedirect, path]);
+
+  const render = props =>
+    isAuthenticated === true ? <Component {...props} /> : null;
+
+  return <Route path={path} render={render} {...rest} />;
+};
+
+PrivateRoute.propTypes = {
+  component: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+    .isRequired,
+  path: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string)
+  ]).isRequired
 };
 
 export default PrivateRoute;

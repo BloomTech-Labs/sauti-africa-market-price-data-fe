@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 import App from "./components/App";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import * as Sentry from "@sentry/browser";
 
 import "./index.scss";
@@ -11,10 +11,26 @@ import * as serviceWorker from "./serviceWorker";
 //   dsn: "https://ed2c8b82501542498bcdb20ad95bac85@sentry.io/1779492"
 // });
 
+import { Auth0Provider } from "./hooks/useAuth0";
+import history from "./utils/history";
+
+const onRedirectCallback = appState => {
+  history.push(
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : window.location.pathname
+  );
+};
+
 ReactDOM.render(
-  <Router>
+  <Auth0Provider
+    domain={process.env.REACT_APP_DOMAIN}
+    client_id={process.env.REACT_APP_CLIENT_ID}
+    redirect_uri={window.location.origin}
+    onRedirectCallback={onRedirectCallback}
+  >
     <App />
-  </Router>,
+  </Auth0Provider>,
   document.getElementById("root")
 );
 
