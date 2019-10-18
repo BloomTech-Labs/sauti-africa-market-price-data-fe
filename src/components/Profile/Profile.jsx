@@ -1,9 +1,11 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 
-import Highlight from "./Highlight/Highlight";
-import Loading from "./Loading/Loading";
-import { useAuth0 } from "../hooks/useAuth0";
+import Loading from "../Loading/Loading";
+import { useAuth0 } from "../../contexts";
+
+import Highlight from "react-highlight";
+import "highlight.js/styles/monokai-sublime.css";
 
 const Profile = () => {
   const { loading, user } = useAuth0();
@@ -28,7 +30,7 @@ const Profile = () => {
         </Col>
       </Row>
       <Row>
-        <Highlight>{JSON.stringify(user, null, 2)}</Highlight>
+        <Highlight className="JSON">{JSON.stringify(user, null, 2)}</Highlight>
       </Row>
     </Container>
   );

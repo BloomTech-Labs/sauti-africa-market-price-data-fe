@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
-import { useAuth0 } from "../../hooks/useAuth0";
+import { useAuth0 } from "../../contexts";
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();

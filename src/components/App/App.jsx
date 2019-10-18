@@ -11,7 +11,7 @@ import NavBar from "../NavBar";
 import Footer from "../Footer";
 import Home from "../Home";
 import Profile from "../Profile";
-import { useAuth0 } from "../../hooks/useAuth0";
+import { useAuth0 } from "../../contexts";
 
 import "./App.scss";
 
