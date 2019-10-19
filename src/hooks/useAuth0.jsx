@@ -15,6 +15,7 @@ export const Auth0Provider = ({
   const [auth0Client, setAuth0] = useState();
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
+  // const [apiKey, setApiKey] = useState();
 
   useEffect(() => {
     const initAuth0 = async () => {
@@ -32,6 +33,7 @@ export const Auth0Provider = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
+
         setUser(user);
       }
 

@@ -56,7 +56,11 @@ const NavBar = () => {
                     id="qsLoginBtn"
                     color="primary"
                     className="btn-margin"
-                    onClick={() => loginWithRedirect({})}
+                    onClick={() =>
+                      loginWithRedirect({
+                        redirect_uri: `${process.env.REACT_APP_HOST}/profile`
+                      })
+                    }
                   >
                     Log in
                   </Button>

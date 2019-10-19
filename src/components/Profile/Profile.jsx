@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Container, Row, Col } from "reactstrap";
 
 import Loading from "../Loading/Loading";
@@ -8,7 +9,34 @@ import Highlight from "react-highlight";
 import "highlight.js/styles/monokai-sublime.css";
 
 const Profile = () => {
-  const { loading, user } = useAuth0();
+  const { loading, user, getTokenSilently } = useAuth0();
+  const [apiKey, setApiKey] = useState();
+
+  useEffect(() => {
+    const getApiKey = async () => {
+      try {
+        const token = await getTokenSilently();
+        console.log(token);
+
+        const response = await axios.get(
+          "http://localhost:8888/api/apikeyRoute/private",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        console.log(response);
+        setApiKey(response.data.key);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (!apiKey) {
+      getApiKey();
+    }
+  }, [apiKey, getTokenSilently]);
 
   if (loading || !user) {
     return <Loading />;
@@ -27,6 +55,9 @@ const Profile = () => {
         <Col md>
           <h2>{user.name}</h2>
           <p className="lead text-muted">{user.email}</p>
+        </Col>
+        <Col md>
+          <h2>{apiKey}</h2>
         </Col>
       </Row>
       <Row>
