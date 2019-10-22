@@ -19,14 +19,11 @@ import "./App.scss";
 import initFontAwesome from "../../utils/initFontAwesome";
 initFontAwesome();
 
-/*=== function that initializes Google Analytics ===*/
-/*=== https://medium.com/google-cloud/tracking-site-visits-on-react-app-hosted-in-google-cloud-using-google-analytics-f49c2411d398 ===*/
-
-
 const App = () => {
   const { loading } = useAuth0();
 
   useEffect(() => {
+    /*=== function that initializes Google Analytics ===*/
     initGA(process.env.REACT_APP_GOOGLE_TRACKING_ID)
     PageView()
   })
