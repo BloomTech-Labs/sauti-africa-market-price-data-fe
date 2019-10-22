@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Event} from "../Tracking/Tracking";
 
 import {
   Collapse,
@@ -56,11 +57,13 @@ const NavBar = () => {
                     id="qsLoginBtn"
                     color="primary"
                     className="btn-margin"
-                    onClick={() =>
+                    onClick={() => {
+                      //google analytics event tracking
+                      Event("Users", "Login")
                       loginWithRedirect({
                         redirect_uri: `${process.env.REACT_APP_HOST}/profile`
                       })
-                    }
+                    }}
                   >
                     Log in
                   </Button>
@@ -104,7 +107,11 @@ const NavBar = () => {
                     id="qsLoginBtn"
                     color="primary"
                     block
-                    onClick={() => loginWithRedirect({})}
+                    onClick={() => {
+
+                      loginWithRedirect({})
+                    }
+                  }
                   >
                     Log in
                   </Button>
