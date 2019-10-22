@@ -24,9 +24,8 @@
     "reactstrap": "^8.0.0"
   },
   "scripts": {
-    "start": "REACT_APP_HOST=https://sauti-auth-test.netlify.com react-scripts start",
-    "dev": "REACT_APP_HOST=http://localhost:3000 react-scripts start",
-    "build": "REACT_APP_HOST=https://sauti-auth-test.netlify.com react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "cypress": "node_modules/.bin/cypress run",
