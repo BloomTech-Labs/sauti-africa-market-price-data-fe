@@ -6,7 +6,12 @@ const Content = () => {
 
   useEffect(() => {
     axios
-      .get("https://sauti-africa-market-price.herokuapp.com/sauti")
+      .get("https://sauti-africa-market-price.herokuapp.com/sauti",
+      {
+        headers: {
+          key: 'key' //need a way to put user key in
+        }
+      })
       .then(res => {
         setData(res.data);
       })

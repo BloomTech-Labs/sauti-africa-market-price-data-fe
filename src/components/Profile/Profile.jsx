@@ -19,7 +19,7 @@ const Profile = () => {
         const token = await getTokenSilently();
 
         const response = await axios.get(
-          "http://localhost:8888/api/apikeyRoute/private",
+          "https://sauti-africa-market-master.herokuapp.com/api/apikeyRoute/private",
           {
             headers: {
               Authorization: `Bearer ${token}`
