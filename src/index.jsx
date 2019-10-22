@@ -32,7 +32,6 @@ ReactDOM.render(
       client_id={process.env.REACT_APP_CLIENT_ID}
       redirect_uri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
-      // audience={process.env.REACT_APP_AUDIENCE}
       audience={process.env.REACT_APP_AUDIENCE}
       response_type="token id_token"
     >

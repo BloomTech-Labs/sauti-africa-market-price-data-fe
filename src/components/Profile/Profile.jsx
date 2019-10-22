@@ -16,7 +16,6 @@ const Profile = () => {
     const getApiKey = async () => {
       try {
         const token = await getTokenSilently();
-        console.log(token);
 
         const response = await axios.get(
           "http://localhost:8888/api/apikeyRoute/private",
