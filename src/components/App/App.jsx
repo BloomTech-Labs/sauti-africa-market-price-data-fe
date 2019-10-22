@@ -1,11 +1,11 @@
-import React from "react";
-import ReactGA from "react-ga";
+import React, {useEffect} from "react";
 
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "../../hoc/PrivateRoute";
 
 import { Container } from "reactstrap";
 
+import {PageView, initGA} from '../Tracking/Tracking';
 import Loading from "../Loading";
 import NavBar from "../NavBar";
 import Footer from "../Footer";
@@ -22,13 +22,14 @@ initFontAwesome();
 /*=== function that initializes Google Analytics ===*/
 /*=== https://medium.com/google-cloud/tracking-site-visits-on-react-app-hosted-in-google-cloud-using-google-analytics-f49c2411d398 ===*/
 
-function initializeReactGA() {
-  ReactGA.initialize(process.env.GOOGLE_TRACKING_ID);
-  ReactGA.pageview('/');
-}
 
 const App = () => {
   const { loading } = useAuth0();
+
+  useEffect(() => {
+    initGA(process.env.REACT_APP_GOOGLE_TRACKING_ID)
+    PageView()
+  })
 
   if (loading) {
     return <Loading />;
