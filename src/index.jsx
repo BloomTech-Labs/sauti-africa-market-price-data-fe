@@ -1,30 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App";
-import "bootstrap/dist/css/bootstrap.min.css";
-// import * as Sentry from "@sentry/browser";
+import * as Sentry from "@sentry/browser";
 
 import "./index.scss";
 import * as serviceWorker from "./serviceWorker";
 
-import { Auth0Provider } from "./hooks/useAuth0";
-import { Router } from "react-router-dom";
-import history from "./utils/history";
+import App from "./components/App";
 
-// Sentry.init({
-//   dsn: "https://ed2c8b82501542498bcdb20ad95bac85@sentry.io/1779492"
-// });
+import * as serviceWorker from "./serviceWorker";
 
-console.log(process.env.REACT_APP_AUDIENCE);
+Sentry.init({
+  dsn: "https://ed2c8b82501542498bcdb20ad95bac85@sentry.io/1779492"
+});
 
-const onRedirectCallback = appState => {
-  history.push(
-    appState && appState.targetUrl
-      ? appState.targetUrl
-      : window.location.pathname
-  );
-};
-
+<<<<<<< HEAD
 ReactDOM.render(
   <Router history={history}>
     <Auth0Provider
@@ -40,6 +29,9 @@ ReactDOM.render(
   </Router>,
   document.getElementById("root")
 );
+=======
+ReactDOM.render(<App />, document.getElementById("root"));
+>>>>>>> 2182303ee503ddad826cc6779d663368793de6a8
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
