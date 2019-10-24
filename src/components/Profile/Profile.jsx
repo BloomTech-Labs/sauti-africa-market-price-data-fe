@@ -18,8 +18,10 @@ const Profile = () => {
       try {
         const token = await getTokenSilently();
 
-        const response = await axios.get(
-          "https://sauti-africa-market-master.herokuapp.com/api/apikeyRoute/private",
+        const {sub} = user
+
+        const response = await axios.post(
+          "https://sauti-africa-market-master.herokuapp.com/api/apikeyRoute/private", {id: sub},
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -36,7 +38,7 @@ const Profile = () => {
     if (!apiKey) {
       getApiKey();
     }
-  }, [apiKey, getTokenSilently]);
+  }, [apiKey, getTokenSilently, user]);
 
   if (loading || !user) {
     return <Loading />;
