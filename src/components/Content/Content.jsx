@@ -30,11 +30,12 @@ const Content = ({apiKey}) => {
         }
       })
       .then(res => {
-        res.status === 200
-        ? setData(res.data)
-        : setErr(true)
+        setData(res.data)
       })
-      .catch(e => console.log({apiCallErr: e}))
+      .catch(e => {
+        console.log({apiCallErr: e})
+        setErr(true)
+      })
   }
 
   return (
