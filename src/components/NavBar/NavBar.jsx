@@ -61,7 +61,7 @@ const NavBar = () => {
                       //google analytics event tracking
                       Event("Users", "Login")
                       loginWithRedirect({
-                        redirect_uri: `${process.env.REACT_APP_HOST}/profile`
+                        // redirect_uri: `${process.env.REACT_APP_HOST}/profile`
                       })
                     }}
                   >
@@ -100,62 +100,6 @@ const NavBar = () => {
                 </UncontrolledDropdown>
               )}
             </Nav>
-            {!isAuthenticated && (
-              <Nav className="d-md-none" navbar>
-                <NavItem>
-                  <Button
-                    id="qsLoginBtn"
-                    color="primary"
-                    block
-                    onClick={() => {
-
-                      loginWithRedirect({})
-                    }
-                  }
-                  >
-                    Log in
-                  </Button>
-                </NavItem>
-              </Nav>
-            )}
-            {isAuthenticated && (
-              <Nav
-                className="d-md-none justify-content-between"
-                navbar
-                style={{ minHeight: 170 }}
-              >
-                <NavItem>
-                  <span className="user-info">
-                    <img
-                      src={user.picture}
-                      alt="Profile"
-                      className="nav-user-profile d-inline-block rounded-circle mr-3"
-                      width="50"
-                    />
-                    <h6 className="d-inline-block">{user.name}</h6>
-                  </span>
-                </NavItem>
-                <NavItem>
-                  <FontAwesomeIcon icon="user" className="mr-3" />
-                  <RouterNavLink
-                    to="/profile"
-                    activeClassName="router-link-exact-active"
-                  >
-                    Profile
-                  </RouterNavLink>
-                </NavItem>
-                <NavItem>
-                  <FontAwesomeIcon icon="power-off" className="mr-3" />
-                  <RouterNavLink
-                    to="#"
-                    id="qsLogoutBtn"
-                    onClick={() => logoutWithRedirect()}
-                  >
-                    Log out
-                  </RouterNavLink>
-                </NavItem>
-              </Nav>
-            )}
           </Collapse>
         </Container>
       </Navbar>
