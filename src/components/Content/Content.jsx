@@ -3,7 +3,7 @@ import axios from "axios";
 
 const Content = ({apiKey}) => {
   const [data, setData] = useState([]);
-  const [err, setErr] = useState([]);
+  const [err, setErr] = useState(false);
 
   // useEffect(() => {
   //   axios
@@ -20,8 +20,9 @@ const Content = ({apiKey}) => {
   // }, []);
 
   const apiCall = () => {
+    setErr(false)
     axios
-      .get("https://sauti-africa-market-price.herokuapp.com/sauti",
+      .get("https://sauti-africa-market-master.herokuapp.com/sauti",
       {
         headers: {
           key: apiKey
@@ -32,7 +33,7 @@ const Content = ({apiKey}) => {
         ? setData(res.data)
         : setErr(true)
       })
-      .catch(e => console.log(e))
+      .catch(e => console.log({apiCallErr: e}))
   }
 
   return (
