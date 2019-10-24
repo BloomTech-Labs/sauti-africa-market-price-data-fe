@@ -30,16 +30,18 @@ const Content = ({apiKey}) => {
         }
       })
       .then(res => {
-        res.status === 200
-        ? setData(res.data)
-        : setErr(true)
+        setData(res.data)
       })
-      .catch(e => console.log({apiCallErr: e}))
+      .catch(e => {
+        console.log({apiCallErr: e})
+        setErr(true)
+        setData([])
+      })
   }
 
   return (
     <div className="next-steps my-5">
-      {data 
+      {data[0]
         ? (
           data.map(entry => {
             return (
@@ -67,7 +69,7 @@ const Content = ({apiKey}) => {
         : (
           err
           ? <div>You've reached the max amount of calls!</div>
-          : <div>Make a call!</div>
+          : apiKey ? <div>Make a call!</div> : null
         )
         }
       
