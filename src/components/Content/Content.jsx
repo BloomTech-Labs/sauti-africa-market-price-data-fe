@@ -35,12 +35,13 @@ const Content = ({apiKey}) => {
       .catch(e => {
         console.log({apiCallErr: e})
         setErr(true)
+        setData([])
       })
   }
 
   return (
     <div className="next-steps my-5">
-      {data 
+      {data[0]
         ? (
           data.map(entry => {
             return (
