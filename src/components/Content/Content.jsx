@@ -69,7 +69,7 @@ const Content = ({apiKey}) => {
         : (
           err
           ? <div>You've reached the max amount of calls!</div>
-          : <div>Make a call!</div>
+          : apiKey ? <div>Make a call!</div> : null
         )
         }
       
