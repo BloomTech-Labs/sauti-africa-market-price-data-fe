@@ -21,6 +21,7 @@ const Content = ({apiKey}) => {
 
   const apiCall = () => {
     setErr(false)
+    setData([])
     axios
       .get("https://sauti-africa-market-master.herokuapp.com/sauti",
       {
