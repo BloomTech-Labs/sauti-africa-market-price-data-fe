@@ -3,11 +3,11 @@ import React, { Fragment } from "react";
 import Hero from "../Hero";
 import Content from "../Content";
 
-const Home = () => (
+const Home = ({apiKey}) => (
   <Fragment>
     <Hero />
     <hr />
-    {/* <Content /> */}
+    <Content apiKey={apiKey}/>
   </Fragment>
 );
 

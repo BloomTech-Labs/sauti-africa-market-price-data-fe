@@ -1,47 +1,75 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Content = () => {
+const Content = ({apiKey}) => {
   const [data, setData] = useState([]);
+  const [err, setErr] = useState([]);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   axios
+  //     .get("https://sauti-africa-market-price.herokuapp.com/sauti",
+  //     {
+  //       headers: {
+  //         key: apiKey
+  //       }
+  //     })
+  //     .then(res => {
+  //       setData(res.data);
+  //     })
+  //     .catch(e => console.log(e));
+  // }, []);
+
+  const apiCall = () => {
     axios
       .get("https://sauti-africa-market-price.herokuapp.com/sauti",
       {
         headers: {
-          key: 'key' //need a way to put user key in
+          key: apiKey
         }
       })
       .then(res => {
-        setData(res.data);
+        res.status === 200
+        ? setData(res.data)
+        : setErr(true)
       })
-      .catch(e => console.log(e));
-  }, []);
+      .catch(e => console.log(e))
+  }
 
   return (
     <div className="next-steps my-5">
-      {data.map(entry => {
-        return (
-          <>
-            <p>ID: {entry.id}</p>
-            <p>source: {entry.source}</p>
-            <p>country: {entry.country}</p>
-            <p>market: {entry.market}</p>
-            <p>product_cat: {entry.product_cat}</p>
-            <p>product_agg: {entry.product_agg}</p>
-            <p>product: {entry.product}</p>
-            <p>date: {entry.date}</p>
-            <p>
-              retail: ${entry.retail} {entry.currency}
-            </p>
-            <p>
-              wholesale: ${entry.wholesale} {entry.currency}
-            </p>
-            <p>unit: {entry.unit}</p>
-            <hr />
-          </>
-        );
-      })}
+      {data 
+        ? (
+          data.map(entry => {
+            return (
+              <>
+                <p>ID: {entry.id}</p>
+                <p>source: {entry.source}</p>
+                <p>country: {entry.country}</p>
+                <p>market: {entry.market}</p>
+                <p>product_cat: {entry.product_cat}</p>
+                <p>product_agg: {entry.product_agg}</p>
+                <p>product: {entry.product}</p>
+                <p>date: {entry.date}</p>
+                <p>
+                  retail: ${entry.retail} {entry.currency}
+                </p>
+                <p>
+                  wholesale: ${entry.wholesale} {entry.currency}
+                </p>
+                <p>unit: {entry.unit}</p>
+                <hr />
+              </>
+            );
+          })
+        )
+        : (
+          err
+          ? <div>You've reached the max amount of calls!</div>
+          : <div>Make a call!</div>
+        )
+        }
+      
+      {apiKey ? <button onClick={apiCall}>Call the api</button> : null}
     </div>
   );
 };
