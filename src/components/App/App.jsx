@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "../../hoc/PrivateRoute";
@@ -21,6 +21,7 @@ initFontAwesome();
 
 const App = () => {
   const { loading } = useAuth0();
+  const [apiKey, setApiKey] = useState();
 
   useEffect(() => {
     /*=== function that initializes Google Analytics ===*/
@@ -37,8 +38,8 @@ const App = () => {
       <NavBar />
       <Container className="flex-grow-1 mt-5">
         <Switch>
-          <Route path="/" exact component={Home} />
-          <PrivateRoute path="/profile" component={Profile} />
+          <Route path="/" exact render={(props) => <Home {...props} apiKey={apiKey}/>} />
+          <PrivateRoute path="/profile" render={(props) => <Profile {...props} apiKey={apiKey} setApiKey={setApiKey}/>} />
         </Switch>
       </Container>
       <Footer />
