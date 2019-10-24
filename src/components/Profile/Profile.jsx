@@ -9,9 +9,8 @@ import { useAuth0 } from "../../contexts";
 import Highlight from "react-highlight";
 import "highlight.js/styles/monokai-sublime.css";
 
-const Profile = () => {
+const Profile = ({apiKey, setApiKey}) => {
   const { loading, user, getTokenSilently } = useAuth0();
-  const [apiKey, setApiKey] = useState();
 
   useEffect(() => {
     const getApiKey = async () => {
