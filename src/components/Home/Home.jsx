@@ -1,14 +1,14 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react'
 
-import Hero from "../Hero";
-import Content from "../Content";
+import Hero from '../Hero'
+import Content from '../Content'
 
-const Home = ({apiKey}) => (
+const Home = ({ apiKey }) => (
   <Fragment>
     <Hero />
     <hr />
-    <Content apiKey={apiKey}/>
+    <Content apiKey={apiKey} />
   </Fragment>
-);
+)
 
-export default Home;
+export default Home

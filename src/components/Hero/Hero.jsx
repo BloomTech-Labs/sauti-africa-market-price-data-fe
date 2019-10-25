@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
-import logo from "../../assets/sauti-logo.png";
+import logo from '../../assets/sauti-logo.png'
 
 const Hero = () => (
   <div className="text-center hero my-5">
@@ -16,6 +16,6 @@ const Hero = () => (
       data
     </p>
   </div>
-);
+)
 
-export default Hero;
+export default Hero

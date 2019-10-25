@@ -1,27 +1,27 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from 'react'
 
-import { Route, Switch } from "react-router-dom";
-import PrivateRoute from "../../hoc/PrivateRoute";
+import { Route, Switch } from 'react-router-dom'
+import PrivateRoute from '../../hoc/PrivateRoute'
 
-import { Container } from "reactstrap";
+import { Container } from 'reactstrap'
 
-import {PageView, initGA} from '../Tracking/Tracking';
-import Loading from "../Loading";
-import NavBar from "../NavBar";
-import Footer from "../Footer";
-import Home from "../Home";
-import Profile from "../Profile";
-import { useAuth0 } from "../../contexts";
+import { PageView, initGA } from '../Tracking/Tracking'
+import Loading from '../Loading'
+import NavBar from '../NavBar'
+import Footer from '../Footer'
+import Home from '../Home'
+import Profile from '../Profile'
+import { useAuth0 } from '../../contexts'
 
-import "./App.scss";
+import './App.scss'
 
 // fontawesome
-import initFontAwesome from "../../utils/initFontAwesome";
-initFontAwesome();
+import initFontAwesome from '../../utils/initFontAwesome'
+initFontAwesome()
 
 const App = () => {
-  const { loading } = useAuth0();
-  const [apiKey, setApiKey] = useState();
+  const { loading } = useAuth0()
+  const [apiKey, setApiKey] = useState()
 
   useEffect(() => {
     /*=== function that initializes Google Analytics ===*/
@@ -30,7 +30,7 @@ const App = () => {
   })
 
   if (loading) {
-    return <Loading />;
+    return <Loading />
   }
 
   return (
@@ -38,13 +38,22 @@ const App = () => {
       <NavBar />
       <Container className="flex-grow-1 mt-5">
         <Switch>
-          <Route path="/" exact render={(props) => <Home {...props} apiKey={apiKey}/>} />
-          <PrivateRoute path="/profile" component={Profile} apiKey={apiKey} setApiKey={setApiKey} />
+          <Route
+            path="/"
+            exact
+            render={props => <Home {...props} apiKey={apiKey} />}
+          />
+          <PrivateRoute
+            path="/profile"
+            component={Profile}
+            apiKey={apiKey}
+            setApiKey={setApiKey}
+          />
         </Switch>
       </Container>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
