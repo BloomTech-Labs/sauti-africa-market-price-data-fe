@@ -39,7 +39,7 @@ const App = () => {
       <Container className="flex-grow-1 mt-5">
         <Switch>
           <Route path="/" exact render={(props) => <Home {...props} apiKey={apiKey}/>} />
-          <PrivateRoute path="/profile" render={(props) => <Profile {...props} apiKey={apiKey} setApiKey={setApiKey}/>} />
+          <PrivateRoute path="/profile" component={Profile} apiKey={apiKey} setApiKey={setApiKey} />
         </Switch>
       </Container>
       <Footer />
