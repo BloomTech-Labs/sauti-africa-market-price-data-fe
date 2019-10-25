@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {Event} from "../Tracking/Tracking";
+import { Event } from "../Tracking/Tracking";
 
 import {
   Collapse,
@@ -59,10 +59,8 @@ const NavBar = () => {
                     className="btn-margin"
                     onClick={() => {
                       //google analytics event tracking
-                      Event("Users", "Login")
-                      loginWithRedirect({
-                        // redirect_uri: `${process.env.REACT_APP_HOST}/profile`
-                      })
+                      Event("Users", "Login");
+                      loginWithRedirect({});
                     }}
                   >
                     Log in
