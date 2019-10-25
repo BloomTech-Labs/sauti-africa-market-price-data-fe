@@ -30,7 +30,8 @@
     "eject": "react-scripts eject",
     "cypress": "node_modules/.bin/cypress run",
     "cypress:open": "node_modules/.bin/cypress open",
-    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "format": "prettier --write \"**/*.{js,scss,css,html,json,md,less,tsx}\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
   }
 }
