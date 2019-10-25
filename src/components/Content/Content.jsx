@@ -44,41 +44,21 @@ const Content = ({apiKey}) => {
 
   return (
     <div className="next-steps my-5">
-      {data[0]
+      {apiKey ? <button onClick={apiCall}>Call the api</button> : null}
+      {!data[0]
         ? (
-          data.map(entry => {
-            return (
-
-              <Highlight className="JSON">{JSON.stringify(entry, null, 2)}</Highlight>
-              // <>
-              //   <p>ID: {entry.id}</p>
-              //   <p>source: {entry.source}</p>
-              //   <p>country: {entry.country}</p>
-              //   <p>market: {entry.market}</p>
-              //   <p>product_cat: {entry.product_cat}</p>
-              //   <p>product_agg: {entry.product_agg}</p>
-              //   <p>product: {entry.product}</p>
-              //   <p>date: {entry.date}</p>
-              //   <p>
-              //     retail: ${entry.retail} {entry.currency}
-              //   </p>
-              //   <p>
-              //     wholesale: ${entry.wholesale} {entry.currency}
-              //   </p>
-              //   <p>unit: {entry.unit}</p>
-              //   <hr />
-              // </>
-            );
-          })
-        )
-        : (
           err
           ? <div>You've reached the max amount of calls!</div>
           : apiKey ? <div>Make a call!</div> : null
         )
+        : (
+          data.map(entry => {
+            return (
+              <Highlight className="JSON">{JSON.stringify(entry, null, 2)}</Highlight>
+            );
+          })
+        )
         }
-      
-      {apiKey ? <button onClick={apiCall}>Call the api</button> : null}
     </div>
   );
 };
