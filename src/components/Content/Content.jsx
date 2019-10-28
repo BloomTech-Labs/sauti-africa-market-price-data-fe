@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
+import Grid from '../Grid'
+import { Button } from 'reactstrap'
+
 import Highlight from 'react-highlight'
 import 'highlight.js/styles/monokai-sublime.css'
 
@@ -29,22 +32,29 @@ const Content = ({ apiKey }) => {
 
   return (
     <div className="next-steps my-5">
-      {apiKey ? <button onClick={apiCall}>Call the api</button> : null}
-      {!data[0] ? (
-        err ? (
-          <div>You've reached the max amount of calls!</div>
-        ) : apiKey ? (
-          <div>Make a call!</div>
-        ) : null
-      ) : (
-        data.map(entry => {
-          return (
-            <Highlight className="JSON">
-              {JSON.stringify(entry, null, 2)}
-            </Highlight>
-          )
-        })
-      )}
+      <p>
+        {apiKey ? (
+          <Button color="primary" onClick={apiCall}>
+            Call the api
+          </Button>
+        ) : null}
+        {!data[0] ? (
+          err ? (
+            <div>You've reached the max amount of calls!</div>
+          ) : apiKey ? (
+            <div>Make a call!</div>
+          ) : null
+        ) : (
+          data.map(entry => {
+            return (
+              <Highlight className="JSON">
+                {JSON.stringify(entry, null, 2)}
+              </Highlight>
+            )
+          })
+        )}
+      </p>
+      <p>{apiKey ? <Grid /> : null}</p>
     </div>
   )
 }
