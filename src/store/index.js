@@ -7,6 +7,7 @@ export const initialState = {
       headerName: 'Country',
       field: 'country',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -14,6 +15,7 @@ export const initialState = {
       headerName: 'Market',
       field: 'market',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -21,6 +23,7 @@ export const initialState = {
       headerName: 'Source',
       field: 'source',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -28,6 +31,7 @@ export const initialState = {
       headerName: 'Category',
       field: 'product_cat',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -35,6 +39,7 @@ export const initialState = {
       headerName: 'Aggregator',
       field: 'product_agg',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -42,6 +47,7 @@ export const initialState = {
       headerName: 'Product',
       field: 'product',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -49,6 +55,7 @@ export const initialState = {
       headerName: 'Retail',
       field: 'retail',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -56,6 +63,7 @@ export const initialState = {
       headerName: 'Wholesale',
       field: 'wholesale',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -63,6 +71,7 @@ export const initialState = {
       headerName: 'Currency',
       field: 'currency',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -70,6 +79,7 @@ export const initialState = {
       headerName: 'Unit',
       field: 'unit',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -77,6 +87,7 @@ export const initialState = {
       headerName: 'Date',
       field: 'date',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     },
@@ -84,6 +95,7 @@ export const initialState = {
       headerName: 'Udate',
       field: 'udate',
       resizable: true,
+      sortable: true,
       cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     }
