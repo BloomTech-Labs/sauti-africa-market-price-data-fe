@@ -4,14 +4,94 @@ export const initialState = {
   rowData: [],
   columnDefs: [
     {
-      field: 'symbol'
+      headerName: 'Country',
+      field: 'country',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
     },
     {
-      field: 'price',
-      cellClass: 'align-right',
+      headerName: 'Market',
+      field: 'market',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
+    },
+    {
+      headerName: 'Source',
+      field: 'source',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
+    },
+    {
+      headerName: 'Category',
+      field: 'product_cat',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
+    },
+    {
+      headerName: 'Aggregator',
+      field: 'product_agg',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
+    },
+    {
+      headerName: 'Product',
+      field: 'product',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
+    },
+    {
+      headerName: 'Retail',
+      field: 'retail',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
+    },
+    {
+      headerName: 'Wholesale',
+      field: 'wholesale',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
+    },
+    {
+      headerName: 'Currency',
+      field: 'currency',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
+    },
+    {
+      headerName: 'Unit',
+      field: 'unit',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
+    },
+    {
+      headerName: 'Date',
+      field: 'date',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
+      cellRendererFramework: CellRenderer
+    },
+    {
+      headerName: 'Udate',
+      field: 'udate',
+      resizable: true,
+      cellStyle: { textAlign: 'right' },
       cellRendererFramework: CellRenderer
     }
-  ]
+  ],
+  gridStyle: {
+    width: '100%',
+    marginTop: 15
+  }
 }
 
 export const reducer = (state = { rowData: [] }, action) => {
@@ -19,53 +99,9 @@ export const reducer = (state = { rowData: [] }, action) => {
     case 'SET_ROW_DATA':
       return {
         ...state,
-        rowData: createRowData()
+        rowData: action.payload
       }
     default:
       return state
   }
-}
-
-// for test data
-// the following methods are for creating dummy row data
-const createRowData = () => {
-  let rowData = []
-
-  for (let i = 0; i < 14; i++) {
-    let newItem = createItem(rowData)
-    rowData.push(newItem)
-  }
-
-  return rowData
-}
-
-const createItem = rowData => {
-  return {
-    symbol: createUniqueRandomSymbol(rowData),
-    price: Math.floor(Math.random() * 100)
-  }
-}
-
-// creates a unique symbol, eg 'ADG' or 'ZJD'
-const createUniqueRandomSymbol = rowData => {
-  let symbol
-  let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-  let isUnique = false
-  while (!isUnique) {
-    symbol = ''
-    // create symbol
-    for (let i = 0; i < 3; i++) {
-      symbol += possible.charAt(Math.floor(Math.random() * possible.length))
-    }
-    // check uniqueness
-    isUnique = true
-    rowData.forEach(function(oldItem) {
-      if (oldItem.symbol === symbol) {
-        isUnique = false
-      }
-    })
-  }
-
-  return symbol
 }

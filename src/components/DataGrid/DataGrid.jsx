@@ -2,23 +2,21 @@ import React, { useContext } from 'react'
 import { GridContext } from '../../contexts'
 import { AgGridReact } from 'ag-grid-react'
 
-const DataGrid = () => {
+const GridComponent = () => {
   const { store, dispatch } = useContext(GridContext)
-  const { columnDefs, rowData } = store
+  const { columnDefs, rowData, gridStyle } = store
 
   const onGridReady = params => {
     params.api.sizeColumnsToFit()
   }
 
   return (
-    <div
-      style={{ height: 400, width: 900, marginTop: 15 }}
-      className="ag-theme-balham"
-    >
+    <div style={gridStyle} className="ag-theme-balham">
       <AgGridReact
         // properties
         columnDefs={columnDefs}
         rowData={rowData}
+        domLayout="autoHeight"
         reactNext={true}
         // events
         onGridReady={onGridReady}
@@ -27,4 +25,4 @@ const DataGrid = () => {
   )
 }
 
-export default DataGrid
+export default GridComponent

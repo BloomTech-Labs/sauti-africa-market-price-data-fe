@@ -15,13 +15,16 @@ const Content = ({ apiKey }) => {
     setErr(false)
     setData([])
     axios
-      .get('https://sauti-africa-market-master.herokuapp.com/sauti', {
-        headers: {
-          key: apiKey
+      .get(
+        'https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/',
+        {
+          headers: {
+            key: apiKey
+          }
         }
-      })
+      )
       .then(res => {
-        setData(res.data)
+        setData(res.data.records)
       })
       .catch(e => {
         console.log({ apiCallErr: e })
@@ -32,7 +35,7 @@ const Content = ({ apiKey }) => {
 
   return (
     <div className="next-steps my-5">
-      <p>
+      <div>
         {apiKey ? (
           <Button color="primary" onClick={apiCall}>
             Call the api
@@ -53,8 +56,14 @@ const Content = ({ apiKey }) => {
             )
           })
         )}
-      </p>
-      <p>{apiKey ? <Grid /> : null}</p>
+      </div>
+      <div>
+        {apiKey ? (
+          <div>
+            <Grid apiKey={apiKey} />
+          </div>
+        ) : null}
+      </div>
     </div>
   )
 }
