@@ -38,7 +38,7 @@ const NavBar = () => {
           <NavbarBrand className="logo" />
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
+            <Nav className="mr-auto align-items-center" navbar>
               <NavItem>
                 <NavLink
                   tag={RouterNavLink}
@@ -46,7 +46,22 @@ const NavBar = () => {
                   exact
                   activeClassName="router-link-exact-active"
                 >
-                  Home
+                  <Button size="md" color="danger">
+                    Home
+                  </Button>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  tag={RouterNavLink}
+                  to={
+                    '//documenter.getpostman.com/view/8666055/SVtZvkxB?version=latest'
+                  }
+                  target="_blank"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Documentation
                 </NavLink>
               </NavItem>
             </Nav>

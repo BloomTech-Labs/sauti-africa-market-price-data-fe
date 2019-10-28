@@ -11,6 +11,7 @@ import NavBar from '../NavBar'
 import Footer from '../Footer'
 import Home from '../Home'
 import Profile from '../Profile'
+// import Documentation from '../Documentation'
 import { useAuth0 } from '../../contexts'
 
 import './App.scss'
