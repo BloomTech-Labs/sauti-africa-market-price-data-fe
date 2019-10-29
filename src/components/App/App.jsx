@@ -11,6 +11,7 @@ import NavBar from '../NavBar'
 import Footer from '../Footer'
 import Home from '../Home'
 import Profile from '../Profile'
+import Landing from '../Landing/index.js'
 import { useAuth0 } from '../../contexts'
 
 import './App.scss'
@@ -48,6 +49,10 @@ const App = () => {
             component={Profile}
             apiKey={apiKey}
             setApiKey={setApiKey}
+          />
+          <Route
+            path="/market"
+            component={Landing}
           />
         </Switch>
       </Container>
