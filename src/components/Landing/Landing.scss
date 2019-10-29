@@ -1,7 +1,7 @@
 .top-div-image{
   background-image: url('../../assets/SautiBusia_68.jpg');
   transform: scaleX(-1);
-  height: 30em;
+  height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center right;
@@ -13,21 +13,17 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  height: 30em;
-  
-    .card {
-      margin: 1em;
-      .card-body {
-        opacity: 0.85;
-        height: 50%;
-        font-size: 0.8rem;
-        padding: 0;
-        border: none;
-      }
-    //   .btn{
-    //     opacity:
-    //   }
-    }
+  height: 100vh;
+
+  .card{
+    height: 50%;
+    font-size: 1rem;
+    padding: 1em;
+    margin: 0.5em;
+    color: white;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.8)
+  }
     
     .carousel {
       // font-size: 4rem;
@@ -53,13 +49,13 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  border: 2px solid purple;
-  height: 60vh;
+//   border: 2px solid purple;
+  height: 50%;
 
   .info-box {
 
     width: 300px;
-    height: 100px;
+    height: auto;
     // justify-content: center;
     // align-items: center;
   }
@@ -69,6 +65,19 @@
 
 
 
+.TopCardButton{
+  margin: 0 auto;
+}
+
+
 .bot-div {
+    
     display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    height: 50%;
+    
 }

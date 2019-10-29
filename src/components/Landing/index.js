@@ -3,6 +3,7 @@ import React from 'react';
 import TopCard from './Card.js';
 import Carousel from './Carousel.js';
 import InfoBoxContainer from './InfoBoxContainer.js';
+import { Button } from 'reactstrap';
 import './Landing.scss';
 
 const Landing = () => {
@@ -12,8 +13,11 @@ const Landing = () => {
         <>
             <div className="top-div-image">
                 <div className="top-div">
-                    <div className="card">
-                        <TopCard/>
+                    <div>
+                        <div>
+                            <TopCard className="card"/>
+                        </div>
+    
                     </div>
                     <div className="carousel">
                         <Carousel/>

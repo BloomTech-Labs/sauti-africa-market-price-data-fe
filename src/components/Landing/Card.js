@@ -8,14 +8,15 @@ import {
 const TopCard = (props) => {
   return (
     <div>
-      <Card>
-        <CardBody>
+      <Card >
+        <CardBody className='top-cardbody'>
           <CardTitle>Card title</CardTitle>
           <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button className="TopCardButton">Button</Button>
         </CardBody>
+        <Button className="TopCardButton">Learn More</Button>
       </Card>
+   
     </div>
   );
 };
