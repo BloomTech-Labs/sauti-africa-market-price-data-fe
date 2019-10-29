@@ -8,9 +8,18 @@ const InfoBoxContainer = () => {
 
     return(
         <div>
-            <InfoBox content={boxOneContent}/>
-            <InfoBox content={boxTwoContent}/>
-            <InfoBox content={boxThreeContent}/>
+            <div>
+                    {/* icon place */}
+                <InfoBox content={boxOneContent}/>
+            </div>
+            <div>
+                    {/* icon place */}
+                <InfoBox content={boxTwoContent}/> 
+            </div>
+            <div>
+                    {/* icon place */}
+                <InfoBox content={boxThreeContent}/>
+            </div>  
         </div>
     )
 }
