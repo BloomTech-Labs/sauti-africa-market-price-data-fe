@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.0.2",
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
@@ -13,6 +14,7 @@
     "ci": "^1.0.0",
     "cypress": "^3.4.1",
     "highlight.js": "^9.15.10",
+    "mdbreact": "^4.22.0",
     "node-sass": "^4.12.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
@@ -21,7 +23,9 @@
     "react-highlight": "^0.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
-    "reactstrap": "^8.0.0"
+    "reactstrap": "^8.0.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.1"
   },
   "scripts": {
     "start": "react-scripts start",
