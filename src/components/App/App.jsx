@@ -17,10 +17,6 @@ import { useAuth0 } from '../../contexts'
 
 import './App.scss'
 
-// fontawesome
-import initFontAwesome from '../../utils/initFontAwesome'
-initFontAwesome()
-
 const App = () => {
   const { loading } = useAuth0()
   const [apiKey, setApiKey] = useState()
@@ -38,7 +34,7 @@ const App = () => {
   return (
     <div id="app" className="d-flex flex-column h-100">
       <NavBar />
-      <Container className="flex-grow-1 mt-5">
+      <Container className="flex-grow-1 p-0" fluid>
         <Switch>
           <Route
             path="/"
