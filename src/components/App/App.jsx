@@ -37,7 +37,7 @@ const App = () => {
   return (
     <div id="app" className="d-flex flex-column h-100">
       <NavBar />
-      <Container className="flex-grow-1 mt-5">
+      <Container className="flex-grow-1">
         <Switch>
           <Route
             path="/"
@@ -50,10 +50,7 @@ const App = () => {
             apiKey={apiKey}
             setApiKey={setApiKey}
           />
-          <Route
-            path="/market"
-            component={Landing}
-          />
+          <Route path="/market" component={Landing} />
         </Switch>
       </Container>
       <Footer />
