@@ -7,16 +7,16 @@ const InfoBoxContainer = () => {
     const boxThreeContent = "box 3";
 
     return(
-        <div>
-            <div>
+        <div className="three-boxes">
+            <div className="info-box">
                     {/* icon place */}
                 <InfoBox content={boxOneContent}/>
             </div>
-            <div>
+            <div className="info-box">
                     {/* icon place */}
                 <InfoBox content={boxTwoContent}/> 
             </div>
-            <div>
+            <div className="info-box">
                     {/* icon place */}
                 <InfoBox content={boxThreeContent}/>
             </div>  

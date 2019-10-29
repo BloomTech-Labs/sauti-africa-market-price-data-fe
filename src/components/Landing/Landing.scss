@@ -1,7 +1,74 @@
-.top-div {
+.top-div-image{
   background-image: url('../../assets/SautiBusia_68.jpg');
-  height: 80vh;
+  transform: scaleX(-1);
+  height: 30em;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center right;
+  width: 100%;
+}
+.top-div {
+  transform: scaleX(-1);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 30em;
+  
+    .card {
+      margin: 1em;
+      .card-body {
+        opacity: 0.85;
+        height: 50%;
+        font-size: 0.8rem;
+        padding: 0;
+        border: none;
+      }
+    //   .btn{
+    //     opacity:
+    //   }
+    }
+    
+    .carousel {
+      // font-size: 4rem;
+      // color: yellow;
+      // background: none;
+      // border: 2px solid yellow;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      max-width: 40%;
+      .slide{
+          border: none;
+          max-width: 100%;
+      }
+    }
+}
+
+
+.three-boxes {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 2px solid purple;
+  height: 60vh;
+
+  .info-box {
+
+    width: 300px;
+    height: 100px;
+    // justify-content: center;
+    // align-items: center;
+  }
+}
+
+
+
+
+
+.bot-div {
+    display: flex;
 }
