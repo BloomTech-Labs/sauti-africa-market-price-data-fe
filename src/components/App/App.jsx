@@ -11,6 +11,8 @@ import NavBar from '../NavBar'
 import Footer from '../Footer'
 import Home from '../Home'
 import Profile from '../Profile'
+import DocsPage from '../Docs'
+
 import { useAuth0 } from '../../contexts'
 
 import './App.scss'
@@ -49,6 +51,7 @@ const App = () => {
             apiKey={apiKey}
             setApiKey={setApiKey}
           />
+          <Route exact path="/docs" component={DocsPage} />
         </Switch>
       </Container>
       <Footer />
