@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Header, Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react'
+import './SideNav.scss'
 
 const SidebarExampleDimmed = () => {
-  const [visible, setVisible] = useState({ visible: false })
+  const [visible, setVisible] = useState({ visible: true })
 
   return (
     <div>
@@ -18,23 +19,25 @@ const SidebarExampleDimmed = () => {
           visible={visible}
           width="thin"
         >
+          <br />
           <Menu.Item as="a">
-            <Icon name="home" />
-            Home
+            <strong>API</strong>
           </Menu.Item>
+          <Menu.Item as="a">Quick Start</Menu.Item>
+          <Menu.Item as="a">Playground</Menu.Item>
+          <Menu.Item as="a">Reference</Menu.Item>
+          <br />
           <Menu.Item as="a">
-            <Icon name="gamepad" />
-            Games
+            <strong>Table</strong>
           </Menu.Item>
-          <Menu.Item as="a">
-            <Icon name="camera" />
-            Channels
-          </Menu.Item>
+          <Menu.Item as="a">Quick Start</Menu.Item>
+          <Menu.Item as="a">Reference</Menu.Item>
         </Sidebar>
 
-        <Sidebar.Pusher dimmed={visible}>
+        <Sidebar.Pusher>
           <Segment basic>
             <Header as="h3">Application Content</Header>
+            <div className="space">BIG SPACE</div>
             <Image src="/images/wireframe/paragraph.png" />
           </Segment>
         </Sidebar.Pusher>

@@ -32,24 +32,26 @@ const App = () => {
   }
 
   return (
-    <div id="app" className="d-flex flex-column h-100">
+    <div>
+      {' '}
+      {/*className="d-flex flex-column h-100"*/}
       <NavBar />
-      <Container className="flex-grow-1 p-0" fluid>
-        <Switch>
-          <Route
-            path="/"
-            exact
-            render={props => <Home {...props} apiKey={apiKey} />}
-          />
-          <PrivateRoute
-            path="/profile"
-            component={Profile}
-            apiKey={apiKey}
-            setApiKey={setApiKey}
-          />
-          <Route exact path="/docs" component={DocsPage} />
-        </Switch>
-      </Container>
+      {/* <Container className="flex-grow-1 p-0" fluid> */}
+      <Switch>
+        <Route
+          path="/"
+          exact
+          render={props => <Home {...props} apiKey={apiKey} />}
+        />
+        <PrivateRoute
+          path="/profile"
+          component={Profile}
+          apiKey={apiKey}
+          setApiKey={setApiKey}
+        />
+        <Route exact path="/docs" component={DocsPage} />
+        {/* </Container> */}
+      </Switch>
       <Footer />
     </div>
   )
