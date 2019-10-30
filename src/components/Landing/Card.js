@@ -2,22 +2,21 @@
 import React from 'react';
 import {
   Card, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
+  CardTitle, Button
 } from 'reactstrap';
 
 const TopCard = (props) => {
   return (
-    <div>
+    <>
       <Card >
         <CardBody className='top-cardbody'>
           <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+          <CardText>Pokem ipsum dolor sit amet Mime Jr Voltorb Tranquill Koffing Goldeen Audino. Pikachu Granbull Magmortar Bastiodon Pokemon 4Ever Missingno Fog Badge. Thundershock Earth Badge Duskull Lileep Ambipom Doduo Poliwhirl. Boulder Badge Rainbow Badge Cubone Simipour Corsola Ninetales Sigilyph. Soul Badge Solosis Luvdisc Gigalith Ice in a world we must defend Rampardos.</CardText>
         </CardBody>
         <Button className="TopCardButton">Learn More</Button>
       </Card>
    
-    </div>
+    </>
   );
 };
 

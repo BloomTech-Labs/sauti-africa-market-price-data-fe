@@ -15,31 +15,30 @@
   align-items: center;
   height: 100vh;
 
-  .card{
-    height: 50%;
-    font-size: 1rem;
-    padding: 1em;
-    margin: 0.5em;
-    color: white;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.8)
+  .cardDiv{
+    width: 45%;
+    .card{
+        height: 50%;
+        font-size: 1rem;
+        padding: 1em;
+        margin: 0.5em;
+        color: white;
+        border: none;
+        background-color: rgba(0, 0, 0, 0.8)
+      }
   }
     
-    .carousel {
-      // font-size: 4rem;
-      // color: yellow;
-      // background: none;
-      // border: 2px solid yellow;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      
-      max-width: 40%;
-      .slide{
-          border: none;
-          max-width: 100%;
-      }
+  .carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 45%;
+    box-shadow: 0.25rem 0.35rem rgba(0, 0, 0, 0.3);
+
+    .slide{
+        max-width: 100%;
     }
+  }
 }
 
 
