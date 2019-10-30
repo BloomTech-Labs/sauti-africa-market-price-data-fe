@@ -3,7 +3,7 @@ import { GridContext } from '../../contexts'
 import { AgGridReact } from 'ag-grid-react'
 
 const GridComponent = () => {
-  const { store, dispatch } = useContext(GridContext)
+  const { store } = useContext(GridContext)
   const { columnDefs, rowData, gridStyle } = store
 
   const onGridReady = params => {
