@@ -3,7 +3,7 @@ import { Header, Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react'
 import './SideNav.scss'
 
 const SidebarExampleDimmed = () => {
-  const [visible, setVisible] = useState({ visible: true })
+  const [visible, setVisible] = useState(true)
 
   return (
     <div>
@@ -11,33 +11,65 @@ const SidebarExampleDimmed = () => {
       <Sidebar.Pushable as={Segment}>
         <Sidebar
           as={Menu}
-          animation="overlay"
+          animation="push"
           icon="labeled"
           inverted
           onHide={() => setVisible(false)}
           vertical
           visible={visible}
-          width="thin"
+          width="wide"
         >
           <br />
-          <Menu.Item as="a">
-            <strong>API</strong>
+          <Menu.Item as="h3" className="menu-item-position">
+            API
           </Menu.Item>
-          <Menu.Item as="a">Quick Start</Menu.Item>
-          <Menu.Item as="a">Playground</Menu.Item>
-          <Menu.Item as="a">Reference</Menu.Item>
+          <Menu.Item as="h5" className="menu-item-position">
+            Quick Start
+          </Menu.Item>
+          <Menu.Item as="h5" className="menu-item-position">
+            Playground
+          </Menu.Item>
+          <Menu.Item as="h5" className="menu-item-position">
+            Reference
+          </Menu.Item>
           <br />
-          <Menu.Item as="a">
-            <strong>Table</strong>
+          <Menu.Item as="h3" className="menu-item-position">
+            Table
           </Menu.Item>
-          <Menu.Item as="a">Quick Start</Menu.Item>
-          <Menu.Item as="a">Reference</Menu.Item>
+          <Menu.Item as="h5" className="menu-item-position">
+            Quick Start
+          </Menu.Item>
+          <Menu.Item as="h5" className="menu-item-position">
+            Reference
+          </Menu.Item>
         </Sidebar>
 
-        <Sidebar.Pusher>
+        <Sidebar.Pusher dimmed={false}>
           <Segment basic>
-            <Header as="h3">Application Content</Header>
-            <div className="space">BIG SPACE</div>
+            <br />
+            <Header as="h2">
+              <strong>API</strong>
+            </Header>
+            <Header as="h3">
+              <strong>Quick Start</strong>
+            </Header>
+            <Header as="h3">
+              <strong>Playground</strong>
+            </Header>
+            <Header as="h3">
+              <strong>Reference</strong>
+            </Header>
+            <br />
+            <Header as="h2">
+              <strong>TABLE</strong>
+            </Header>
+            <Header as="h3">
+              <strong>Quick Start</strong>
+            </Header>
+            <Header as="h3">
+              <strong>Reference</strong>
+            </Header>
+            <div className="space"></div>
             <Image src="/images/wireframe/paragraph.png" />
           </Segment>
         </Sidebar.Pusher>
