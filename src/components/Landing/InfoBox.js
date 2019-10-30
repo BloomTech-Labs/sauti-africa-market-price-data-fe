@@ -2,21 +2,19 @@
 import React from 'react';
 import {
   Card, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
+  CardTitle
 } from 'reactstrap';
 
-const InfoBox = (props) => {
+const InfoBox = ({title, content}) => {
   return (
-    <div>
+    <>
       <Card>
         <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Button</Button>
+          <CardTitle>{title}</CardTitle>
+          <CardText>{content}</CardText>
         </CardBody>
       </Card>
-    </div>
+    </>
   );
 };
 

@@ -3,11 +3,9 @@ import React from 'react';
 import TopCard from './Card.js';
 import Carousel from './Carousel.js';
 import InfoBoxContainer from './InfoBoxContainer.js';
-import { Button } from 'reactstrap';
 import './Landing.scss';
 
 const Landing = () => {
-
 
     return (
         <>
@@ -29,7 +27,5 @@ const Landing = () => {
     )
 
 }
-
-
 
 export default Landing;
