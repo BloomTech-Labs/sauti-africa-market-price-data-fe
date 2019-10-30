@@ -1,43 +1,43 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Container, Row, Col } from "reactstrap";
-import loader from "../../assets/loading.svg";
+import React, { useState } from 'react'
+import axios from 'axios'
+import { Button, Container, Row, Col } from 'reactstrap'
+import loader from '../../assets/loading.svg'
 
-import Loading from "../Loading/Loading";
-import { useAuth0 } from "../../contexts";
+import Loading from '../Loading/Loading'
+import { useAuth0 } from '../../contexts'
 
-import Highlight from "react-highlight";
-import "highlight.js/styles/monokai-sublime.css";
+import Highlight from 'react-highlight'
+import 'highlight.js/styles/monokai-sublime.css'
 
 const Profile = ({ apiKey, setApiKey }) => {
-  const { loading, user, getTokenSilently } = useAuth0();
-  const [keyLoading, setKeyLoading] = useState(false);
+  const { loading, user, getTokenSilently } = useAuth0()
+  const [keyLoading, setKeyLoading] = useState(false)
 
   const getApiKey = async () => {
     try {
-      setKeyLoading(true);
-      const token = await getTokenSilently();
+      setKeyLoading(true)
+      const token = await getTokenSilently()
 
-      const { sub } = user;
+      const { sub } = user
 
       const response = await axios.post(
-        "https://sauti-africa-market-master.herokuapp.com/api/apikeyRoute/private",
+        'https://sauti-africa-market-master.herokuapp.com/api/apikeyRoute/private',
         { id: sub },
         {
           headers: {
             Authorization: `Bearer ${token}`
           }
         }
-      );
-      setApiKey(response.data.key);
-      setKeyLoading(false);
+      )
+      setApiKey(response.data.key)
+      setKeyLoading(false)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   if (loading || !user) {
-    return <Loading />;
+    return <Loading />
   }
 
   return (
@@ -72,7 +72,9 @@ const Profile = ({ apiKey, setApiKey }) => {
           {keyLoading ? <img src={loader} alt="Loading" /> : null}
           {apiKey ? <h3>{apiKey}</h3> : null}
           {!apiKey && !keyLoading ? (
-            <button onClick={getApiKey}>Get API Key</button>
+            <Button size="md" color="primary" onClick={getApiKey}>
+              Get API Key
+            </Button>
           ) : null}
         </Col>
       </Row>
@@ -80,7 +82,7 @@ const Profile = ({ apiKey, setApiKey }) => {
         <Highlight className="JSON">{JSON.stringify(user, null, 2)}</Highlight>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

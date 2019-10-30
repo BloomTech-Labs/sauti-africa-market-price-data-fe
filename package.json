@@ -8,6 +8,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@sentry/browser": "^5.7.0",
+    "ag-grid-community": "^21.0.0",
+    "ag-grid-react": "^21.0.0",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "ci": "^1.0.0",
@@ -30,7 +32,8 @@
     "eject": "react-scripts eject",
     "cypress": "node_modules/.bin/cypress run",
     "cypress:open": "node_modules/.bin/cypress open",
-    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "format": "prettier --write \"**/*.{js,jsx,scss,css,html,json,md,less,tsx}\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
   }
 }

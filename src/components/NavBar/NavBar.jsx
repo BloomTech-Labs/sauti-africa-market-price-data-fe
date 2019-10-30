@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { NavLink as RouterNavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Event } from "../Tracking/Tracking";
+import React, { useState } from 'react'
+import { NavLink as RouterNavLink } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Event } from '../Tracking/Tracking'
 
 import {
   Collapse,
@@ -17,19 +17,19 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem
-} from "reactstrap";
+} from 'reactstrap'
 
-import { useAuth0 } from "../../contexts";
+import { useAuth0 } from '../../contexts'
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const toggle = () => setIsOpen(!isOpen);
+  const [isOpen, setIsOpen] = useState(false)
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  const toggle = () => setIsOpen(!isOpen)
 
   const logoutWithRedirect = () =>
     logout({
       returnTo: window.location.origin
-    });
+    })
 
   return (
     <div className="nav-container">
@@ -38,7 +38,7 @@ const NavBar = () => {
           <NavbarBrand className="logo" />
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
+            <Nav className="mr-auto align-items-center" navbar>
               <NavItem>
                 <NavLink
                   tag={RouterNavLink}
@@ -46,7 +46,32 @@ const NavBar = () => {
                   exact
                   activeClassName="router-link-exact-active"
                 >
-                  Home
+                  <Button size="md" color="danger">
+                    Home
+                  </Button>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  tag={RouterNavLink}
+                  to={
+                    '//documenter.getpostman.com/view/8666055/SVtZvkxB?version=latest'
+                  }
+                  target="_blank"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Documentation
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/grid"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Grid
                 </NavLink>
               </NavItem>
             </Nav>
@@ -59,8 +84,8 @@ const NavBar = () => {
                     className="btn-margin"
                     onClick={() => {
                       //google analytics event tracking
-                      Event("Users", "Login");
-                      loginWithRedirect({});
+                      Event('Users', 'Login')
+                      loginWithRedirect({})
                     }}
                   >
                     Log in
@@ -102,7 +127,7 @@ const NavBar = () => {
         </Container>
       </Navbar>
     </div>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar
