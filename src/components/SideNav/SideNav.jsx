@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
-import { Header, Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react'
+import {
+  Header,
+  Icon,
+  Image,
+  Menu,
+  Segment,
+  Sidebar,
+  Sticky
+} from 'semantic-ui-react'
 import './SideNav.scss'
 
 const SidebarExampleDimmed = () => {
   const [visible, setVisible] = useState(true)
 
   return (
-    <div>
-      <button onClick={() => setVisible(!visible)}>Press to toggle menu</button>
-      <Sidebar.Pushable as={Segment}>
+    <Sticky>
+      <Sidebar.Pushable as={Segment} className="sticky">
         <Sidebar
           as={Menu}
           animation="push"
@@ -18,7 +25,9 @@ const SidebarExampleDimmed = () => {
           vertical
           visible={visible}
           width="wide"
+          className="sidebar-items"
         >
+          <br />
           <br />
           <Menu.Item as="h3" className="menu-item-position">
             API
@@ -45,36 +54,43 @@ const SidebarExampleDimmed = () => {
         </Sidebar>
 
         <Sidebar.Pusher dimmed={false}>
-          <Segment basic>
-            <br />
-            <Header as="h2">
-              <strong>API</strong>
-            </Header>
-            <Header as="h3">
-              <strong>Quick Start</strong>
-            </Header>
-            <Header as="h3">
-              <strong>Playground</strong>
-            </Header>
-            <Header as="h3">
-              <strong>Reference</strong>
-            </Header>
-            <br />
-            <Header as="h2">
-              <strong>TABLE</strong>
-            </Header>
-            <Header as="h3">
-              <strong>Quick Start</strong>
-            </Header>
-            <Header as="h3">
-              <strong>Reference</strong>
-            </Header>
-            <div className="space"></div>
-            <Image src="/images/wireframe/paragraph.png" />
-          </Segment>
+          <button className="toggle-menu" onClick={() => setVisible(!visible)}>
+            Press <br /> to
+            <br /> toggle
+            <br /> menu
+          </button>
+          <article>
+            <Segment basic className="center-api-page">
+              <br />
+              <Header as="h2">
+                <strong>API</strong>
+              </Header>
+              <Header as="h3">
+                <strong>Quick Start</strong>
+              </Header>
+              <Header as="h3">
+                <strong>Playground</strong>
+              </Header>
+              <Header as="h3">
+                <strong>Reference</strong>
+              </Header>
+              <br />
+              <Header as="h2">
+                <strong>TABLE</strong>
+              </Header>
+              <Header as="h3">
+                <strong>Quick Start</strong>
+              </Header>
+              <Header as="h3">
+                <strong>Reference</strong>
+              </Header>
+
+              <Image src="/images/wireframe/paragraph.png" />
+            </Segment>
+          </article>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
-    </div>
+    </Sticky>
   )
 }
 

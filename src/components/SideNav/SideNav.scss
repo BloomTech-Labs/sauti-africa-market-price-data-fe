@@ -5,3 +5,27 @@
 .menu-item-position {
   text-align: left !important;
 }
+
+.sidebar-items {
+  //position: fixed !important;
+  height: 100px !important;
+  overflow-y: scroll !important;
+}
+.sticky {
+  transform: none !important;
+  z-index: -1 !important;
+}
+.pusher {
+  display: flex !important;
+  flex-flow: row !important;
+  align-items: center;
+}
+.toggle-menu {
+  height: 70px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+.center-api-page {
+  margin: 150px !important;
+}
