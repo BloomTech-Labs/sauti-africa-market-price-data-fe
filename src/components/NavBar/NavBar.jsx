@@ -64,6 +64,16 @@ const NavBar = () => {
                   Documentation
                 </NavLink>
               </NavItem>
+              <NavItem>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/grid"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Grid
+                </NavLink>
+              </NavItem>
             </Nav>
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
