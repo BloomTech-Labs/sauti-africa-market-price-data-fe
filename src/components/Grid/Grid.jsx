@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from 'react'
 import axios from 'axios'
-import DataGrid from '../DataGrid'
+import { AgGridReact } from 'ag-grid-react'
+// import DataGrid from '../DataGrid'
 
 import { GridContext } from '../../contexts'
 import { initialState, reducer } from '../../store'
@@ -12,7 +13,12 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 
 const Grid = ({ apiKey }) => {
   const [store, dispatch] = useReducer(reducer, initialState)
+  const { columnDefs, rowData, gridStyle } = store
   const [err, setErr] = useState(false)
+
+  const onGridReady = params => {
+    params.api.sizeColumnsToFit()
+  }
 
   const apiCall = () => {
     setErr(false)
@@ -45,7 +51,18 @@ const Grid = ({ apiKey }) => {
           </Button>
         ) : null}
 
-        <DataGrid />
+        {/* <DataGrid /> */}
+        <div style={gridStyle} className="ag-theme-balham">
+          <AgGridReact
+            // properties
+            columnDefs={columnDefs}
+            rowData={rowData}
+            domLayout="autoHeight"
+            reactNext={true}
+            // events
+            onGridReady={onGridReady}
+          ></AgGridReact>
+        </div>
       </div>
     </GridContext.Provider>
   )
