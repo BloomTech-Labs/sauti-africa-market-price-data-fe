@@ -84,7 +84,7 @@ const Grid = () => {
       }
     })
     setCountries(value)
-    setQuery(countryQuery.join('USD'))
+    setQuery(countryQuery.join(''))
   }
 
   const handleCurrency = (e, { value }) => {
