@@ -67,7 +67,7 @@ const Grid = () => {
   const [err, setErr] = useState(false)
   const [query, setQuery] = useState('c=UGA')
   const [countries, setCountries] = useState([])
-  const [currency, setCurrency] = useState('USD')
+  const [currency, setCurrency] = useState()
   const [token] = useGetToken()
 
   const onGridReady = params => {
@@ -97,7 +97,8 @@ const Grid = () => {
     axiosWithAuth([token])
       .get(
         // `https://sauti-africa-market-master.herokuapp.com/sauti/client/?${query}&count=50&p=Yellow%20Beans`,
-        `http://localhost:8888/sauti/client/?${query}&count=150&p=Yellow%20Beans&currency=${currency}`
+        `http://localhost:8888/sauti/client/?${query}&count=150&p=Yellow%20Beans&currency=${currency ||
+          'USD'}`
       )
       .then(res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
