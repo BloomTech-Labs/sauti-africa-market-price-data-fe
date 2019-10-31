@@ -1,48 +1,127 @@
 import React, { useReducer, useState } from 'react'
-import axios from 'axios'
+import { axiosWithAuth } from '../../utils/axiosWithAuth'
 import { AgGridReact } from 'ag-grid-react'
 // import DataGrid from '../DataGrid'
+import useGetToken from '../../hooks/useGetToken'
 
 import { GridContext } from '../../contexts'
 import { initialState, reducer } from '../../store'
 
-import { Button, Form } from 'semantic-ui-react'
+import { Dropdown, Button, Form } from 'semantic-ui-react'
 
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 
-const Grid = ({ apiKey }) => {
+// Currencies:   'MWK', 'RWF', 'KES', 'UGX', 'TZS', 'CDF', 'BIF'
+const countryList = [
+  {
+    name: 'Uganda',
+    abbreviation: 'UGA'
+  },
+  {
+    name: 'Rwanda',
+    abbreviation: 'RWA'
+  },
+  {
+    name: 'Tanzania',
+    abbreviation: 'TZA'
+  },
+  {
+    name: 'Kenya',
+    abbreviation: 'KEN'
+  },
+  {
+    name: 'Burundi',
+    abbreviation: 'BDI'
+  },
+  {
+    name: 'DR Congo',
+    abbreviation: 'DRC'
+  },
+  {
+    name: 'Malawi',
+    abbreviation: 'MWI'
+  },
+  {
+    name: 'South Sudan',
+    abbreviation: 'SSD'
+  }
+]
+
+const countryOptions = countryList.map((country, index) => ({
+  key: `country-${index}`,
+  text: country.name,
+  value: country.abbreviation
+}))
+
+const currencyList = ['MWK', 'RWF', 'KES', 'UGX', 'TZS', 'CDF', 'BIF', 'USD']
+
+const currencyOptions = currencyList.map((currency, index) => ({
+  key: `currency-${index}`,
+  text: currency,
+  value: currency.toLowerCase()
+}))
+
+const CurrencyDropdown = () => (
+  <Dropdown
+    placeholder="Currency"
+    fluid
+    search
+    selection
+    options={currencyOptions}
+  />
+)
+
+const Grid = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
   const { columnDefs, rowData, gridStyle } = store
   const [err, setErr] = useState(false)
   const [query, setQuery] = useState('c=UGA')
+  const [countries, setCountries] = useState([])
+  const [token] = useGetToken()
 
   const onGridReady = params => {
     params.api.sizeColumnsToFit()
   }
 
-  const handleCountry = label => {
-    console.log(label)
-    if (!query.includes(label)) {
-      if (!query.includes('=')) {
-        setQuery(`c=${label}`)
+  const handleCountry = (e, { value }) => {
+    e.preventDefault()
+    console.log(value)
+    const countryQuery = value.map((country, index) => {
+      if (index > 0) {
+        return `&c=${country}`
       } else {
-        setQuery(`${query}&c=${label}`)
+        return `c=${country}`
       }
-    }
+    })
+    setCountries(value)
+    setQuery(countryQuery.join(''))
   }
+
+  const CountryDropdown = () => (
+    <Dropdown
+      placeholder="Countries"
+      fluid
+      multiple
+      search
+      selection
+      options={countryOptions}
+      onChange={handleCountry}
+      value={countries}
+    />
+  )
 
   const apiCall = () => {
     setErr(false)
-    axios
+    axiosWithAuth([token])
       .get(
-        `https://sauti-africa-market-master.herokuapp.com/sauti/client/?${query}&count=50&p=Yellow%20Beans`,
-        // `http://localhost:8888/sauti/client/?${query}&count=50&p=Yellow%20Beans`,
-        {
-          headers: {
-            key: apiKey
-          }
-        }
+        // `https://sauti-africa-market-master.herokuapp.com/sauti/client/?${query}&count=50&p=Yellow%20Beans`,
+        `http://localhost:8888/sauti/client/?${query}&count=150&p=Yellow%20Beans`
+        // {
+        //   headers: {
+        //     key: apiKey
+        //   }
+        // }
       )
       .then(res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data })
@@ -58,17 +137,11 @@ const Grid = ({ apiKey }) => {
       <div>
         {err ? (
           <div>You've reached the max amount of calls!</div>
-        ) : apiKey ? (
+        ) : token ? (
           <>
             <Form>
-              <Form.Checkbox
-                label="RWA"
-                onChange={(e, { label }) => handleCountry(label)}
-              />
-              <Form.Checkbox
-                label="UGA"
-                onChange={(e, { label }) => handleCountry(label)}
-              />
+              <CountryDropdown />
+              <CurrencyDropdown />
             </Form>
             <Button onClick={() => apiCall()}>Update Grid</Button>
           </>
