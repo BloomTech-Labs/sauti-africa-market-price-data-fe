@@ -12,7 +12,6 @@ import { Dropdown, Button, Form } from 'semantic-ui-react'
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 
-// Currencies:   'MWK', 'RWF', 'KES', 'UGX', 'TZS', 'CDF', 'BIF'
 const countryList = [
   {
     name: 'Uganda',
@@ -62,22 +61,13 @@ const currencyOptions = currencyList.map((currency, index) => ({
   value: currency.toLowerCase()
 }))
 
-const CurrencyDropdown = () => (
-  <Dropdown
-    placeholder="Currency"
-    fluid
-    search
-    selection
-    options={currencyOptions}
-  />
-)
-
 const Grid = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
   const { columnDefs, rowData, gridStyle } = store
   const [err, setErr] = useState(false)
   const [query, setQuery] = useState('c=UGA')
   const [countries, setCountries] = useState([])
+  const [currency, setCurrency] = useState()
   const [token] = useGetToken()
 
   const onGridReady = params => {
@@ -86,7 +76,6 @@ const Grid = () => {
 
   const handleCountry = (e, { value }) => {
     e.preventDefault()
-    console.log(value)
     const countryQuery = value.map((country, index) => {
       if (index > 0) {
         return `&c=${country}`
@@ -95,36 +84,23 @@ const Grid = () => {
       }
     })
     setCountries(value)
-    setQuery(countryQuery.join(''))
+    setQuery(countryQuery.join('USD'))
   }
 
-  const CountryDropdown = () => (
-    <Dropdown
-      placeholder="Countries"
-      fluid
-      multiple
-      search
-      selection
-      options={countryOptions}
-      onChange={handleCountry}
-      value={countries}
-    />
-  )
+  const handleCurrency = (e, { value }) => {
+    e.preventDefault()
+    setCurrency(value)
+  }
 
   const apiCall = () => {
     setErr(false)
     axiosWithAuth([token])
       .get(
         // `https://sauti-africa-market-master.herokuapp.com/sauti/client/?${query}&count=50&p=Yellow%20Beans`,
-        `http://localhost:8888/sauti/client/?${query}&count=150&p=Yellow%20Beans`
-        // {
-        //   headers: {
-        //     key: apiKey
-        //   }
-        // }
+        `http://localhost:8888/sauti/client/?${query}&count=150&p=Yellow%20Beans&currency=${currency}`
       )
       .then(res => {
-        dispatch({ type: 'SET_ROW_DATA', payload: res.data })
+        dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
       })
       .catch(e => {
         console.log({ apiCallErr: e })
@@ -140,8 +116,25 @@ const Grid = () => {
         ) : token ? (
           <>
             <Form>
-              <CountryDropdown />
-              <CurrencyDropdown />
+              <Dropdown
+                placeholder="Countries"
+                fluid
+                multiple
+                search
+                selection
+                options={countryOptions}
+                onChange={handleCountry}
+                value={countries}
+              />
+              <Dropdown
+                placeholder="Currency"
+                fluid
+                search
+                selection
+                options={currencyOptions}
+                onChange={handleCurrency}
+                value={currency}
+              />
             </Form>
             <Button onClick={() => apiCall()}>Update Grid</Button>
           </>
