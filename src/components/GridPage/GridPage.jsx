@@ -7,7 +7,7 @@ import { Button } from 'reactstrap'
 import Highlight from 'react-highlight'
 import 'highlight.js/styles/monokai-sublime.css'
 
-const Content = ({ apiKey }) => {
+const GridPage = ({ apiKey }) => {
   const [data, setData] = useState([])
   const [err, setErr] = useState(false)
 
@@ -40,7 +40,9 @@ const Content = ({ apiKey }) => {
           <Button color="primary" onClick={apiCall}>
             Call the api
           </Button>
-        ) : null}
+        ) : (
+          'Request an API key from your Profile page to continue'
+        )}
         {!data[0] ? (
           err ? (
             <div>You've reached the max amount of calls!</div>
@@ -68,4 +70,4 @@ const Content = ({ apiKey }) => {
   )
 }
 
-export default Content
+export default GridPage
