@@ -2,9 +2,9 @@ import React from 'react';
 import InfoBox from './InfoBox.js';
 
 const InfoBoxContainer = () => {
-    const boxOneTitle = "box 1";
-    const boxTwoTitle = "box 2";
-    const boxThreeTitle = "box 3";
+    const boxOneTitle = "Database";
+    const boxTwoTitle = "API";
+    const boxThreeTitle = "Fireable Table";
 
     const boxOneContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc eget lorem dolor sed viverra ipsum nunc. Tristique nulla aliquet enim tortor. ";
     const boxTwoContent = "Velit aliquet sagittis id consectetur purus ut faucibus pulvinar. Nibh mauris cursus mattis molestie a iaculis. In fermentum posuere urna nec tincidunt. Praesent tristique magna sit amet purus.";

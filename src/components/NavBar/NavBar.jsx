@@ -1,56 +1,39 @@
 import React, { useState } from 'react'
-import { NavLink as RouterNavLink } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Event } from '../Tracking/Tracking'
-
-import {
-  Collapse,
-  Container,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  Button,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from 'reactstrap'
-
-import { useAuth0 } from '../../contexts'
+import './NavBar.scss';
+import 'semantic-ui-css/semantic.min.css'
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
-  const toggle = () => setIsOpen(!isOpen)
-
-  const logoutWithRedirect = () =>
-    logout({
-      returnTo: window.location.origin
-    })
 
   return (
-    <div className="nav-container">
-      <Navbar color="dark" dark expand="md">
-        <Container>
-          <NavbarBrand className="logo" />
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
-              <NavItem>
-                <NavLink
-                  tag={RouterNavLink}
-                  to="/"
-                  exact
-                  activeClassName="router-link-exact-active"
-                >
-                  Home
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <Nav className="d-none d-md-block" navbar>
+    <div className="navbar">
+      <div className="logo">
+        <a href="#">Sauti<span className="logo-dot">.</span></a>
+      </div>
+      <nav className="nav">
+        <div className="links">
+          <a href="#">HOME</a>
+          <a href="#">DOCS</a>
+          <a href="#">TABLE</a>
+          <a href="https://www.facebook.com/sautiorg/"></a><i class="facebook f icon" ></i>
+          <a href="https://twitter.com/sautiorg?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i class="twitter icon"></i></a>
+        </div>
+
+        <div>
+          <button class="ui button login-btn">Log In</button>
+        </div>
+      </nav >
+    </div>
+  )
+}
+
+export default NavBar
+
+
+
+
+
+
+{/* <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
                 <NavItem>
                   <Button
@@ -97,12 +80,98 @@ const NavBar = () => {
                   </DropdownMenu>
                 </UncontrolledDropdown>
               )}
-            </Nav>
-          </Collapse>
-        </Container>
-      </Navbar>
-    </div>
-  )
-}
+            </Nav> */}
 
-export default NavBar
+
+
+
+
+
+
+
+
+
+
+//reactstrap navbar
+
+      //       <Navbar color="dark"  expand="md">
+      //   <Container>
+      //     <NavbarBrand className="navbar-brand">Sauti</NavbarBrand>
+      //       <span>.</span>
+      //     <NavbarToggler onClick={toggle} />
+      //     <Collapse isOpen={isOpen} navbar>
+      //       <Nav color="white" className="mr-auto" navbar>
+      //         <NavItem>
+      //           <NavLink
+      //             tag={RouterNavLink}
+      //             to="/"
+      //             exact
+      //             activeClassName="router-link-exact-active"
+      //           >
+      //             Home
+      //           </NavLink>
+      //         </NavItem>
+      //         <NavItem>
+      //           <NavLink
+      //             tag={RouterNavLink}
+      //             to="/"
+      //             exact
+      //             activeClassName="router-link-exact-active"
+      //           >
+      //             ABOUT US
+      //           </NavLink>
+      //         </NavItem>
+      //         <NavItem>
+      //           <NavLink
+      //             tag={RouterNavLink}
+      //             to="/"
+      //             exact
+      //             activeClassName="router-link-exact-active"
+      //           >
+      //             SERVICES
+      //           </NavLink>
+      //         </NavItem>
+      //         <NavItem>
+      //           <NavLink
+      //             tag={RouterNavLink}
+      //             to="/"
+      //             exact
+      //             activeClassName="router-link-exact-active"
+      //           >
+      //             JOBS
+      //           </NavLink>
+      //         </NavItem>
+      //         <NavItem>
+      //           <NavLink
+      //             tag={RouterNavLink}
+      //             to="/"
+      //             exact
+      //             activeClassName="router-link-exact-active"
+      //           >
+      //             OUR TEAM
+      //           </NavLink>
+      //         </NavItem>
+      //         <NavItem>
+      //           <NavLink
+      //             tag={RouterNavLink}
+      //             to="/"
+      //             exact
+      //             activeClassName="router-link-exact-active"
+      //           >
+      //             NEWS AND UPDATES
+      //           </NavLink>
+      //         </NavItem>
+      //         <NavItem>
+      //           <NavLink
+      //             tag={RouterNavLink}
+      //             to="/"
+      //             exact
+      //             activeClassName="router-link-exact-active"
+      //           >
+      //             CONTACT US
+      //           </NavLink>
+      //         </NavItem>
+      //       </Nav>
+      //     </Collapse>
+      //   </Container>
+      // </Navbar>
