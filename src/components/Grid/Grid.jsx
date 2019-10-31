@@ -67,7 +67,7 @@ const Grid = () => {
   const [err, setErr] = useState(false)
   const [query, setQuery] = useState('c=UGA')
   const [countries, setCountries] = useState([])
-  const [currency, setCurrency] = useState()
+  const [currency, setCurrency] = useState('USD')
   const [token] = useGetToken()
 
   const onGridReady = params => {
