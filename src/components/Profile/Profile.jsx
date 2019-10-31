@@ -22,6 +22,7 @@ const Profile = ({ apiKey, setApiKey }) => {
 
       const response = await axios.post(
         'https://sauti-africa-market-master.herokuapp.com/api/apikeyRoute/private',
+        // 'http://localhost:8888/api/apikeyRoute/private',
         { id: sub },
         {
           headers: {
