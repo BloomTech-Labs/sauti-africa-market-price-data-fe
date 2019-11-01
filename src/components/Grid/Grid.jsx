@@ -65,7 +65,7 @@ const Grid = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
   const { columnDefs, rowData, gridStyle } = store
   const [err, setErr] = useState(false)
-  const [query, setQuery] = useState('c=UGA')
+  const [query, setQuery] = useState()
   const [countries, setCountries] = useState([])
   const [currency, setCurrency] = useState()
   const [token] = useGetToken()
