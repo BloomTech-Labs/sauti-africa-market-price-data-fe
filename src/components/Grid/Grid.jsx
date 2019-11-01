@@ -9,57 +9,14 @@ import { initialState, reducer } from '../../store'
 
 import { Dropdown, Button, Form } from 'semantic-ui-react'
 
+import {
+  currencyOptions,
+  countriesOptions,
+  handleCountries
+} from '../../config/gridDropdown'
+
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
-
-const countryList = [
-  {
-    name: 'Uganda',
-    abbreviation: 'UGA'
-  },
-  {
-    name: 'Rwanda',
-    abbreviation: 'RWA'
-  },
-  {
-    name: 'Tanzania',
-    abbreviation: 'TZA'
-  },
-  {
-    name: 'Kenya',
-    abbreviation: 'KEN'
-  },
-  {
-    name: 'Burundi',
-    abbreviation: 'BDI'
-  },
-  {
-    name: 'DR Congo',
-    abbreviation: 'DRC'
-  },
-  {
-    name: 'Malawi',
-    abbreviation: 'MWI'
-  },
-  {
-    name: 'South Sudan',
-    abbreviation: 'SSD'
-  }
-]
-
-const countryOptions = countryList.map((country, index) => ({
-  key: `country-${index}`,
-  text: country.name,
-  value: country.abbreviation
-}))
-
-const currencyList = ['MWK', 'RWF', 'KES', 'UGX', 'TZS', 'CDF', 'BIF', 'USD']
-
-const currencyOptions = currencyList.map((currency, index) => ({
-  key: `currency-${index}`,
-  text: currency,
-  value: currency.toLowerCase()
-}))
 
 const Grid = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
@@ -74,31 +31,13 @@ const Grid = () => {
     params.api.sizeColumnsToFit()
   }
 
-  const handleCountry = (e, { value }) => {
-    e.preventDefault()
-    const countryQuery = value.map((country, index) => {
-      if (index > 0) {
-        return `&c=${country}`
-      } else {
-        return `c=${country}`
-      }
-    })
-    setCountries(value)
-    setQuery(countryQuery.join(''))
-  }
-
-  const handleCurrency = (e, { value }) => {
-    e.preventDefault()
-    setCurrency(value)
-  }
-
   const apiCall = () => {
     setErr(false)
     axiosWithAuth([token])
       .get(
         // `https://sauti-africa-market-master.herokuapp.com/sauti/client/?${query}&count=50&p=Yellow%20Beans`,
-        `http://localhost:8888/sauti/client/?${query}&count=150&p=Yellow%20Beans&currency=${currency ||
-          'USD'}`
+        `http://localhost:8888/sauti/client/?count=150&p=Yellow%20Beans&currency=${currency ||
+          'USD'}&${query || ''}`
       )
       .then(res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
@@ -123,8 +62,10 @@ const Grid = () => {
                 multiple
                 search
                 selection
-                options={countryOptions}
-                onChange={handleCountry}
+                options={countriesOptions}
+                onChange={(e, { value }) =>
+                  handleCountries(value, setCountries, setQuery)
+                }
                 value={countries}
               />
               <Dropdown
@@ -133,7 +74,7 @@ const Grid = () => {
                 search
                 selection
                 options={currencyOptions}
-                onChange={handleCurrency}
+                onChange={e => setCurrency(e.target.value)}
                 value={currency}
               />
             </Form>
