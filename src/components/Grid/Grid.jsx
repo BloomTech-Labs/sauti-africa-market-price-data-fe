@@ -26,9 +26,12 @@ const Grid = () => {
   const [countries, setCountries] = useState([])
   const [currency, setCurrency] = useState()
   const [token] = useGetToken()
+  const [exportCSV, setExportCSV] = useState(null)
 
   const onGridReady = params => {
+    console.log(params.api)
     params.api.sizeColumnsToFit()
+    setExportCSV(params.api)
   }
 
   const apiCall = () => {
@@ -74,11 +77,18 @@ const Grid = () => {
                 search
                 selection
                 options={currencyOptions}
-                onChange={e => setCurrency(e.target.value)}
+                onChange={(e, { value }) => setCurrency(value)}
                 value={currency}
               />
             </Form>
-            <Button onClick={() => apiCall()}>Update Grid</Button>
+            <div>
+              <Button onClick={() => apiCall()}>Update Grid</Button>
+              {rowData[0] && (
+                <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
+                  Export CSV
+                </Button>
+              )}
+            </div>
           </>
         ) : null}
 
