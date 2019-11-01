@@ -14,7 +14,7 @@ const NavBar = () => {
           <a href="#">HOME</a>
           <a href="#">DOCS</a>
           <a href="#">TABLE</a>
-          <a href="https://www.facebook.com/sautiorg/"></a><i class="facebook f icon" ></i>
+          <a href="https://www.facebook.com/sautiorg/"><i class="facebook f icon" ></i></a>
           <a href="https://twitter.com/sautiorg?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i class="twitter icon"></i></a>
         </div>
 
