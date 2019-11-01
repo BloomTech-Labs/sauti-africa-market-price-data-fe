@@ -5,7 +5,6 @@ const DocsPage = () => {
   return (
     <>
       <SideNav />
-      <p>Hi I is a doc page</p>
     </>
   )
 }
