@@ -46,8 +46,7 @@ const Grid = () => {
     setErr(false)
     axiosWithAuth([token])
       .get(
-        // `https://sauti-africa-market-master.herokuapp.com/sauti/client/?${query}&count=50&p=Yellow%20Beans`,
-        `http://localhost:8888/sauti/client/?count=150&currency=${currency ||
+        `https://sauti-africa-market-master.herokuapp.com/sauti/client/?count=150&currency=${currency ||
           'USD'}&${countryQuery || ''}&${marketQuery || ''}&${productQuery ||
           ''}`
       )
