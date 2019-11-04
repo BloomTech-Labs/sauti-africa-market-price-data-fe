@@ -47,11 +47,6 @@ const App = () => {
             exact
             render={props => <GridPage {...props} apiKey={apiKey} />}
           />
-          <Route
-            path="/docs"
-            exact
-            render={props => <Documentation {...props} apiKey={apiKey} />}
-          />
           <PrivateRoute
             path="/profile"
             component={Profile}
