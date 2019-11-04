@@ -11,7 +11,12 @@ import NavBar from '../NavBar'
 import Footer from '../Footer'
 import Home from '../Home'
 import Profile from '../Profile'
+<<<<<<< HEAD
 import Landing from '../Landing/index.js'
+=======
+import Documentation from '../Documentation'
+import GridPage from '../GridPage'
+>>>>>>> 4798426b41477518fedbfa553d932e34bccb9139
 import { useAuth0 } from '../../contexts'
 
 import './App.scss'
@@ -39,10 +44,16 @@ const App = () => {
       <NavBar />
       <Container className="flex-grow-1 p-0" fluid>
         <Switch>
+          <Route path="/" exact render={props => <Home {...props} />} />
           <Route
-            path="/"
+            path="/grid"
             exact
-            render={props => <Home {...props} apiKey={apiKey} />}
+            render={props => <GridPage {...props} apiKey={apiKey} />}
+          />
+          <Route
+            path="/docs"
+            exact
+            render={props => <Documentation {...props} apiKey={apiKey} />}
           />
           <PrivateRoute
             path="/profile"
