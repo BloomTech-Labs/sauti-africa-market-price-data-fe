@@ -11,6 +11,8 @@ import NavBar from '../NavBar'
 import Footer from '../Footer'
 import Home from '../Home'
 import Profile from '../Profile'
+import Documentation from '../Documentation'
+import GridPage from '../GridPage'
 import { useAuth0 } from '../../contexts'
 
 import './App.scss'
@@ -38,10 +40,16 @@ const App = () => {
       <NavBar />
       <Container className="flex-grow-1 mt-5">
         <Switch>
+          <Route path="/" exact render={props => <Home {...props} />} />
           <Route
-            path="/"
+            path="/grid"
             exact
-            render={props => <Home {...props} apiKey={apiKey} />}
+            render={props => <GridPage {...props} apiKey={apiKey} />}
+          />
+          <Route
+            path="/docs"
+            exact
+            render={props => <Documentation {...props} apiKey={apiKey} />}
           />
           <PrivateRoute
             path="/profile"
