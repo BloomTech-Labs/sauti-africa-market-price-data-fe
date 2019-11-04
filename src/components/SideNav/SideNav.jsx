@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react'
-import { Container, Header, Menu } from 'semantic-ui-react'
-import Highlight from 'react-highlight'
+import React, { useRef } from "react";
+import { Container, Header, Menu } from "semantic-ui-react";
+import Highlight from "react-highlight";
 
-import 'highlight.js/styles/monokai-sublime.css'
-import './SideNav.scss'
+import "highlight.js/styles/monokai-sublime.css";
+import "./SideNav.scss";
 
 const SideNav = () => {
   //Managing the state of Side Nav Tabbing between by setting the active item
@@ -11,10 +11,10 @@ const SideNav = () => {
   // const handleItemClick = (e, { name }) => setActive({ activeItem: name })
 
   //Applying scrolling to places of the page
-  const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop)
-  const play = useRef()
-  const quick = useRef()
-  const refer = useRef()
+  const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop);
+  const play = useRef();
+  const quick = useRef();
+  const refer = useRef();
 
   return (
     <div className="side-nav">
@@ -51,7 +51,7 @@ const SideNav = () => {
             <Header as="h2">Quick Start</Header>
             <p>
               The idea of using this API to acquire records based on certain
-              filters. Let's walk you through an example scenario. <br />{' '}
+              filters. Let's walk you through an example scenario. <br />{" "}
               (Following request are done using a valid API Key) <br />
             </p>
             <ol>
@@ -107,7 +107,7 @@ const SideNav = () => {
           <article className="right-article">
             <Header as="h2">Request & Response</Header>
             <Highlight className="JSON">
-              <p>{JSON.stringify({ hi: 'mommy' })}</p>
+              <p>{JSON.stringify({ hi: "mommy" })}</p>
             </Highlight>
           </article>
         </section>
@@ -161,7 +161,7 @@ const SideNav = () => {
         </section>
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default SideNav
+export default SideNav;
