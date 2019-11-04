@@ -11,15 +11,13 @@ import NavBar from '../NavBar'
 import Footer from '../Footer'
 import Home from '../Home'
 import Profile from '../Profile'
+import DocsPage from '../Docs'
 import Documentation from '../Documentation'
 import GridPage from '../GridPage'
+
 import { useAuth0 } from '../../contexts'
 
 import './App.scss'
-
-// fontawesome
-import initFontAwesome from '../../utils/initFontAwesome'
-initFontAwesome()
 
 const App = () => {
   const { loading } = useAuth0()
@@ -36,9 +34,12 @@ const App = () => {
   }
 
   return (
-    <div id="app" className="d-flex flex-column h-100">
+    <div>
+      {' '}
+      {/*className="d-flex flex-column h-100"*/}
       <NavBar />
-      <Container className="flex-grow-1 mt-5">
+      {/*className="flex-grow-1 mt-5"*/}
+      <Container>
         <Switch>
           <Route path="/" exact render={props => <Home {...props} />} />
           <Route
@@ -46,17 +47,13 @@ const App = () => {
             exact
             render={props => <GridPage {...props} apiKey={apiKey} />}
           />
-          <Route
-            path="/docs"
-            exact
-            render={props => <Documentation {...props} apiKey={apiKey} />}
-          />
           <PrivateRoute
             path="/profile"
             component={Profile}
             apiKey={apiKey}
             setApiKey={setApiKey}
           />
+          <Route exact path="/docs" component={DocsPage} />
         </Switch>
       </Container>
       <Footer />
