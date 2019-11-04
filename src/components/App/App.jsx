@@ -38,8 +38,8 @@ const App = () => {
       {' '}
       {/*className="d-flex flex-column h-100"*/}
       <NavBar />
-
-      <Container className="flex-grow-1 mt-5">
+      {/*className="flex-grow-1 mt-5"*/}
+      <Container>
         <Switch>
           <Route path="/" exact render={props => <Home {...props} />} />
           <Route
