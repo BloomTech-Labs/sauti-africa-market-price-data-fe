@@ -19,6 +19,8 @@ import {
   DropdownItem
 } from 'reactstrap'
 
+import './NavBar.scss'
+
 import { useAuth0 } from '../../contexts'
 
 const NavBar = () => {
