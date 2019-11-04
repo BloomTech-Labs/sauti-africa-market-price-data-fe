@@ -1,5 +1,8 @@
 import React, { useState, useRef } from 'react'
 import { Container, Header, Menu } from 'semantic-ui-react'
+import Highlight from 'react-highlight'
+
+import 'highlight.js/styles/monokai-sublime.css'
 import './SideNav.scss'
 
 const SideNav = () => {
@@ -27,10 +30,9 @@ const SideNav = () => {
           <article className="left-article">
             <Header as="h2">API</Header>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus sit commodi, adipisci aliquid itaque id repellat magnam
-              ea iste vel optio quas deserunt minima mollitia facilis
-              laboriosam, praesentium dignissimos consequuntur?
+              Sauti Africa Market Prices API is designed to acquire acquire
+              specific data from an internal database and send out JSON
+              response.
             </p>
           </article>
           <article className="right-article">
@@ -38,10 +40,9 @@ const SideNav = () => {
               Start Acquiring the API from Above in your Profile
             </Header>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus sit commodi, adipisci aliquid itaque id repellat magnam
-              ea iste vel optio quas deserunt minima mollitia facilis
-              laboriosam, praesentium dignissimos consequuntur?
+              Go ahead log in to your profile to acquire the API Key (See Above
+              for Log In or Profile Picture) <br /> Pass the API Key as part of
+              headers in request as <Highlight>key: your API Key</Highlight>
             </p>
           </article>
         </section>
@@ -49,24 +50,65 @@ const SideNav = () => {
           <article className="left-article">
             <Header as="h2">Quick Start</Header>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus sit commodi, adipisci aliquid itaque id repellat magnam
-              ea iste vel optio quas deserunt minima mollitia facilis
-              laboriosam, praesentium dignissimos consequuntur? <br />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Necessitatibus impedit laborum enim consequatur accusamus id sequi
-              labore quos non magni, incidunt tempore reiciendis minus aut
-              aliquid doloremque natus dolorem ipsam!
+              The idea of using this API to acquire records based on certain
+              filters. Let's walk you through an example scenario. <br />{' '}
+              (Following request are done using a valid API Key) <br />
             </p>
+            <ol>
+              <li>
+                Let's try to find if there is product 'Apples' in this database,
+                so send a request:
+                <p>
+                  https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists?list=product
+                </p>
+              </li>
+              <br />
+              <li>
+                Let's now find the country 'RWA', Send the following request:
+                <p>
+                  https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists?list=country
+                </p>
+              </li>
+              <br />
+              <li>
+                Let's get some records of Apples from country 'RWA', send this
+                request:
+                <p>
+                  https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/?p=apples&c=RWA
+                </p>
+              </li>
+              <br />
+              <li>
+                Let's get 50 records instead of default 20.
+                <p>
+                  https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/?p=apples&c=RWA&count=50
+                </p>
+              </li>
+              <br />
+              <li>
+                Let's check if there is 2nd page of more records
+                <p>
+                  https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/?p=apples&c=RWA&count=50&page=2
+                </p>
+              </li>
+              <br />
+              You will notice that response returns 404 with this message
+              'Records don't exist here, change the query parameters or change
+              page no. ' <br />
+              <br />
+              Going to back to Step 4 and count the no. of records sent was 26.
+              Now we can use information 'Apples' and find latest prices across
+              market, so use the endpoint list below
+              <p>
+                https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/latestprice/?product=apples
+              </p>
+            </ol>
           </article>
           <article className="right-article">
             <Header as="h2">Request & Response</Header>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus sit commodi, adipisci aliquid itaque id repellat magnam
-              ea iste vel optio quas deserunt minima mollitia facilis
-              laboriosam, praesentium dignissimos consequuntur?
-            </p>
+            <Highlight className="JSON">
+              <p>{JSON.stringify({ hi: 'mommy' })}</p>
+            </Highlight>
           </article>
         </section>
         <section className="articles-examples" ref={play}>
