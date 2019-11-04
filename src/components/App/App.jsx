@@ -12,6 +12,8 @@ import Footer from '../Footer'
 import Home from '../Home'
 import Profile from '../Profile'
 import DocsPage from '../Docs'
+import Documentation from '../Documentation'
+import GridPage from '../GridPage'
 
 import { useAuth0 } from '../../contexts'
 
@@ -36,22 +38,29 @@ const App = () => {
       {' '}
       {/*className="d-flex flex-column h-100"*/}
       <NavBar />
-      {/* <Container className="flex-grow-1 p-0" fluid> */}
-      <Switch>
-        <Route
-          path="/"
-          exact
-          render={props => <Home {...props} apiKey={apiKey} />}
-        />
-        <PrivateRoute
-          path="/profile"
-          component={Profile}
-          apiKey={apiKey}
-          setApiKey={setApiKey}
-        />
-        <Route exact path="/docs" component={DocsPage} />
-        {/* </Container> */}
-      </Switch>
+
+      <Container className="flex-grow-1 mt-5">
+        <Switch>
+          <Route path="/" exact render={props => <Home {...props} />} />
+          <Route
+            path="/grid"
+            exact
+            render={props => <GridPage {...props} apiKey={apiKey} />}
+          />
+          <Route
+            path="/docs"
+            exact
+            render={props => <Documentation {...props} apiKey={apiKey} />}
+          />
+          <PrivateRoute
+            path="/profile"
+            component={Profile}
+            apiKey={apiKey}
+            setApiKey={setApiKey}
+          />
+          <Route exact path="/docs" component={DocsPage} />
+        </Switch>
+      </Container>
       <Footer />
     </div>
   )

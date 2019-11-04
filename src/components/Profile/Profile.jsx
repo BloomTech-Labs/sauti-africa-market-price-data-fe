@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Container, Row, Col } from 'reactstrap'
+import { Button, Container, Row, Col } from 'reactstrap'
 import loader from '../../assets/loading.svg'
 
 import Loading from '../Loading/Loading'
@@ -72,7 +72,9 @@ const Profile = ({ apiKey, setApiKey }) => {
           {keyLoading ? <img src={loader} alt="Loading" /> : null}
           {apiKey ? <h3>{apiKey}</h3> : null}
           {!apiKey && !keyLoading ? (
-            <button onClick={getApiKey}>Get API Key</button>
+            <Button size="md" color="primary" onClick={getApiKey}>
+              Get API Key
+            </Button>
           ) : null}
         </Col>
       </Row>
