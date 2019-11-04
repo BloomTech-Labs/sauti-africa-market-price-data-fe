@@ -3,28 +3,23 @@ import { Container, Header, Menu } from 'semantic-ui-react'
 import './SideNav.scss'
 
 const SideNav = () => {
-  const [active, setActive] = useState({ activeItem: 'home' })
-  const handleItemClick = (e, { name }) => setActive({ activeItem: name })
+  //Managing the state of Side Nav Tabbing between by setting the active item
+  // const [active, setActive] = useState({ activeItem: 'Quick Start' })
+  // const handleItemClick = (e, { name }) => setActive({ activeItem: name })
+
+  //Applying scrolling to places of the page
+  const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop)
+  const play = useRef()
+  const quick = useRef()
+  const refer = useRef()
 
   return (
     <div className="side-nav">
       <Menu size="massive" pointing vertical className="side-nav-items">
         <Menu.Item name="API" />
-        <Menu.Item
-          name="Quick Start"
-          active={active.activeItem === 'Quick Start'}
-          onClick={handleItemClick}
-        />
-        <Menu.Item
-          name="Playground"
-          active={active.activeItem === 'Playground'}
-          onClick={handleItemClick}
-        />
-        <Menu.Item
-          name="Reference"
-          active={active.activeItem === 'Reference'}
-          onClick={handleItemClick}
-        />
+        <Menu.Item name="Quick Start" onClick={() => scrollToPlay(quick)} />
+        <Menu.Item name="Playground" onClick={() => scrollToPlay(play)} />
+        <Menu.Item name="Reference" onClick={() => scrollToPlay(refer)} />
       </Menu>
 
       <Container fluid className="center-api-column">
@@ -50,7 +45,7 @@ const SideNav = () => {
             </p>
           </article>
         </section>
-        <section className="articles-examples">
+        <section className="articles-examples" ref={quick}>
           <article className="left-article">
             <Header as="h2">Quick Start</Header>
             <p>
@@ -74,7 +69,7 @@ const SideNav = () => {
             </p>
           </article>
         </section>
-        <section className="articles-examples">
+        <section className="articles-examples" ref={play}>
           <article className="left-article">
             <Header as="h2">Playground</Header>
             <p>
@@ -98,7 +93,7 @@ const SideNav = () => {
             </p>
           </article>
         </section>
-        <section className="articles-examples">
+        <section className="articles-examples" ref={refer}>
           <article className="left-article">
             <Header as="h2">Reference</Header>
             <p>
