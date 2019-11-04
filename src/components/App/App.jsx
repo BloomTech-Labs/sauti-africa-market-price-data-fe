@@ -11,9 +11,9 @@ import NavBar from "../NavBar";
 import Footer from "../Footer";
 import Home from "../Home";
 import Profile from "../Profile";
+import Landing from "../Landing/index.js";
 import Documentation from "../Documentation";
 import GridPage from "../GridPage";
-import Landing from "../Landing/index.js";
 import { useAuth0 } from "../../contexts";
 
 import "./App.scss";
