@@ -5,7 +5,6 @@ import 'semantic-ui-css/semantic.min.css'
 const NavBar = () => {
 
   return (
-<<<<<<< HEAD
     <div className="navbar">
       <div className="logo">
         <a href="#">Sauti<span className="logo-dot">.</span></a>
@@ -35,52 +34,6 @@ export default NavBar
 
 
 {/* <Nav className="d-none d-md-block" navbar>
-=======
-    <div className="nav-container">
-      <Navbar color="dark" dark expand="md">
-        <Container>
-          <NavbarBrand className="logo" />
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto align-items-center" navbar>
-              <NavItem>
-                <NavLink
-                  tag={RouterNavLink}
-                  to="/"
-                  exact
-                  activeClassName="router-link-exact-active"
-                >
-                  <Button size="md" color="danger">
-                    Home
-                  </Button>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  tag={RouterNavLink}
-                  to={
-                    '//documenter.getpostman.com/view/8666055/SVtZvkxB?version=latest'
-                  }
-                  target="_blank"
-                  exact
-                  activeClassName="router-link-exact-active"
-                >
-                  Documentation
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  tag={RouterNavLink}
-                  to="/grid"
-                  exact
-                  activeClassName="router-link-exact-active"
-                >
-                  Grid
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <Nav className="d-none d-md-block" navbar>
->>>>>>> 4798426b41477518fedbfa553d932e34bccb9139
               {!isAuthenticated && (
                 <NavItem>
                   <Button
