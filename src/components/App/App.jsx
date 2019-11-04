@@ -38,19 +38,14 @@ const App = () => {
       {' '}
       {/*className="d-flex flex-column h-100"*/}
       <NavBar />
-
-      <Container className="flex-grow-1 mt-5">
+      {/*className="flex-grow-1 mt-5"*/}
+      {/*<Container>*/}
         <Switch>
           <Route path="/" exact render={props => <Home {...props} />} />
           <Route
             path="/grid"
             exact
             render={props => <GridPage {...props} apiKey={apiKey} />}
-          />
-          <Route
-            path="/docs"
-            exact
-            render={props => <Documentation {...props} apiKey={apiKey} />}
           />
           <PrivateRoute
             path="/profile"
@@ -60,7 +55,7 @@ const App = () => {
           />
           <Route exact path="/docs" component={DocsPage} />
         </Switch>
-      </Container>
+      {/*</Container>*/}
       <Footer />
     </div>
   )
