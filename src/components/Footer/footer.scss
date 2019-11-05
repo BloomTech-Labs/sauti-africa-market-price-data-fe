@@ -9,6 +9,17 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 2rem 20% 1rem 20%;
+
+    @media (max-width: 808px){
+        flex-direction: column;
+        align-items: center;
+    }
+
+    @media (max-width: 500px){
+        p{
+            font-size: 11px;
+        }
+    }
     
     p {
         color: rgba(255, 255, 255, 1);
