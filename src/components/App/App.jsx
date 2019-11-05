@@ -42,7 +42,7 @@ const App = () => {
       {/*className="flex-grow-1 mt-5"*/}
       {/* <Container> */}
       <Switch>
-        <Route path="/" exact render={props => <Home {...props} />} />
+        <Route exact path="/" component={Landing} />
         <Route
           path="/grid"
           exact
