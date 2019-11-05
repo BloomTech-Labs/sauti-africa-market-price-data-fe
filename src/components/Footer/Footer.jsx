@@ -4,7 +4,7 @@ import './footer.scss'
 import "semantic-ui-css/semantic.min.css";
 
 const Footer = () => (
-  <footer>
+  <footer className="footer">
     <p>Copyright 2019 <span>Sauti Africa Limited</span>. All rights reserved.</p>
     <div className="icons">
       <a

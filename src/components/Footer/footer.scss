@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
 
-footer {
+.footer {
     background-color: #1a1e23;
     font-family: "Raleway", sans-serif;
     font-weight: 400;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     padding: 2rem 20% 1rem 20%;
     
@@ -18,12 +19,11 @@ footer {
     }
     
     .icons {
-        
 
         a {
             text-decoration: none;
             color: rgba(255, 255, 255, 1);
-            padding: 0 1rem 0 1rem;
+            padding: 0 1.5rem 0 1.5rem;
         }
     }
 
