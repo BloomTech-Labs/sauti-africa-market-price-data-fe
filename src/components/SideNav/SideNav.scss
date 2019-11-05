@@ -1,25 +1,63 @@
+@mixin for-phone-only {
+  @media (max-width: 599px) {
+    @content;
+  }
+}
+
 .side-nav {
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
   align-items: baseline;
+
+  @include for-phone-only {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 .side-nav-items {
   position: fixed;
+  @include for-phone-only {
+    resize: vertical;
+    overflow: auto;
+    top: 0;
+    left: 7rem;
+    position: sticky;
+    text-align: center;
+  }
 }
 .center-api-column {
   display: flex;
 }
+
 .left-article {
   padding: 2rem;
   margin-left: 25rem;
   width: 47%;
+
+  @include for-phone-only {
+    margin-left: 0rem;
+    width: 95%;
+  }
 }
+@include for-phone-only {
+  section:first-child {
+    margin-top: 0rem;
+  }
+}
+
 .right-article {
   padding: 2rem;
   width: 47%;
+  @include for-phone-only {
+    width: 95%;
+  }
 }
 .articles-examples {
   display: flex;
   flex-direction: row;
+
+  @include for-phone-only {
+    flex-direction: column;
+  }
 }
