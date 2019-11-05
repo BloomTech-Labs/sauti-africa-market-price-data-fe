@@ -1,23 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import TopCard from './Card.js';
-import InfoBoxContainer from './InfoBoxContainer.js';
-import './Landing.scss';
+import Header from "./header";
+import Main from "./main";
+
+import "./Landing.scss";
 
 const Landing = () => {
   return (
-    <>
-      <div className='top-div-image'>
-        <div className='top-div'>
-          <div className='cardDiv'>
-            <TopCard className='card' />
-          </div>
-        </div>
-      </div>
-      <div className='bot-div'>
-        <InfoBoxContainer />
-      </div>
-    </>
+    <div className="container">
+      <Header />
+      <Main />
+    </div>
   );
 };
 
