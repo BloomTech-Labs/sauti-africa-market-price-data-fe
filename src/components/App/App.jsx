@@ -7,7 +7,6 @@ import { PageView, initGA } from "../Tracking/Tracking";
 import Loading from "../Loading";
 import NavBar from "../NavBar";
 import Footer from "../Footer";
-import Home from "../Home";
 import Profile from "../Profile";
 import Landing from "../Landing/index.js";
 import DocsPage from "../Docs/index";
