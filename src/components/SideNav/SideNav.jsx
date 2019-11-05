@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
-import { Container, Header, Menu } from "semantic-ui-react";
-import Highlight from "react-highlight";
+import React, { useRef } from 'react'
+import { Container, Header, Menu } from 'semantic-ui-react'
+import Highlight from 'react-highlight'
 
-import "highlight.js/styles/monokai-sublime.css";
-import "./SideNav.scss";
+import apiKeyGif from '../../assets/apiKey.gif'
+
+import 'highlight.js/styles/monokai-sublime.css'
+import './SideNav.scss'
 
 const SideNav = () => {
   //Managing the state of Side Nav Tabbing between by setting the active item
@@ -11,10 +13,10 @@ const SideNav = () => {
   // const handleItemClick = (e, { name }) => setActive({ activeItem: name })
 
   //Applying scrolling to places of the page
-  const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop);
-  const play = useRef();
-  const quick = useRef();
-  const refer = useRef();
+  const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop)
+  const play = useRef()
+  const quick = useRef()
+  const refer = useRef()
 
   return (
     <div className="side-nav">
@@ -30,85 +32,100 @@ const SideNav = () => {
           <article className="left-article">
             <Header as="h2">API</Header>
             <p>
-              Sauti Africa Market Prices API is designed to acquire acquire
+              {/* Sauti Africa Market Prices API is designed to acquire acquire
               specific data from an internal database and send out JSON
-              response.
+              response. */}
+              Sauti Africa Market Prices API is designed to provide up-to-date
+              daily prices for about 100 products across 60 marketplaces in East
+              Africa.
             </p>
           </article>
           <article className="right-article">
             <Header as="h2">
-              Start Acquiring the API from Above in your Profile
+              {/* Start Acquiring the API from Above in your Profile */}
             </Header>
             <p>
-              Go ahead log in to your profile to acquire the API Key (See Above
+              {/* Go ahead log in to your profile to acquire the API Key (See Above
               for Log In or Profile Picture) <br /> Pass the API Key as part of
-              headers in request as <Highlight>key: your API Key</Highlight>
+              headers in request as <Highlight>key: your API Key</Highlight> */}
             </p>
           </article>
         </section>
         <section className="articles-examples" ref={quick}>
           <article className="left-article">
             <Header as="h2">Quick Start</Header>
+            <h3>API Access Key & Authentication</h3>
             <p>
-              The idea of using this API to acquire records based on certain
-              filters. Let's walk you through an example scenario. <br />{" "}
-              (Following request are done using a valid API Key) <br />
+              After signing up, every user is assigned a personal API access
+              key, a unique combination of letters and digits provided to access
+              any of the API's data endpoints. To authenticate with the Sauti
+              Africa Market Prices API, simply pass the API Key as part of the
+              headers.
             </p>
-            <ol>
-              <li>
-                Let's try to find if there is product 'Apples' in this database,
-                so send a request:
-                <p>
-                  https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists?list=product
-                </p>
-              </li>
-              <br />
-              <li>
-                Let's now find the country 'RWA', Send the following request:
-                <p>
-                  https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists?list=country
-                </p>
-              </li>
-              <br />
-              <li>
-                Let's get some records of Apples from country 'RWA', send this
-                request:
-                <p>
-                  https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/?p=apples&c=RWA
-                </p>
-              </li>
-              <br />
-              <li>
-                Let's get 50 records instead of default 20.
-                <p>
-                  https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/?p=apples&c=RWA&count=50
-                </p>
-              </li>
-              <br />
-              <li>
-                Let's check if there is 2nd page of more records
-                <p>
-                  https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/?p=apples&c=RWA&count=50&page=2
-                </p>
-              </li>
-              <br />
-              You will notice that response returns 404 with this message
-              'Records don't exist here, change the query parameters or change
-              page no. ' <br />
-              <br />
-              Going to back to Step 4 and count the no. of records sent was 26.
-              Now we can use information 'Apples' and find latest prices across
-              market, so use the endpoint list below
-              <p>
-                https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/latestprice/?product=apples
-              </p>
-            </ol>
+            <img src={apiKeyGif} />
+            <h3>API Endpoints</h3>
+            <p>
+              The Sauti Africa Market Prices API offers 5 customizable
+              endpoints, all of which provide different kinds of data.
+            </p>
+            <h5>
+              Base URL: All API requests start out with the following base URL:
+            </h5>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer'
+              }
+            </Highlight>
+            <h5>Available Endpoints</h5>
+
+            <h6>specific list - market, country, source, product</h6>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/'
+              }
+            </Highlight>
+
+            <h6>filter</h6>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/'
+              }
+            </Highlight>
+
+            <h6>
+              “latest price” - latest prices on a product across all markets
+            </h6>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/latestprice/'
+              }
+            </Highlight>
+
+            <h6>
+              “latest market price” - latest price on a product in a particular
+              market
+            </h6>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/pricebymarket/'
+              }
+            </Highlight>
+
+            <h6>
+              “product prices by date range” - prices of a product across a date
+              range
+            </h6>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/range/'
+              }
+            </Highlight>
           </article>
           <article className="right-article">
-            <Header as="h2">Request & Response</Header>
+            {/* <Header as="h2">Request & Response</Header>
             <Highlight className="JSON">
-              <p>{JSON.stringify({ hi: "mommy" })}</p>
-            </Highlight>
+              <p>{JSON.stringify({ hi: 'mommy' })}</p>
+            </Highlight> */}
           </article>
         </section>
         <section className="articles-examples" ref={play}>
@@ -161,7 +178,7 @@ const SideNav = () => {
         </section>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default SideNav;
+export default SideNav
