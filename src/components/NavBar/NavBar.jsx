@@ -62,10 +62,13 @@ const NavBar = () => {
           >
             TABLE
           </NavLink>
-          <a href="https://www.facebook.com/sautiorg/">
+          <a href="https://www.facebook.com/sautiorg/" target="_blank">
             <i className="facebook f icon"></i>
           </a>
-          <a href="https://twitter.com/sautiorg?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+          <a
+            href="https://twitter.com/sautiorg?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+            target="_blank"
+          >
             <i className="twitter icon"></i>
           </a>
         </div>

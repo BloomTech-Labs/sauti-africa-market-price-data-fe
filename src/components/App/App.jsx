@@ -7,7 +7,6 @@ import { PageView, initGA } from "../Tracking/Tracking";
 import Loading from "../Loading";
 import NavBar from "../NavBar";
 import Footer from "../Footer";
-import Home from "../Home";
 import Profile from "../Profile";
 import Landing from "../Landing/index.js";
 import DocsPage from "../Docs/index";
@@ -42,7 +41,7 @@ const App = () => {
       {/*className="flex-grow-1 mt-5"*/}
       {/*<Container>*/}
       <Switch>
-        <Route path="/" exact render={props => <Home {...props} />} />
+        <Route exact path="/" component={Landing} />
         <Route
           path="/grid"
           exact
@@ -55,7 +54,6 @@ const App = () => {
           setApiKey={setApiKey}
         />
         <Route exact path="/docs" component={DocsPage} />
-        <Route path="/market" component={Landing} />
       </Switch>
       {/*</Container>*/}
       <Footer />
