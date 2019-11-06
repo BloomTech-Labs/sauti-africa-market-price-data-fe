@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-
+import axios from 'axios'
 import { Route, Switch } from 'react-router-dom'
 import PrivateRoute from '../../hoc/PrivateRoute'
-
-import { Container } from 'reactstrap'
 
 import { PageView, initGA } from '../Tracking/Tracking'
 import Loading from '../Loading'
@@ -22,12 +20,25 @@ import './App.scss'
 const App = () => {
   const { loading } = useAuth0()
   const [apiKey, setApiKey] = useState()
+  const [list, setList] = useState(null)
 
   useEffect(() => {
     /*=== function that initializes Google Analytics ===*/
     initGA(process.env.REACT_APP_GOOGLE_TRACKING_ID)
     PageView()
   })
+
+  useEffect(()=> {
+    axios.get('http://localhost:8888/sauti/client/superlist')
+    .then(res => {
+      console.log("in the use effect", res.data)
+      setList(res.data)
+    })
+    .catch(err => {
+      console.log(err.message)
+    })
+
+  }, [])
 
   if (loading) {
     return <Loading />
@@ -42,11 +53,12 @@ const App = () => {
 
         <Switch>
           <Route path="/" exact render={props => <Home {...props} />} />
-          <Route
+          {/* <Route
             path="/grid"
             exact
             render={props => <GridPage {...props} apiKey={apiKey} />}
-          />
+          /> */}
+          <Route exact path="/grid" render={(props) => <GridPage {...props} list={list}/>}/>
           <PrivateRoute
             path="/profile"
             component={Profile}

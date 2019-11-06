@@ -4,12 +4,12 @@ import Grid from '../Grid'
 
 import useGetToken from '../../hooks/useGetToken'
 
-const GridPage = ({ apiKey }) => {
+const GridPage = (props) => {
   const [token] = useGetToken()
 
   return (
     <div className="next-steps my-5">
-      {token ? <Grid /> : 'Log in to view data'}
+      {token ? <Grid list={props.list} /> : 'Log in to view data'}
     </div>
   )
 }

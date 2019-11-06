@@ -13,13 +13,7 @@ import moment from 'moment'
 import { DatePicker } from 'antd'
 
 import {
-  currencyOptions,
-  countriesOptions,
-  marketOptions,
-  productOptions,
-  handleCountries,
-  handleMarkets,
-  handleProducts
+  currencyOptions
 } from '../../config/gridDropdown'
 
 import 'ag-grid-community/dist/styles/ag-grid.css'
@@ -27,23 +21,86 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css'
 import 'antd/dist/antd.css';
 
 
-const { MonthPicker, RangePicker } = DatePicker;
+const { RangePicker } = DatePicker;
 
-const Grid = () => {
+const Grid = (props) => {
   const [store, dispatch] = useReducer(reducer, initialState)
   const { columnDefs, rowData, gridStyle } = store
   const [err, setErr] = useState(false)
+
   const [countryQuery, setCountryQuery] = useState()
   const [marketQuery, setMarketQuery] = useState()
   const [productQuery, setProductQuery] = useState()
+
   const [countries, setCountries] = useState([])
   const [markets, setMarkets] = useState([])
   const [products, setProducts] = useState([])
   const [currency, setCurrency] = useState()
-  const [token] = useGetToken()
-  const [exportCSV, setExportCSV] = useState(null)
   const [dateRanges, setDateRanges] = useState(null)
 
+  const [token] = useGetToken()
+  const [exportCSV, setExportCSV] = useState(null)
+
+  const countriesOptions = props.list.countries.map((country, index) => ({
+    key: `country-${index}`,
+    value: country.country,
+    text: country.country
+  }))
+  
+  const handleCountries = (value, countriesUpdater, queryUpdater) => {
+    const countryQuery = value.map((country, index) => {
+      if (index > 0) {
+        return `&c=${country}`
+      } else {
+        return `c=${country}`
+      }
+    })
+    countriesUpdater(value)
+    queryUpdater(countryQuery.join(''))
+  }
+
+  const marketOptions = props.list.markets.map((market, index) => ({
+    key: `market-${index}`,
+    text: market.market,
+    value: market.market
+  }))
+  
+  const handleMarkets = (value, marketsUpdater, marketQueryUpdater) => {
+    const marketQuery = value.map((market, index) => {
+      if (index > 0) {
+        return `&m=${market}`
+      } else {
+        return `m=${market}`
+      }
+    })
+    console.log(value)
+    marketsUpdater(value)
+    marketQueryUpdater(marketQuery.join(''))
+  }
+
+  const productOptions = props.list.products.map((product, index) => ({
+    key: `product=${index}`,
+    text: product.product,
+    value: product.product
+  }))
+  
+  const handleProducts = (value,productsUpdater,productsQueryUpdater) => {
+    const productQuery = value.map((product, index) => {
+      if (index > 0) {
+        return `&p=${product}`
+      } else {
+        return `p=${product}`
+      }
+    })
+    console.log(value)
+    productsUpdater(value)
+    productsQueryUpdater(productQuery.join(''))
+  }
+
+  function disabledDate(current) {
+    // Can not select days after today and today
+    return current && current > moment().endOf('day');
+  }
 
   const onGridReady = params => {
     console.log(params.api)
@@ -126,26 +183,14 @@ const Grid = () => {
                 onChange={(e, { value }) => setCurrency(value)}
                 value={currency}
               />
-              <RangePicker 
+              <RangePicker
                 value={dateRanges}
+                disabledDate={disabledDate}
                 onChange={(dates, date) => {
                   setDateRanges(dates);
                 }}
 
               />
-              {/* <input 
-                name="end date" 
-                type="date" 
-                placeholder= "End Date"
-                value={date.end}
-                onChange={handleChange}/>
-              <input 
-                name="start date" 
-                type="date" 
-                placeholder="Start Date"
-                value={date.start}
-                onChange={handleChange}
-              /> */}
             </Form>
             <div>
               <Button onClick={() => apiCall()}>Update Grid</Button>
@@ -158,7 +203,6 @@ const Grid = () => {
           </>
         ) : null}
 
-        {/* <DataGrid /> */}
         <div style={gridStyle} className="ag-theme-balham">
           <AgGridReact
             // properties
