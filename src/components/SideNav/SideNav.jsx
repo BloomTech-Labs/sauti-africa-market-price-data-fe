@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Container, Header, Menu } from 'semantic-ui-react'
+import { Container, Header, Menu, Table } from 'semantic-ui-react'
 import Highlight from 'react-highlight'
 
 import apiKeyGif from '../../assets/apiKey.gif'
@@ -23,7 +23,7 @@ const SideNav = () => {
       <Menu size="massive" pointing vertical className="side-nav-items">
         <Menu.Item name="API" />
         <Menu.Item name="Quick Start" onClick={() => scrollToPlay(quick)} />
-        <Menu.Item name="Playground" onClick={() => scrollToPlay(play)} />
+        {/* <Menu.Item name="Playground" onClick={() => scrollToPlay(play)} /> */}
         <Menu.Item name="Reference" onClick={() => scrollToPlay(refer)} />
       </Menu>
 
@@ -128,7 +128,7 @@ const SideNav = () => {
             </Highlight> */}
           </article>
         </section>
-        <section className="articles-examples" ref={play}>
+        {/* <section className="articles-examples" ref={play}>
           <article className="left-article">
             <Header as="h2">Playground</Header>
             <p>
@@ -151,22 +151,207 @@ const SideNav = () => {
               laboriosam, praesentium dignissimos consequuntur?
             </p>
           </article>
-        </section>
+        </section> */}
         <section className="articles-examples" ref={refer}>
           <article className="left-article">
-            <Header as="h2">Reference</Header>
+            <Header as="h2">API Reference</Header>
+
+            {/* Specific List: Market, Country, Source, Product */}
+            <h3 style={{ color: 'chartreuse' }}>
+              GET{' '}
+              <span style={{ color: 'black' }}>
+                Specific List: Market, Country, Source, Product
+              </span>
+            </h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus sit commodi, adipisci aliquid itaque id repellat magnam
-              ea iste vel optio quas deserunt minima mollitia facilis
-              laboriosam, praesentium dignissimos consequuntur? <br />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos,
-              molestias ut. Similique, facere magni. Pariatur, veritatis nihil
-              architecto, laboriosam iusto in autem modi, dignissimos
-              perferendis atque cupiditate odio quos sequi.
+              Returns a list of based on query parameter of /?list= If incorrect
+              parameter is passed, it will default to returning a list of all
+              markets.
             </p>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'
+              }
+            </Highlight>
+            <h3>Request Parameters</h3>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Parameter</Table.HeaderCell>
+                  <Table.HeaderCell>Description</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>list</Table.Cell>
+                  <Table.Cell>
+                    Enter one of the strings: market, country, source, product
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+            <h3>Example Response</h3>
+            <br />
+
+            {/* Perform Filter Search */}
+            <h3 style={{ color: 'chartreuse' }}>
+              GET <span style={{ color: 'black' }}>Perform Filter Search</span>
+            </h3>
+            <p>
+              Returns array of records via query. Query filters accepted are
+              product, product_agg,category, market and country. Multiple of
+              same filter type can be passed too by simply adding same query key
+              with appropriate value. Default is to return 25 records based on
+              latest dates.
+            </p>
+            <p>All records are sorted by date descending.</p>
+            <p>Check the example.</p>
+            <p>
+              This endpoint has pagination built in. Default count of records is
+              25 at first page. Maximum count of records is 500 per call.
+            </p>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'
+              }
+            </Highlight>
+            <h3>Request Parameters</h3>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Parameter</Table.HeaderCell>
+                  <Table.HeaderCell>Description</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>list</Table.Cell>
+                  <Table.Cell>
+                    Enter one of the strings: market, country, source, product
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+            <h3>Example Response</h3>
+            <br />
+
+            {/* Latest Prices on a Product across all Markets */}
+            <h3 style={{ color: 'chartreuse' }}>
+              GET{' '}
+              <span style={{ color: 'black' }}>
+                Latest Prices on a Product across all Markets
+              </span>
+            </h3>
+            <p>
+              Returns a list of based on query parameter of /?list= If incorrect
+              parameter is passed, it will default to returning a list of all
+              markets.
+            </p>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'
+              }
+            </Highlight>
+            <h3>Request Parameters</h3>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Parameter</Table.HeaderCell>
+                  <Table.HeaderCell>Description</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>list</Table.Cell>
+                  <Table.Cell>
+                    Enter one of the strings: market, country, source, product
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+            <h3>Example Response</h3>
+            <br />
+
+            {/* Latest Price on a product in a particular market */}
+            <h3 style={{ color: 'chartreuse' }}>
+              GET{' '}
+              <span style={{ color: 'black' }}>
+                Latest Price on a product in a particular market
+              </span>
+            </h3>
+            <p>
+              Returns a list of based on query parameter of /?list= If incorrect
+              parameter is passed, it will default to returning a list of all
+              markets.
+            </p>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'
+              }
+            </Highlight>
+            <h3>Request Parameters</h3>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Parameter</Table.HeaderCell>
+                  <Table.HeaderCell>Description</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>list</Table.Cell>
+                  <Table.Cell>
+                    Enter one of the strings: market, country, source, product
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+            <h3>Example Response</h3>
+            <br />
+
+            {/* Find prices of a product across a date range */}
+            <h3 style={{ color: 'chartreuse' }}>
+              GET{' '}
+              <span style={{ color: 'black' }}>
+                Find prices of a product across a date range
+              </span>
+            </h3>
+            <p>
+              Returns a list of based on query parameter of /?list= If incorrect
+              parameter is passed, it will default to returning a list of all
+              markets.
+            </p>
+            <Highlight language="javascript">
+              {
+                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'
+              }
+            </Highlight>
+            <h3>Request Parameters</h3>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Parameter</Table.HeaderCell>
+                  <Table.HeaderCell>Description</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>list</Table.Cell>
+                  <Table.Cell>
+                    Enter one of the strings: market, country, source, product
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+            <h3>Example Response</h3>
+            <br />
           </article>
-          <article className="right-article">
+          {/* <article className="right-article">
             <Header as="h2">Example of request and Response Image???</Header>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -174,7 +359,7 @@ const SideNav = () => {
               ea iste vel optio quas deserunt minima mollitia facilis
               laboriosam, praesentium dignissimos consequuntur?
             </p>
-          </article>
+          </article> */}
         </section>
       </Container>
     </div>
