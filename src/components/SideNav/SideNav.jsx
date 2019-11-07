@@ -1,11 +1,11 @@
-import React, { useRef } from 'react'
-import { Container, Header, Menu } from 'semantic-ui-react'
-import Highlight from 'react-highlight'
+import React, { useRef } from "react";
+import { Container, Header, Menu } from "semantic-ui-react";
+import Highlight from "react-highlight";
 
-import apiKeyGif from '../../assets/apiKey.gif'
+import apiKeyGif from "../../assets/apiKey.gif";
 
-import 'highlight.js/styles/monokai-sublime.css'
-import './SideNav.scss'
+import "highlight.js/styles/monokai-sublime.css";
+import "./SideNav.scss";
 
 const SideNav = () => {
   //Managing the state of Side Nav Tabbing between by setting the active item
@@ -13,10 +13,14 @@ const SideNav = () => {
   // const handleItemClick = (e, { name }) => setActive({ activeItem: name })
 
   //Applying scrolling to places of the page
-  const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop)
-  const play = useRef()
-  const quick = useRef()
-  const refer = useRef()
+
+  let scrollToPlay;
+  window.innerWidth > 599
+    ? (scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop))
+    : (scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop - 200));
+  const play = useRef();
+  const quick = useRef();
+  const refer = useRef();
 
   return (
     <div className="side-nav">
@@ -73,7 +77,7 @@ const SideNav = () => {
             </h5>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer"
               }
             </Highlight>
             <h5>Available Endpoints</h5>
@@ -81,14 +85,14 @@ const SideNav = () => {
             <h6>specific list - market, country, source, product</h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/"
               }
             </Highlight>
 
             <h6>filter</h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/"
               }
             </Highlight>
 
@@ -97,7 +101,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/latestprice/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/latestprice/"
               }
             </Highlight>
 
@@ -107,7 +111,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/pricebymarket/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/pricebymarket/"
               }
             </Highlight>
 
@@ -117,7 +121,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/range/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/range/"
               }
             </Highlight>
           </article>
@@ -178,7 +182,7 @@ const SideNav = () => {
         </section>
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default SideNav
+export default SideNav;
