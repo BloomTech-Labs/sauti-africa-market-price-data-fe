@@ -19,17 +19,37 @@ const SideNav = () => {
 
   //Applying scrolling to places of the page
   const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop)
-  const play = useRef()
   const quick = useRef()
   const refer = useRef()
+  const list = useRef()
+  const filter = useRef()
+  const latestPrice = useRef()
+  const lastestMarketPrice = useRef()
+  const dateRange = useRef()
 
   return (
     <div className="side-nav">
       <Menu size="massive" pointing vertical className="side-nav-items">
         <Menu.Item name="API" />
         <Menu.Item name="Quick Start" onClick={() => scrollToPlay(quick)} />
-        {/* <Menu.Item name="Playground" onClick={() => scrollToPlay(play)} /> */}
         <Menu.Item name="Reference" onClick={() => scrollToPlay(refer)} />
+        <Menu.Item name="Lists Endpoint" onClick={() => scrollToPlay(list)} />
+        <Menu.Item
+          name="Filter Search Endpoint"
+          onClick={() => scrollToPlay(filter)}
+        />
+        <Menu.Item
+          name="Latest Price in All Markets Endpoint"
+          onClick={() => scrollToPlay(latestPrice)}
+        />
+        <Menu.Item
+          name="Latest Price by Market Endpoint"
+          onClick={() => scrollToPlay(lastestMarketPrice)}
+        />
+        <Menu.Item
+          name="Latest Price by Date Range Endpoint"
+          onClick={() => scrollToPlay(dateRange)}
+        />
       </Menu>
 
       <Container fluid className="center-api-column">
@@ -136,7 +156,7 @@ const SideNav = () => {
             <Header as="h2">API Reference</Header>
 
             {/* Specific List: Market, Country, Source, Product */}
-            <h3 style={{ color: 'chartreuse' }}>
+            <h3 style={{ color: 'chartreuse' }} ref={list}>
               GET{' '}
               <span style={{ color: 'black' }}>
                 Specific List: Market, Country, Source, Product
@@ -187,7 +207,7 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Perform Filter Search */}
-            <h3 style={{ color: 'chartreuse' }}>
+            <h3 style={{ color: 'chartreuse' }} ref={filter}>
               GET <span style={{ color: 'black' }}>Perform Filter Search</span>
             </h3>
             <p>
@@ -275,7 +295,7 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Latest Prices on a Product across all Markets */}
-            <h3 style={{ color: 'chartreuse' }}>
+            <h3 style={{ color: 'chartreuse' }} ref={latestPrice}>
               GET{' '}
               <span style={{ color: 'black' }}>
                 Latest Prices on a Product across all Markets
@@ -317,7 +337,7 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Latest Price on a product in a particular market */}
-            <h3 style={{ color: 'chartreuse' }}>
+            <h3 style={{ color: 'chartreuse' }} ref={lastestMarketPrice}>
               GET{' '}
               <span style={{ color: 'black' }}>
                 Latest Price on a product in a particular market
@@ -370,7 +390,7 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Find prices of a product across a date range */}
-            <h3 style={{ color: 'chartreuse' }}>
+            <h3 style={{ color: 'chartreuse' }} ref={dateRange}>
               GET{' '}
               <span style={{ color: 'black' }}>
                 Find prices of a product across a date range
