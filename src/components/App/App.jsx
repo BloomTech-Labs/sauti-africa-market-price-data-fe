@@ -31,7 +31,7 @@ const App = () => {
   useEffect(()=> {
     axios.get('http://localhost:8888/sauti/client/superlist')
     .then(res => {
-      console.log("in the use effect", res.data)
+      // console.log("in the use effect", res.data)
       setList(res.data)
     })
     .catch(err => {

@@ -28,12 +28,17 @@ const Grid = (props) => {
   const { columnDefs, rowData, gridStyle } = store
   const [err, setErr] = useState(false)
 
+  // UseState to set queries in URL
   const [countryQuery, setCountryQuery] = useState()
   const [marketQuery, setMarketQuery] = useState()
+  const [pCatQuery, setPCatQuery] = useState()
+  const [pAggQuery, setPAggQuery] = useState()
   const [productQuery, setProductQuery] = useState()
 
   const [countries, setCountries] = useState([])
   const [markets, setMarkets] = useState([])
+  const [pCats, setPCats] = useState([])
+  const [pAggs, setPAggs] = useState([])
   const [products, setProducts] = useState([])
   const [currency, setCurrency] = useState()
   const [dateRanges, setDateRanges] = useState(null)
@@ -41,12 +46,38 @@ const Grid = (props) => {
   const [token] = useGetToken()
   const [exportCSV, setExportCSV] = useState(null)
 
+  // Options for dropDown
   const countriesOptions = props.list.countries.map((country, index) => ({
     key: `country-${index}`,
     value: country.country,
     text: country.country
   }))
+
+  const marketOptions = props.list.markets.map((market, index) => ({
+    key: `market-${index}`,
+    text: market.market,
+    value: market.market
+  }))
   
+  const pCategoryOptions = props.list.categories.map((product_cat, index) => ({
+    key: `category-${index}`,
+    text: product_cat.product_cat,
+    value: product_cat.product_cat
+  }))
+
+  const pAggregatorOptions = props.list.aggregators.map((product_agg, index) => ({
+    key: `Aggregator-${index}`,
+    text: product_agg.product_agg,
+    value: product_agg.product_agg
+  }))
+
+  const productOptions = props.list.products.map((product, index) => ({
+    key: `product-${index}`,
+    text: product.product,
+    value: product.product
+  }))
+  
+  // Submit handlers for dropDown
   const handleCountries = (value, countriesUpdater, queryUpdater) => {
     const countryQuery = value.map((country, index) => {
       if (index > 0) {
@@ -58,12 +89,6 @@ const Grid = (props) => {
     countriesUpdater(value)
     queryUpdater(countryQuery.join(''))
   }
-
-  const marketOptions = props.list.markets.map((market, index) => ({
-    key: `market-${index}`,
-    text: market.market,
-    value: market.market
-  }))
   
   const handleMarkets = (value, marketsUpdater, marketQueryUpdater) => {
     const marketQuery = value.map((market, index) => {
@@ -77,12 +102,32 @@ const Grid = (props) => {
     marketsUpdater(value)
     marketQueryUpdater(marketQuery.join(''))
   }
-
-  const productOptions = props.list.products.map((product, index) => ({
-    key: `product=${index}`,
-    text: product.product,
-    value: product.product
-  }))
+  
+  const handlePCats = (value,pCatsUpdater,pCatsQueryUpdater) => {
+    const pCatQuery = value.map((category, index) => {
+      if (index > 0) {
+        return `&pcat=${category}`
+      } else {
+        return `pcat=${category}`
+      }
+    })
+    console.log(value)
+    pCatsUpdater(value)
+    pCatsQueryUpdater(pCatQuery.join(''))
+  }
+  
+  const handlePAggs = (value,pAggsUpdater,pAggsQueryUpdater) => {
+    const pAggQuery = value.map((aggregator, index) => {
+      if (index > 0) {
+        return `&pagg=${aggregator}`
+      } else {
+        return `pagg=${aggregator}`
+      }
+    })
+    console.log(value)
+    pAggsUpdater(value)
+    pAggsQueryUpdater(pAggQuery.join(''))
+  }
   
   const handleProducts = (value,productsUpdater,productsQueryUpdater) => {
     const productQuery = value.map((product, index) => {
@@ -117,8 +162,8 @@ const Grid = (props) => {
       .get(
         // `https://sauti-africa-market-master.herokuapp.com/
         `http://localhost:8888/sauti/client/?count=150&currency=${currency ||
-          'USD'}&${countryQuery || ''}&${marketQuery || ''}&${productQuery ||
-          ''}${dateRangeQuery}`
+          'USD'}&${countryQuery || ''}&${marketQuery || ''}&${pCatQuery ||
+            ''}&${pAggQuery || ''}&${productQuery ||''}${dateRangeQuery}`
       )
       .then(res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
@@ -161,6 +206,30 @@ const Grid = (props) => {
                   handleMarkets(value, setMarkets, setMarketQuery)
                 }
                 value={markets}
+              />
+              <Dropdown
+                placeholder="Product Category"
+                fluid
+                multiple
+                search
+                selection
+                options={pCategoryOptions}
+                onChange={(e, { value }) =>
+                  handlePCats(value, setPCats, setPCatQuery)
+                }
+                value={pCats}
+              />
+              <Dropdown
+                placeholder="Product Aggregator"
+                fluid
+                multiple
+                search
+                selection
+                options={pAggregatorOptions}
+                onChange={(e, { value }) =>
+                  handlePAggs(value, setPAggs, setPAggQuery)
+                }
+                value={pAggs}
               />
               <Dropdown
                 placeholder="Products"
