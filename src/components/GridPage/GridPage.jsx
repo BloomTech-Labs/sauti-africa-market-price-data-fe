@@ -9,7 +9,7 @@ const GridPage = (props) => {
 
   return (
     <div className="next-steps my-5">
-      {token ? <Grid list={props.list} /> : 'Log in to view data'}
+      {token ? <Grid /> : 'Log in to view data'}
     </div>
   )
 }

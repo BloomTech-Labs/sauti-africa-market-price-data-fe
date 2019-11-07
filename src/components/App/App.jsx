@@ -20,7 +20,7 @@ import './App.scss'
 const App = () => {
   const { loading } = useAuth0()
   const [apiKey, setApiKey] = useState()
-  const [list, setList] = useState(null)
+  // const [list, setList] = useState(null)
 
   useEffect(() => {
     /*=== function that initializes Google Analytics ===*/
@@ -28,17 +28,17 @@ const App = () => {
     PageView()
   })
 
-  useEffect(()=> {
-    axios.get('http://localhost:8888/sauti/client/superlist')
-    .then(res => {
-      // console.log("in the use effect", res.data)
-      setList(res.data)
-    })
-    .catch(err => {
-      console.log(err.message)
-    })
+  // useEffect(()=> {
+  //   axios.get('http://localhost:8888/sauti/client/superlist')
+  //   .then(res => {
+  //     // console.log("in the use effect", res.data)
+  //     setList(res.data)
+  //   })
+  //   .catch(err => {
+  //     console.log(err.message)
+  //   })
 
-  }, [])
+  // }, [])
 
   if (loading) {
     return <Loading />
@@ -58,7 +58,7 @@ const App = () => {
             exact
             render={props => <GridPage {...props} apiKey={apiKey} />}
           /> */}
-          <Route exact path="/grid" render={(props) => <GridPage {...props} list={list}/>}/>
+          <Route exact path="/grid" component={GridPage}/>
           <PrivateRoute
             path="/profile"
             component={Profile}

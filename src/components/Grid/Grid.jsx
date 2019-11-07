@@ -1,5 +1,6 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer, useState, useEffect } from 'react'
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
+import axios from 'axios'
 import { AgGridReact } from 'ag-grid-react'
 // import DataGrid from '../DataGrid'
 import useGetToken from '../../hooks/useGetToken'
@@ -23,10 +24,13 @@ import 'antd/dist/antd.css';
 
 const { RangePicker } = DatePicker;
 
-const Grid = (props) => {
+const Grid = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
   const { columnDefs, rowData, gridStyle } = store
   const [err, setErr] = useState(false)
+
+  //Usestate to set inputs for table
+  const [list, setList] = useState(null)
 
   // UseState to set queries in URL
   const [countryQuery, setCountryQuery] = useState()
@@ -41,41 +45,54 @@ const Grid = (props) => {
   const [pAggs, setPAggs] = useState([])
   const [products, setProducts] = useState([])
   const [currency, setCurrency] = useState()
-  const [dateRanges, setDateRanges] = useState(null)
+  const [dateRanges, setDateRanges] = useState([])
 
   const [token] = useGetToken()
   const [exportCSV, setExportCSV] = useState(null)
 
+  useEffect(()=> {
+    axios.get('http://localhost:8888/sauti/client/superlist')
+    .then(res => {
+      setList(res.data)
+    })
+    .catch(err => {
+      console.log(err.message)
+    })
+  
+  }, [])
+
   // Options for dropDown
-  const countriesOptions = props.list.countries.map((country, index) => ({
+  let countriesOptions = []
+ if(list) countriesOptions = list.countries.map((country, index) => ({
     key: `country-${index}`,
     value: country.country,
     text: country.country
   }))
-
-  const marketOptions = props.list.markets.map((market, index) => ({
+ let marketOptions = []
+  if(list) marketOptions = list.markets.map((market, index) => ({
     key: `market-${index}`,
     text: market.market,
     value: market.market
   }))
-  
-  const pCategoryOptions = props.list.categories.map((product_cat, index) => ({
+let pCategoryOptions = []
+  if(list) pCategoryOptions = list.categories.map((product_cat, index) => ({
     key: `category-${index}`,
     text: product_cat.product_cat,
     value: product_cat.product_cat
   }))
-
-  const pAggregatorOptions = props.list.aggregators.map((product_agg, index) => ({
+let pAggregatorOptions = []
+  if(list) pAggregatorOptions = list.aggregators.map((product_agg, index) => ({
     key: `Aggregator-${index}`,
     text: product_agg.product_agg,
     value: product_agg.product_agg
   }))
-
-  const productOptions = props.list.products.map((product, index) => ({
+let productOptions = []
+  if(list) productOptions = list.products.map((product, index) => ({
     key: `product-${index}`,
     text: product.product,
     value: product.product
   }))
+
   
   // Submit handlers for dropDown
   const handleCountries = (value, countriesUpdater, queryUpdater) => {
@@ -163,7 +180,7 @@ const Grid = (props) => {
         // `https://sauti-africa-market-master.herokuapp.com/
         `http://localhost:8888/sauti/client/?count=150&currency=${currency ||
           'USD'}&${countryQuery || ''}&${marketQuery || ''}&${pCatQuery ||
-            ''}&${pAggQuery || ''}&${productQuery ||''}${dateRangeQuery}`
+            ''}&${pAggQuery || ''}&${productQuery ||''}${dateRangeQuery || ''}`
       )
       .then(res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
@@ -256,6 +273,7 @@ const Grid = (props) => {
                 value={dateRanges}
                 disabledDate={disabledDate}
                 onChange={(dates, date) => {
+                  console.log(dates)
                   setDateRanges(dates);
                 }}
 
