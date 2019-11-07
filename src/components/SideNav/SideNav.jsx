@@ -1,8 +1,13 @@
 import React, { useRef } from 'react'
-import { Container, Header, Menu, Table } from 'semantic-ui-react'
+import { Container, Header, Menu, Table, Popup, Icon } from 'semantic-ui-react'
 import Highlight from 'react-highlight'
 
 import apiKeyGif from '../../assets/apiKey.gif'
+import listGif from '../../assets/listexample.gif'
+import filterGif from '../../assets/filterexample.gif'
+import priceAllGif from '../../assets/priceallmarketsexample.gif'
+import priceProductMarketGif from '../../assets/pricemarketproductexample.gif'
+import priceDateGif from '../../assets/pricedateexample.gif'
 
 import 'highlight.js/styles/monokai-sublime.css'
 import './SideNav.scss'
@@ -37,7 +42,9 @@ const SideNav = () => {
               response. */}
               Sauti Africa Market Prices API is designed to provide up-to-date
               daily prices for about 100 products across 60 marketplaces in East
-              Africa.
+              Africa. The API has resource-oriented URLs, retrns JSON-encoded
+              responses and uses standard HTTP response codes, authentication
+              and verbs.
             </p>
           </article>
           <article className="right-article">
@@ -63,6 +70,8 @@ const SideNav = () => {
               headers.
             </p>
             <img src={apiKeyGif} />
+          </article>
+          <article className="right-article">
             <h3>API Endpoints</h3>
             <p>
               The Sauti Africa Market Prices API offers 5 customizable
@@ -121,37 +130,7 @@ const SideNav = () => {
               }
             </Highlight>
           </article>
-          <article className="right-article">
-            {/* <Header as="h2">Request & Response</Header>
-            <Highlight className="JSON">
-              <p>{JSON.stringify({ hi: 'mommy' })}</p>
-            </Highlight> */}
-          </article>
         </section>
-        {/* <section className="articles-examples" ref={play}>
-          <article className="left-article">
-            <Header as="h2">Playground</Header>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus sit commodi, adipisci aliquid itaque id repellat magnam
-              ea iste vel optio quas deserunt minima mollitia facilis
-              laboriosam, praesentium dignissimos consequuntur? <br /> Lorem
-              ipsum dolor sit amet consectetur adipisicing elit. Maiores
-              mollitia, eius porro, incidunt corporis in velit tempore fugiat
-              perspiciatis voluptas ex libero expedita atque dignissimos?
-              Voluptatem dignissimos vel dolores tenetur.
-            </p>
-          </article>
-          <article className="right-article">
-            <Header as="h2">Alternative example of Playground case</Header>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus sit commodi, adipisci aliquid itaque id repellat magnam
-              ea iste vel optio quas deserunt minima mollitia facilis
-              laboriosam, praesentium dignissimos consequuntur?
-            </p>
-          </article>
-        </section> */}
         <section className="articles-examples" ref={refer}>
           <article className="left-article">
             <Header as="h2">API Reference</Header>
@@ -166,13 +145,18 @@ const SideNav = () => {
             <p>
               Returns a list of based on query parameter of /?list= If incorrect
               parameter is passed, it will default to returning a list of all
-              markets.
+              markets.{' '}
+              <Popup
+                trigger={<Icon name="question circle" size="large" />}
+                content="You can scroll the URL below horizontally"
+                position="right center"
+              />
+              <Highlight language="javascript" className="highlight">
+                {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+                <br />
+                {'developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'}
+              </Highlight>
             </p>
-            <Highlight language="javascript">
-              {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'
-              }
-            </Highlight>
             <h3>Request Parameters</h3>
             <Table celled>
               <Table.Header>
@@ -191,9 +175,17 @@ const SideNav = () => {
                 </Table.Row>
               </Table.Body>
             </Table>
-            <h3>Example Response</h3>
-            <br />
-
+          </article>
+          <article className="right-article">
+            <img
+              src={listGif}
+              alt="Example lists endpoint"
+              className="gif-examples"
+            />
+          </article>
+        </section>
+        <section className="articles-examples">
+          <article className="left-article">
             {/* Perform Filter Search */}
             <h3 style={{ color: 'chartreuse' }}>
               GET <span style={{ color: 'black' }}>Perform Filter Search</span>
@@ -209,11 +201,22 @@ const SideNav = () => {
             <p>Check the example.</p>
             <p>
               This endpoint has pagination built in. Default count of records is
-              25 at first page. Maximum count of records is 500 per call.
+              25 at first page. Maximum count of records is 500 per call.{' '}
+              <Popup
+                trigger={<Icon name="question circle" size="large" />}
+                content="You can scroll the URL below horizontally"
+                position="right center"
+              />
             </p>
             <Highlight language="javascript">
+              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              <br />
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'
+                'developer/filter/?p=[PRODUCT]&market=[MARKET]&pcat=[PRODUCT CATEGORY]'
+              }
+              <br />
+              {
+                '&pagg=[PRODUCT AGGREGATE]&c=[COUNTRY]&page=[PAGE NUMBER]&count=[NUMBER OF RECORDS]'
               }
             </Highlight>
             <h3>Request Parameters</h3>
@@ -227,16 +230,50 @@ const SideNav = () => {
 
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell>list</Table.Cell>
+                  <Table.Cell>p</Table.Cell>
                   <Table.Cell>
-                    Enter one of the strings: market, country, source, product
+                    Product name - 3rd Level - You can retrieve a list of
+                    Products from lists endpoint
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>market</Table.Cell>
+                  <Table.Cell>Market name</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>pcat</Table.Cell>
+                  <Table.Cell>Product Category name - 1st Level</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>pagg</Table.Cell>
+                  <Table.Cell>Product aggregate name - 2nd Level</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>page</Table.Cell>
+                  <Table.Cell>
+                    Page number, by default sets to 1 if not passed.
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>count</Table.Cell>
+                  <Table.Cell>
+                    Sets the count for number of records in each call. Max is
+                    500
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
-            <h3>Example Response</h3>
-            <br />
-
+          </article>
+          <article className="right-article">
+            <img
+              src={filterGif}
+              alt="Example Filterable search endpoint"
+              className="gif-examples"
+            />
+          </article>
+        </section>
+        <section className="articles-examples">
+          <article className="left-article">
             {/* Latest Prices on a Product across all Markets */}
             <h3 style={{ color: 'chartreuse' }}>
               GET{' '}
@@ -245,14 +282,12 @@ const SideNav = () => {
               </span>
             </h3>
             <p>
-              Returns a list of based on query parameter of /?list= If incorrect
-              parameter is passed, it will default to returning a list of all
-              markets.
+              Returns all records on given product. Pass the query /?product=
             </p>
             <Highlight language="javascript">
-              {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'
-              }
+              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              <br />
+              {'developer/product/latestprice/?product=[PRODUCT]'}
             </Highlight>
             <h3>Request Parameters</h3>
             <Table celled>
@@ -265,16 +300,22 @@ const SideNav = () => {
 
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell>list</Table.Cell>
-                  <Table.Cell>
-                    Enter one of the strings: market, country, source, product
-                  </Table.Cell>
+                  <Table.Cell>product</Table.Cell>
+                  <Table.Cell>Name of a product</Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
-            <h3>Example Response</h3>
-            <br />
-
+          </article>
+          <article className="right-article">
+            <img
+              src={priceAllGif}
+              alt="Example Filterable search endpoint"
+              className="gif-examples"
+            />
+          </article>
+        </section>
+        <section className="articles-examples">
+          <article className="left-article">
             {/* Latest Price on a product in a particular market */}
             <h3 style={{ color: 'chartreuse' }}>
               GET{' '}
@@ -283,13 +324,18 @@ const SideNav = () => {
               </span>
             </h3>
             <p>
-              Returns a list of based on query parameter of /?list= If incorrect
-              parameter is passed, it will default to returning a list of all
-              markets.
+              Returns price of a single product from a single market.{' '}
+              <Popup
+                trigger={<Icon name="question circle" size="large" />}
+                content="You can scroll the URL below horizontally"
+                position="right center"
+              />
             </p>
             <Highlight language="javascript">
+              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              <br />
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'
+                'developer/product/pricebymarket/?market=[MARKET]a&product=[PRODUCT]'
               }
             </Highlight>
             <h3>Request Parameters</h3>
@@ -303,16 +349,26 @@ const SideNav = () => {
 
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell>list</Table.Cell>
-                  <Table.Cell>
-                    Enter one of the strings: market, country, source, product
-                  </Table.Cell>
+                  <Table.Cell>market</Table.Cell>
+                  <Table.Cell>Enter name of a market</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>product</Table.Cell>
+                  <Table.Cell>Enter name of a product</Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
-            <h3>Example Response</h3>
-            <br />
-
+          </article>
+          <article className="right-article">
+            <img
+              src={priceProductMarketGif}
+              alt="Example Filterable search endpoint"
+              className="gif-examples"
+            />
+          </article>
+        </section>
+        <section className="articles-examples">
+          <article className="left-article">
             {/* Find prices of a product across a date range */}
             <h3 style={{ color: 'chartreuse' }}>
               GET{' '}
@@ -321,13 +377,24 @@ const SideNav = () => {
               </span>
             </h3>
             <p>
-              Returns a list of based on query parameter of /?list= If incorrect
-              parameter is passed, it will default to returning a list of all
-              markets.
+              Pass the query paramaters of a product, startDate and endDate.
+              Sends a response of all available records in that date range
+              separated by pagination.
+              <br />
+              <br />
+              Starting date needs to be older than Ending Date for succesful
+              query.{' '}
+              <Popup
+                trigger={<Icon name="question circle" size="large" />}
+                content="You can scroll the URL below horizontally"
+                position="right center"
+              />
             </p>
             <Highlight language="javascript">
+              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              <br />
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'
+                'developer/product/range/?product=[PRODUCT]&startDate=[START DATE]&endDate=[END DATE]'
               }
             </Highlight>
             <h3>Request Parameters</h3>
@@ -341,25 +408,29 @@ const SideNav = () => {
 
               <Table.Body>
                 <Table.Row>
-                  <Table.Cell>list</Table.Cell>
+                  <Table.Cell>Product</Table.Cell>
+                  <Table.Cell>Enter name of a product</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>startDate</Table.Cell>
                   <Table.Cell>
-                    Enter one of the strings: market, country, source, product
+                    Starting date (must be older than EndDate)
                   </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>endDate</Table.Cell>
+                  <Table.Cell>Ending date where range stops</Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
-            <h3>Example Response</h3>
-            <br />
           </article>
-          {/* <article className="right-article">
-            <Header as="h2">Example of request and Response Image???</Header>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus sit commodi, adipisci aliquid itaque id repellat magnam
-              ea iste vel optio quas deserunt minima mollitia facilis
-              laboriosam, praesentium dignissimos consequuntur?
-            </p>
-          </article> */}
+          <article className="right-article">
+            <img
+              src={priceDateGif}
+              alt="Example price by date endpoint"
+              className="gif-examples"
+            />
+          </article>
         </section>
       </Container>
     </div>

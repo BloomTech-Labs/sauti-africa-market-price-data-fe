@@ -27,7 +27,6 @@
   }
 }
 .center-api-column {
-  display: flex;
 }
 
 .left-article {
@@ -59,5 +58,12 @@
 
   @include for-phone-only {
     flex-direction: column;
+  }
+}
+.gif-examples {
+  width: 99%;
+  @include for-phone-only {
+    width: 80%;
+    height: 30%;
   }
 }
