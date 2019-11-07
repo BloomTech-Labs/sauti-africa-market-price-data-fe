@@ -45,7 +45,7 @@ const Grid = () => {
   const [pAggs, setPAggs] = useState([])
   const [products, setProducts] = useState([])
   const [currency, setCurrency] = useState()
-  const [dateRanges, setDateRanges] = useState([])
+  const [dateRanges, setDateRanges] = useState(null)
 
   const [token] = useGetToken()
   const [exportCSV, setExportCSV] = useState(null)
@@ -178,7 +178,7 @@ let productOptions = []
     axiosWithAuth([token])
       .get(
         // `https://sauti-africa-market-master.herokuapp.com/
-        `http://localhost:8888/sauti/client/?count=150&currency=${currency ||
+        `http://localhost:8888/sauti/client/?currency=${currency ||
           'USD'}&${countryQuery || ''}&${marketQuery || ''}&${pCatQuery ||
             ''}&${pAggQuery || ''}&${productQuery ||''}${dateRangeQuery || ''}`
       )
@@ -227,7 +227,7 @@ let productOptions = []
               <Dropdown
                 placeholder="Product Category"
                 fluid
-                multiple
+                multiple 
                 search
                 selection
                 options={pCategoryOptions}
@@ -297,6 +297,7 @@ let productOptions = []
             rowData={rowData}
             domLayout="autoHeight"
             reactNext={true}
+            pagination={true}
             // events
             onGridReady={onGridReady}
           ></AgGridReact>
