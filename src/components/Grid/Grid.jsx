@@ -59,41 +59,38 @@ const Grid = () => {
   }, [])
 
   // Options for dropDown
-  let countriesOptions = []
-  if (list)
+  let countriesOptions,
+    marketOptions,
+    pCategoryOptions,
+    pAggregatorOptions,
+    productOptions
+  if (list) {
     countriesOptions = list.countries.map((country, index) => ({
       key: `country-${index}`,
       value: country.country,
       text: country.country
     }))
-  let marketOptions = []
-  if (list)
     marketOptions = list.markets.map((market, index) => ({
       key: `market-${index}`,
       text: market.market,
       value: market.market
     }))
-  let pCategoryOptions = []
-  if (list)
     pCategoryOptions = list.categories.map((product_cat, index) => ({
       key: `category-${index}`,
       text: product_cat.product_cat,
       value: product_cat.product_cat
     }))
-  let pAggregatorOptions = []
-  if (list)
     pAggregatorOptions = list.aggregators.map((product_agg, index) => ({
       key: `Aggregator-${index}`,
       text: product_agg.product_agg,
       value: product_agg.product_agg
     }))
-  let productOptions = []
-  if (list)
     productOptions = list.products.map((product, index) => ({
       key: `product-${index}`,
       text: product.product,
       value: product.product
     }))
+  }
 
   // Submit handlers for dropDown
   const dropdownHandler = (value, valueUpdater, queryUpdater, prefix) => {
