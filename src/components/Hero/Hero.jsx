@@ -15,6 +15,7 @@ const Hero = () => (
       A public-facing API that allows you to access Sauti Africa's market price
       data
     </p>
+    <p>Please login to view the table</p>
   </div>
 )
 
