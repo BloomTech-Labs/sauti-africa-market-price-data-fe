@@ -96,68 +96,9 @@ const Grid = () => {
     }))
 
   // Submit handlers for dropDown
-  const handleCountries = (value, countriesUpdater, queryUpdater) => {
-    const countryQuery = value.map((country, index) => {
-      if (index > 0) {
-        return `&c=${country}`
-      } else {
-        return `c=${country}`
-      }
-    })
-    countriesUpdater(value)
-    queryUpdater(countryQuery.join(''))
-  }
-
-  const handleMarkets = (value, marketsUpdater, marketQueryUpdater) => {
-    const marketQuery = value.map((market, index) => {
-      if (index > 0) {
-        return `&m=${market}`
-      } else {
-        return `m=${market}`
-      }
-    })
-    console.log(value)
-    marketsUpdater(value)
-    marketQueryUpdater(marketQuery.join(''))
-  }
-
-  const handlePCats = (value, pCatsUpdater, pCatsQueryUpdater) => {
-    const pCatQuery = value.map((category, index) => {
-      if (index > 0) {
-        return `&pcat=${category}`
-      } else {
-        return `pcat=${category}`
-      }
-    })
-    console.log(value)
-    pCatsUpdater(value)
-    pCatsQueryUpdater(pCatQuery.join(''))
-  }
-
-  const handlePAggs = (value, pAggsUpdater, pAggsQueryUpdater) => {
-    const pAggQuery = value.map((aggregator, index) => {
-      if (index > 0) {
-        return `&pagg=${aggregator}`
-      } else {
-        return `pagg=${aggregator}`
-      }
-    })
-    console.log(value)
-    pAggsUpdater(value)
-    pAggsQueryUpdater(pAggQuery.join(''))
-  }
-
-  const handleProducts = (value, productsUpdater, productsQueryUpdater) => {
-    const productQuery = value.map((product, index) => {
-      if (index > 0) {
-        return `&p=${product}`
-      } else {
-        return `p=${product}`
-      }
-    })
-    console.log(value)
-    productsUpdater(value)
-    productsQueryUpdater(productQuery.join(''))
+  const dropdownHandler = (value, valueUpdater, queryUpdater, prefix) => {
+    valueUpdater(value)
+    if (value.length) queryUpdater(`&${prefix}=${value.join(`&${prefix}=`)}`)
   }
 
   function disabledDate(current) {
@@ -172,19 +113,20 @@ const Grid = () => {
   }
 
   const apiCall = () => {
-    const dateRangeQuery = dateRanges && dateRanges[0]
-      ? `&startDate=${dateRanges[0].format(
-          'YYYY-MM-DD'
-        )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
-      : ''
+    const dateRangeQuery =
+      dateRanges && dateRanges[0]
+        ? `&startDate=${dateRanges[0].format(
+            'YYYY-MM-DD'
+          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+        : ''
     console.log('date', dateRangeQuery)
     setErr(false)
     axiosWithAuth([token])
       .get(
         // `https://sauti-africa-market-master.herokuapp.com/
         `http://localhost:8888/sauti/client/?currency=${currency ||
-          'USD'}&${countryQuery || ''}&${marketQuery || ''}&${pCatQuery ||
-          ''}&${pAggQuery || ''}&${productQuery || ''}${dateRangeQuery || ''}`
+          'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
+          ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery || ''}`
       )
       .then(res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
@@ -212,7 +154,7 @@ const Grid = () => {
                   selection
                   options={countriesOptions}
                   onChange={(e, { value }) =>
-                    handleCountries(value, setCountries, setCountryQuery)
+                    dropdownHandler(value, setCountries, setCountryQuery, 'c')
                   }
                   value={countries}
                 />
@@ -224,7 +166,7 @@ const Grid = () => {
                   selection
                   options={marketOptions}
                   onChange={(e, { value }) =>
-                    handleMarkets(value, setMarkets, setMarketQuery)
+                    dropdownHandler(value, setMarkets, setMarketQuery, 'm')
                   }
                   value={markets}
                 />
@@ -236,7 +178,7 @@ const Grid = () => {
                   selection
                   options={pCategoryOptions}
                   onChange={(e, { value }) =>
-                    handlePCats(value, setPCats, setPCatQuery)
+                    dropdownHandler(value, setPCats, setPCatQuery, 'pcat')
                   }
                   value={pCats}
                 />
@@ -248,7 +190,7 @@ const Grid = () => {
                   selection
                   options={pAggregatorOptions}
                   onChange={(e, { value }) =>
-                    handlePAggs(value, setPAggs, setPAggQuery)
+                    dropdownHandler(value, setPAggs, setPAggQuery, 'pagg')
                   }
                   value={pAggs}
                 />
@@ -260,7 +202,7 @@ const Grid = () => {
                   selection
                   options={productOptions}
                   onChange={(e, { value }) =>
-                    handleProducts(value, setProducts, setProductQuery)
+                    dropdownHandler(value, setProducts, setProductQuery, 'p')
                   }
                   value={products}
                 />
