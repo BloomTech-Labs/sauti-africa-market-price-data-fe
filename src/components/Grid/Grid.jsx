@@ -127,7 +127,8 @@ const Grid = () => {
     axiosWithAuth([token])
       .get(
         `https://sauti-africa-market-master.herokuapp.com/sauti/client/?currency=${currency ||
-          "USD"}${countryQuery || ""}${marketQuery || ""}${productQuery ||
+          "USD"}${countryQuery || ""}${marketQuery || ""}${pCatQuery ||
+          ""}${pAggQuery || ""}${productQuery ||
           ""}${dateRangeQuery}&next=${nextCursor}`
       )
       .then(async res => {
@@ -163,7 +164,8 @@ const Grid = () => {
     axiosWithAuth([token])
       .get(
         `https://sauti-africa-market-master.herokuapp.com/sauti/client/?currency=${currency ||
-          "USD"}${countryQuery || ""}${marketQuery || ""}${productQuery ||
+          "USD"}${countryQuery || ""}${marketQuery || ""}${pCatQuery ||
+          ""}${pAggQuery || ""}${productQuery ||
           ""}${dateRangeQuery}&next=${nextCursor}`
       )
       .then(async res => {
@@ -189,8 +191,8 @@ const Grid = () => {
     axiosWithAuth([token])
       .get(
         `https://sauti-africa-market-master.herokuapp.com/sauti/client/?currency=${currency ||
-          "USD"}${countryQuery || ""}${marketQuery || ""}${productQuery ||
-          ""}${dateRangeQuery}`
+          "USD"}${countryQuery || ""}${marketQuery || ""}${pCatQuery ||
+          ""}${pAggQuery || ""}${productQuery || ""}${dateRangeQuery}`
       )
       .then(async res => {
         dispatch({ type: "SET_ROW_DATA", payload: res.data.records });

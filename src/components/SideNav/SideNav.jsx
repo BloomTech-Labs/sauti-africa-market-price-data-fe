@@ -89,7 +89,7 @@ const SideNav = () => {
               Africa Market Prices API, simply pass the API Key as part of the
               headers.
             </p>
-            <img src={apiKeyGif} />
+            <img src={apiKeyGif} alt="entering api key gif" />
           </article>
           <article className="right-article">
             <h3>API Endpoints</h3>
