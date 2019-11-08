@@ -53,7 +53,7 @@ const App = () => {
       {/*className="d-flex flex-column h-100"*/}
       <NavBar />
       <Switch>
-        <Route path="/" exact render={props => <Home {...props} />} />
+        <Route path="/" exact render={props => <Landing {...props} />} />
         {/* <Route
             path="/grid"
             exact

@@ -122,15 +122,11 @@ const Grid = () => {
     let nextCursor = null;
     let n = next[next.length - 1];
     if (next) nextCursor = n;
-    let q = `http://localhost:8888/sauti/client/?currency=${currency ||
-      "USD"}${countryQuery || ""}${marketQuery || ""}${productQuery ||
-      ""}${dateRangeQuery}&next=${nextCursor}`;
-    console.log({ QUERY: q });
     axiosWithAuth([token])
       .get(
         `http://localhost:8888/sauti/client/?currency=${currency ||
           "USD"}${countryQuery || ""}${marketQuery || ""}${productQuery ||
-          ""}&next=${nextCursor}`
+          ""}${dateRangeQuery}&next=${nextCursor}`
       )
       .then(async res => {
         dispatch({ type: "SET_ROW_DATA", payload: res.data.records });
@@ -162,15 +158,11 @@ const Grid = () => {
     let nextPage = null;
     if (prev && page) nextPage = prev[page - 2];
     if (nextPage) nextCursor = nextPage;
-    let q = `http://localhost:8888/sauti/client/?currency=${currency ||
-      "USD"}${countryQuery || ""}${marketQuery || ""}${productQuery ||
-      ""}${dateRangeQuery}&next=${nextCursor}`;
-    console.log({ QUERY: q });
     axiosWithAuth([token])
       .get(
         `http://localhost:8888/sauti/client/?currency=${currency ||
           "USD"}${countryQuery || ""}${marketQuery || ""}${productQuery ||
-          ""}&next=${nextCursor}`
+          ""}${dateRangeQuery}&next=${nextCursor}`
       )
       .then(async res => {
         dispatch({ type: "SET_ROW_DATA", payload: res.data.records });
@@ -192,14 +184,11 @@ const Grid = () => {
           )}&endDate=${dateRanges[1].format("YYYY-MM-DD")}`
         : "";
     setErr(false);
-    let q = `http://localhost:8888/sauti/client/?currency=${currency ||
-      "USD"}${countryQuery || ""}${marketQuery || ""}${productQuery ||
-      ""}${dateRangeQuery}`;
-    console.log({ QUERY: q });
     axiosWithAuth([token])
       .get(
         `http://localhost:8888/sauti/client/?currency=${currency ||
-          "USD"}${countryQuery || ""}${marketQuery || ""}${productQuery || ""}`
+          "USD"}${countryQuery || ""}${marketQuery || ""}${productQuery ||
+          ""}${dateRangeQuery}`
       )
       .then(async res => {
         dispatch({ type: "SET_ROW_DATA", payload: res.data.records });
@@ -299,7 +288,6 @@ const Grid = () => {
                   value={dateRanges}
                   disabledDate={disabledDate}
                   onChange={(dates, date) => {
-                    console.log(dates);
                     setDateRanges(dates);
                   }}
                 />
