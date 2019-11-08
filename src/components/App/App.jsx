@@ -48,7 +48,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div className="appContainer">
       {" "}
       {/*className="d-flex flex-column h-100"*/}
       <NavBar />
