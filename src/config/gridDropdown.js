@@ -1,1186 +1,1186 @@
 const countryList = [
   {
-    name: 'Uganda',
-    abbreviation: 'UGA'
+    name: "Uganda",
+    abbreviation: "UGA"
   },
   {
-    name: 'Rwanda',
-    abbreviation: 'RWA'
+    name: "Rwanda",
+    abbreviation: "RWA"
   },
   {
-    name: 'Tanzania',
-    abbreviation: 'TZA'
+    name: "Tanzania",
+    abbreviation: "TZA"
   },
   {
-    name: 'Kenya',
-    abbreviation: 'KEN'
+    name: "Kenya",
+    abbreviation: "KEN"
   },
   {
-    name: 'Burundi',
-    abbreviation: 'BDI'
+    name: "Burundi",
+    abbreviation: "BDI"
   },
   {
-    name: 'DR Congo',
-    abbreviation: 'DRC'
+    name: "DR Congo",
+    abbreviation: "DRC"
   },
   {
-    name: 'Malawi',
-    abbreviation: 'MWI'
+    name: "Malawi",
+    abbreviation: "MWI"
   },
   {
-    name: 'South Sudan',
-    abbreviation: 'SSD'
+    name: "South Sudan",
+    abbreviation: "SSD"
   }
-]
+];
 
 export const countriesOptions = countryList.map((country, index) => ({
   key: `country-${index}`,
   text: country.name,
   value: country.abbreviation
-}))
+}));
 
 export const handleCountries = (value, countriesUpdater, queryUpdater) => {
   const countryQuery = value.map((country, index) => {
     if (index > 0) {
-      return `&c=${country}`
+      return `&c=${country}`;
     } else {
-      return `c=${country}`
+      return `&c=${country}`;
     }
-  })
-  countriesUpdater(value)
-  queryUpdater(countryQuery.join(''))
-}
+  });
+  countriesUpdater(value);
+  queryUpdater(countryQuery.join(""));
+};
 
-const currencyList = ['MWK', 'RWF', 'KES', 'UGX', 'TZS', 'CDF', 'BIF', 'USD']
+const currencyList = ["MWK", "RWF", "KES", "UGX", "TZS", "CDF", "BIF", "USD"];
 
 export const currencyOptions = currencyList.map((currency, index) => ({
   key: `currency-${index}`,
   text: currency,
   value: currency
-}))
+}));
 
 const marketList = [
   {
-    market: 'ACE Blantyre'
+    market: "ACE Blantyre"
   },
   {
-    market: 'ACE Lilongwe'
+    market: "ACE Lilongwe"
   },
   {
-    market: 'Arua'
+    market: "Arua"
   },
   {
-    market: 'Arusha'
+    market: "Arusha"
   },
   {
-    market: 'Babati'
+    market: "Babati"
   },
   {
-    market: 'Balaka'
+    market: "Balaka"
   },
   {
-    market: 'Base'
+    market: "Base"
   },
   {
-    market: 'Birambo'
+    market: "Birambo"
   },
   {
-    market: 'Bugarama'
+    market: "Bugarama"
   },
   {
-    market: 'Bugiri'
+    market: "Bugiri"
   },
   {
-    market: 'Buhanda'
+    market: "Buhanda"
   },
   {
-    market: 'Bujumbura'
+    market: "Bujumbura"
   },
   {
-    market: 'Bukavu'
+    market: "Bukavu"
   },
   {
-    market: 'Bukoba'
+    market: "Bukoba"
   },
   {
-    market: 'Bungoma'
+    market: "Bungoma"
   },
   {
-    market: 'Busasamana'
+    market: "Busasamana"
   },
   {
-    market: 'Busia'
+    market: "Busia"
   },
   {
-    market: 'Butare'
+    market: "Butare"
   },
   {
-    market: 'Byumba'
+    market: "Byumba"
   },
   {
-    market: 'Chimbiya'
+    market: "Chimbiya"
   },
   {
-    market: 'CongoNil'
+    market: "CongoNil"
   },
   {
-    market: 'Dar es salaam'
+    market: "Dar es salaam"
   },
   {
-    market: 'Dodoma'
+    market: "Dodoma"
   },
   {
-    market: 'Eldoret'
+    market: "Eldoret"
   },
   {
-    market: 'Embu'
+    market: "Embu"
   },
   {
-    market: 'Gacurabwenge'
+    market: "Gacurabwenge"
   },
   {
-    market: 'Gahanga'
+    market: "Gahanga"
   },
   {
-    market: 'Gahoromani'
+    market: "Gahoromani"
   },
   {
-    market: 'Gakenke'
+    market: "Gakenke"
   },
   {
-    market: 'Garisa'
+    market: "Garisa"
   },
   {
-    market: 'Garissa'
+    market: "Garissa"
   },
   {
-    market: 'Gasarenda'
+    market: "Gasarenda"
   },
   {
-    market: 'Gaseke'
+    market: "Gaseke"
   },
   {
-    market: 'Gashyushya'
+    market: "Gashyushya"
   },
   {
-    market: 'Geita'
+    market: "Geita"
   },
   {
-    market: 'Gichumbi'
+    market: "Gichumbi"
   },
   {
-    market: 'Gicumbi'
+    market: "Gicumbi"
   },
   {
-    market: 'Gikongoro'
+    market: "Gikongoro"
   },
   {
-    market: 'Gisenyi'
+    market: "Gisenyi"
   },
   {
-    market: 'Gitega'
+    market: "Gitega"
   },
   {
-    market: 'Goma'
+    market: "Goma"
   },
   {
-    market: 'Gulu'
+    market: "Gulu"
   },
   {
-    market: 'Iganga'
+    market: "Iganga"
   },
   {
-    market: 'Ilala (Buguruni)'
+    market: "Ilala (Buguruni)"
   },
   {
-    market: 'Intunga'
+    market: "Intunga"
   },
   {
-    market: 'Iringa'
+    market: "Iringa"
   },
   {
-    market: 'Isingiro'
+    market: "Isingiro"
   },
   {
-    market: 'Isiolo'
+    market: "Isiolo"
   },
   {
-    market: 'Juba'
+    market: "Juba"
   },
   {
-    market: 'Kabale'
+    market: "Kabale"
   },
   {
-    market: 'Kabarole'
+    market: "Kabarole"
   },
   {
-    market: 'Kabarondo'
+    market: "Kabarondo"
   },
   {
-    market: 'Kabaya'
+    market: "Kabaya"
   },
   {
-    market: 'Kajiado'
+    market: "Kajiado"
   },
   {
-    market: 'kakamega'
+    market: "kakamega"
   },
   {
-    market: 'kakmega'
+    market: "kakmega"
   },
   {
-    market: 'Kalerwe'
+    market: "Kalerwe"
   },
   {
-    market: 'Kamembe'
+    market: "Kamembe"
   },
   {
-    market: 'Kampala'
+    market: "Kampala"
   },
   {
-    market: 'Kamwendo'
+    market: "Kamwendo"
   },
   {
-    market: 'Kamwendo Market'
+    market: "Kamwendo Market"
   },
   {
-    market: 'Kamwenge'
+    market: "Kamwenge"
   },
   {
-    market: 'Kapchorwa'
+    market: "Kapchorwa"
   },
   {
-    market: 'Karambi'
+    market: "Karambi"
   },
   {
-    market: 'Karenge'
+    market: "Karenge"
   },
   {
-    market: 'Kasese'
+    market: "Kasese"
   },
   {
-    market: 'Kasumbalesa'
+    market: "Kasumbalesa"
   },
   {
-    market: 'Kasungu'
+    market: "Kasungu"
   },
   {
-    market: 'Kayenzi'
+    market: "Kayenzi"
   },
   {
-    market: 'KG'
+    market: "KG"
   },
   {
-    market: 'Kibaigwa'
+    market: "Kibaigwa"
   },
   {
-    market: 'Kibirizi'
+    market: "Kibirizi"
   },
   {
-    market: 'Kiboga'
+    market: "Kiboga"
   },
   {
-    market: 'kibungo'
+    market: "kibungo"
   },
   {
-    market: 'Kibuye'
+    market: "Kibuye"
   },
   {
-    market: 'Kigali'
+    market: "Kigali"
   },
   {
-    market: 'Kigoma'
+    market: "Kigoma"
   },
   {
-    market: 'Kimironko'
+    market: "Kimironko"
   },
   {
-    market: 'Kimisagara'
+    market: "Kimisagara"
   },
   {
-    market: 'Kinondoni (Tandale )'
+    market: "Kinondoni (Tandale )"
   },
   {
-    market: 'Kirambo'
+    market: "Kirambo"
   },
   {
-    market: 'Kiramuruzi'
+    market: "Kiramuruzi"
   },
   {
-    market: 'Kisenyi'
+    market: "Kisenyi"
   },
   {
-    market: 'Kisii'
+    market: "Kisii"
   },
   {
-    market: 'Kisumu'
+    market: "Kisumu"
   },
   {
-    market: 'Kitale'
+    market: "Kitale"
   },
   {
-    market: 'Kitui'
+    market: "Kitui"
   },
   {
-    market: 'Kizi'
+    market: "Kizi"
   },
   {
-    market: 'Kobero'
+    market: "Kobero"
   },
   {
-    market: 'Kolwezi'
+    market: "Kolwezi"
   },
   {
-    market: 'Kyankwanzi'
+    market: "Kyankwanzi"
   },
   {
-    market: 'Kyegegwa'
+    market: "Kyegegwa"
   },
   {
-    market: 'Kyenjonjo'
+    market: "Kyenjonjo"
   },
   {
-    market: 'Likasi'
+    market: "Likasi"
   },
   {
-    market: 'Lilongwe'
+    market: "Lilongwe"
   },
   {
-    market: 'Limbe Market'
+    market: "Limbe Market"
   },
   {
-    market: 'lindi'
+    market: "lindi"
   },
   {
-    market: 'Lira'
+    market: "Lira"
   },
   {
-    market: 'Liwonde'
+    market: "Liwonde"
   },
   {
-    market: 'loitkt'
+    market: "loitkt"
   },
   {
-    market: 'Loitoktok'
+    market: "Loitoktok"
   },
   {
-    market: 'Lubumbashi'
+    market: "Lubumbashi"
   },
   {
-    market: 'Luwero Market'
+    market: "Luwero Market"
   },
   {
-    market: 'Machakos'
+    market: "Machakos"
   },
   {
-    market: 'Madisi'
+    market: "Madisi"
   },
   {
-    market: 'Mahoko'
+    market: "Mahoko"
   },
   {
-    market: 'Majengo'
+    market: "Majengo"
   },
   {
-    market: 'Makueni'
+    market: "Makueni"
   },
   {
-    market: 'Malindi'
+    market: "Malindi"
   },
   {
-    market: 'Masaka'
+    market: "Masaka"
   },
   {
-    market: 'Masindi'
+    market: "Masindi"
   },
   {
-    market: 'Matimba'
+    market: "Matimba"
   },
   {
-    market: 'Mbale'
+    market: "Mbale"
   },
   {
-    market: 'Mbarara'
+    market: "Mbarara"
   },
   {
-    market: 'Mbeya'
+    market: "Mbeya"
   },
   {
-    market: 'Mchinji'
+    market: "Mchinji"
   },
   {
-    market: 'Meru'
+    market: "Meru"
   },
   {
-    market: 'Mitundu'
+    market: "Mitundu"
   },
   {
-    market: 'Mkando'
+    market: "Mkando"
   },
   {
-    market: 'Mombasa'
+    market: "Mombasa"
   },
   {
-    market: 'Morogoro urban'
+    market: "Morogoro urban"
   },
   {
-    market: 'Moshi'
+    market: "Moshi"
   },
   {
-    market: 'Mponela'
+    market: "Mponela"
   },
   {
-    market: 'Mtwara DC'
+    market: "Mtwara DC"
   },
   {
-    market: 'Mubende'
+    market: "Mubende"
   },
   {
-    market: 'Mubyangabo'
+    market: "Mubyangabo"
   },
   {
-    market: 'Mugina'
+    market: "Mugina"
   },
   {
-    market: 'Muhanga'
+    market: "Muhanga"
   },
   {
-    market: 'Muhondo'
+    market: "Muhondo"
   },
   {
-    market: 'Mukamira'
+    market: "Mukamira"
   },
   {
-    market: 'Mukarange'
+    market: "Mukarange"
   },
   {
-    market: 'Mulindi'
+    market: "Mulindi"
   },
   {
-    market: 'Musanze'
+    market: "Musanze"
   },
   {
-    market: 'Musha'
+    market: "Musha"
   },
   {
-    market: 'Musoma'
+    market: "Musoma"
   },
   {
-    market: 'Mvera'
+    market: "Mvera"
   },
   {
-    market: 'Mwanga'
+    market: "Mwanga"
   },
   {
-    market: 'Mwanyelwa'
+    market: "Mwanyelwa"
   },
   {
-    market: 'Mwanza'
+    market: "Mwanza"
   },
   {
-    market: 'Mzimba'
+    market: "Mzimba"
   },
   {
-    market: 'Mzuzu'
+    market: "Mzuzu"
   },
   {
-    market: 'Nairobi'
+    market: "Nairobi"
   },
   {
-    market: 'Nakasero'
+    market: "Nakasero"
   },
   {
-    market: 'Nakawa'
+    market: "Nakawa"
   },
   {
-    market: 'Nakuru'
+    market: "Nakuru"
   },
   {
-    market: 'Namwera'
+    market: "Namwera"
   },
   {
-    market: 'Ndago'
+    market: "Ndago"
   },
   {
-    market: 'Ngororero'
+    market: "Ngororero"
   },
   {
-    market: 'Ngozi'
+    market: "Ngozi"
   },
   {
-    market: 'Njombe'
+    market: "Njombe"
   },
   {
-    market: 'Nkhamenya'
+    market: "Nkhamenya"
   },
   {
-    market: 'Nkhotakota'
+    market: "Nkhotakota"
   },
   {
-    market: 'Nkora'
+    market: "Nkora"
   },
   {
-    market: 'Ntcheu'
+    market: "Ntcheu"
   },
   {
-    market: 'Ntchisi'
+    market: "Ntchisi"
   },
   {
-    market: 'Nyabugogo'
+    market: "Nyabugogo"
   },
   {
-    market: 'Nyagahinga'
+    market: "Nyagahinga"
   },
   {
-    market: 'Nyagatare'
+    market: "Nyagatare"
   },
   {
-    market: 'Nyakarambi'
+    market: "Nyakarambi"
   },
   {
-    market: 'Nyamata'
+    market: "Nyamata"
   },
   {
-    market: 'Nyamirambo'
+    market: "Nyamirambo"
   },
   {
-    market: 'Oloitoktok'
+    market: "Oloitoktok"
   },
   {
-    market: 'Owino'
+    market: "Owino"
   },
   {
-    market: 'Phalombe'
+    market: "Phalombe"
   },
   {
-    market: 'Rubavu'
+    market: "Rubavu"
   },
   {
-    market: 'Ruhango'
+    market: "Ruhango"
   },
   {
-    market: 'Ruhengeri'
+    market: "Ruhengeri"
   },
   {
-    market: 'Ruhuha'
+    market: "Ruhuha"
   },
   {
-    market: 'Rukiga'
+    market: "Rukiga"
   },
   {
-    market: 'Rukomo'
+    market: "Rukomo"
   },
   {
-    market: 'Rushashi'
+    market: "Rushashi"
   },
   {
-    market: 'Rwamagana'
+    market: "Rwamagana"
   },
   {
-    market: 'Salima'
+    market: "Salima"
   },
   {
-    market: 'Shinyanga'
+    market: "Shinyanga"
   },
   {
-    market: 'Shyorongi'
+    market: "Shyorongi"
   },
   {
-    market: 'Singida'
+    market: "Singida"
   },
   {
-    market: 'Songea'
+    market: "Songea"
   },
   {
-    market: 'Soroti'
+    market: "Soroti"
   },
   {
-    market: 'Sumbawanga'
+    market: "Sumbawanga"
   },
   {
-    market: 'Tabora'
+    market: "Tabora"
   },
   {
-    market: 'Tanga/Mgandini'
+    market: "Tanga/Mgandini"
   },
   {
-    market: 'TAVETA'
+    market: "TAVETA"
   },
   {
-    market: 'Temeke'
+    market: "Temeke"
   },
   {
-    market: 'Tororo'
+    market: "Tororo"
   },
   {
-    market: 'Tunduma'
+    market: "Tunduma"
   },
   {
-    market: 'Uvira'
+    market: "Uvira"
   },
   {
-    market: 'Wajir'
+    market: "Wajir"
   },
   {
-    market: 'Yei'
+    market: "Yei"
   },
   {
-    market: 'Ziniya'
+    market: "Ziniya"
   }
-]
+];
 
 export const marketOptions = marketList.map((market, index) => ({
   key: `market-${index}`,
   text: market.market,
   value: market.market
-}))
+}));
 
 export const handleMarkets = (value, marketsUpdater, marketQueryUpdater) => {
   const marketQuery = value.map((market, index) => {
     if (index > 0) {
-      return `&m=${market}`
+      return `&m=${market}`;
     } else {
-      return `m=${market}`
+      return `&m=${market}`;
     }
-  })
-  console.log(value)
-  marketsUpdater(value)
-  marketQueryUpdater(marketQuery.join(''))
-}
+  });
+  console.log(value);
+  marketsUpdater(value);
+  marketQueryUpdater(marketQuery.join(""));
+};
 
 const productList = [
   {
-    product: 'Agwedde Beans'
+    product: "Agwedde Beans"
   },
   {
-    product: 'Amaranth'
+    product: "Amaranth"
   },
   {
-    product: 'Apple Bananas'
+    product: "Apple Bananas"
   },
   {
-    product: 'Apples'
+    product: "Apples"
   },
   {
-    product: 'Asian Rice'
+    product: "Asian Rice"
   },
   {
-    product: 'Avocado'
+    product: "Avocado"
   },
   {
-    product: 'Banana Bunch'
+    product: "Banana Bunch"
   },
   {
-    product: 'Barley'
+    product: "Barley"
   },
   {
-    product: 'Beans'
+    product: "Beans"
   },
   {
-    product: 'Beans (K132)'
+    product: "Beans (K132)"
   },
   {
-    product: 'Beans Canadian'
+    product: "Beans Canadian"
   },
   {
-    product: 'Beans Mwitemania'
+    product: "Beans Mwitemania"
   },
   {
-    product: 'Beans Rosecoco'
+    product: "Beans Rosecoco"
   },
   {
-    product: 'Beef'
+    product: "Beef"
   },
   {
-    product: 'Beet Roots'
+    product: "Beet Roots"
   },
   {
-    product: 'Black Beans (Dolichos)'
+    product: "Black Beans (Dolichos)"
   },
   {
-    product: 'Brinjal/Eggplant'
+    product: "Brinjal/Eggplant"
   },
   {
-    product: 'Bull'
+    product: "Bull"
   },
   {
-    product: 'Bulrush Millet'
+    product: "Bulrush Millet"
   },
   {
-    product: 'Cabbages'
+    product: "Cabbages"
   },
   {
-    product: 'Capsicums'
+    product: "Capsicums"
   },
   {
-    product: 'Carrots'
+    product: "Carrots"
   },
   {
-    product: 'Cassava Chips'
+    product: "Cassava Chips"
   },
   {
-    product: 'Cassava Flour'
+    product: "Cassava Flour"
   },
   {
-    product: 'Cassava Fresh'
+    product: "Cassava Fresh"
   },
   {
-    product: 'Cauliflower'
+    product: "Cauliflower"
   },
   {
-    product: 'Cavendish (Bogoya)'
+    product: "Cavendish (Bogoya)"
   },
   {
-    product: 'Celery'
+    product: "Celery"
   },
   {
-    product: 'CEREAL'
+    product: "CEREAL"
   },
   {
-    product: 'Chemical Fertilizer'
+    product: "Chemical Fertilizer"
   },
   {
-    product: 'Chic Pea'
+    product: "Chic Pea"
   },
   {
-    product: 'Chillies'
+    product: "Chillies"
   },
   {
-    product: 'Coffee (Arabica)'
+    product: "Coffee (Arabica)"
   },
   {
-    product: 'Coffee (Robusta)'
+    product: "Coffee (Robusta)"
   },
   {
-    product: 'Cooking Bananas'
+    product: "Cooking Bananas"
   },
   {
-    product: 'Cow'
+    product: "Cow"
   },
   {
-    product: 'Cow hide'
+    product: "Cow hide"
   },
   {
-    product: 'Cow Peas'
+    product: "Cow Peas"
   },
   {
-    product: 'Cowpeas'
+    product: "Cowpeas"
   },
   {
-    product: 'Cucumber'
+    product: "Cucumber"
   },
   {
-    product: 'Ditane'
+    product: "Ditane"
   },
   {
-    product: 'Dolichos (Njahi)'
+    product: "Dolichos (Njahi)"
   },
   {
-    product: 'Dry Fermented Cassava'
+    product: "Dry Fermented Cassava"
   },
   {
-    product: 'Dry Maize'
+    product: "Dry Maize"
   },
   {
-    product: 'Dry Peas'
+    product: "Dry Peas"
   },
   {
-    product: 'Eggplant'
+    product: "Eggplant"
   },
   {
-    product: 'Eggs'
+    product: "Eggs"
   },
   {
-    product: 'Exotic Chicken'
+    product: "Exotic Chicken"
   },
   {
-    product: 'Exotic Eggs'
+    product: "Exotic Eggs"
   },
   {
-    product: 'Finger Millet'
+    product: "Finger Millet"
   },
   {
-    product: 'French Beans'
+    product: "French Beans"
   },
   {
-    product: 'Fresh Milk'
+    product: "Fresh Milk"
   },
   {
-    product: 'Fresh Peas'
+    product: "Fresh Peas"
   },
   {
-    product: 'Garlic'
+    product: "Garlic"
   },
   {
-    product: 'Ginger'
+    product: "Ginger"
   },
   {
-    product: 'Goat Meat'
+    product: "Goat Meat"
   },
   {
-    product: 'Goat skin and hide'
+    product: "Goat skin and hide"
   },
   {
-    product: 'Goats'
+    product: "Goats"
   },
   {
-    product: 'Green Beans'
+    product: "Green Beans"
   },
   {
-    product: 'Green Gram'
+    product: "Green Gram"
   },
   {
-    product: 'Green Maize'
+    product: "Green Maize"
   },
   {
-    product: 'Green Peas'
+    product: "Green Peas"
   },
   {
-    product: 'Green Pepper'
+    product: "Green Pepper"
   },
   {
-    product: 'Ground Nuts'
+    product: "Ground Nuts"
   },
   {
-    product: 'Groundnuts'
+    product: "Groundnuts"
   },
   {
-    product: 'Guava'
+    product: "Guava"
   },
   {
-    product: 'Guavas'
+    product: "Guavas"
   },
   {
-    product: 'HORTICULTURE'
+    product: "HORTICULTURE"
   },
   {
-    product: 'Imported Maize'
+    product: "Imported Maize"
   },
   {
-    product: 'Imported Rice'
+    product: "Imported Rice"
   },
   {
-    product: 'Irish Potatoes'
+    product: "Irish Potatoes"
   },
   {
-    product: 'Kahama Rice'
+    product: "Kahama Rice"
   },
   {
-    product: 'Kales'
+    product: "Kales"
   },
   {
-    product: 'Kayiso Rice'
+    product: "Kayiso Rice"
   },
   {
-    product: 'Kidney Beans'
+    product: "Kidney Beans"
   },
   {
-    product: 'Kilombero Rice'
+    product: "Kilombero Rice"
   },
   {
-    product: 'Leek'
+    product: "Leek"
   },
   {
-    product: 'LEGUMES'
+    product: "LEGUMES"
   },
   {
-    product: 'Lemons'
+    product: "Lemons"
   },
   {
-    product: 'Lettuce'
+    product: "Lettuce"
   },
   {
-    product: 'Limes'
+    product: "Limes"
   },
   {
-    product: 'Local Chicken'
+    product: "Local Chicken"
   },
   {
-    product: 'Local Eggs'
+    product: "Local Eggs"
   },
   {
-    product: 'Maize'
+    product: "Maize"
   },
   {
-    product: 'Maize Bran'
+    product: "Maize Bran"
   },
   {
-    product: 'Maize Flour'
+    product: "Maize Flour"
   },
   {
-    product: 'Maize Grain'
+    product: "Maize Grain"
   },
   {
-    product: 'Maize Meal'
+    product: "Maize Meal"
   },
   {
-    product: 'Mandarine'
+    product: "Mandarine"
   },
   {
-    product: 'Mangoes Local'
+    product: "Mangoes Local"
   },
   {
-    product: 'Mangoes Ngowe'
+    product: "Mangoes Ngowe"
   },
   {
-    product: 'Matooke'
+    product: "Matooke"
   },
   {
-    product: 'Matooke (kg)'
+    product: "Matooke (kg)"
   },
   {
-    product: 'Mbeya Rice'
+    product: "Mbeya Rice"
   },
   {
-    product: 'Milk'
+    product: "Milk"
   },
   {
-    product: 'Millet'
+    product: "Millet"
   },
   {
-    product: 'Millet Flour'
+    product: "Millet Flour"
   },
   {
-    product: 'Millet Grain'
+    product: "Millet Grain"
   },
   {
-    product: 'Mixed Beans'
+    product: "Mixed Beans"
   },
   {
-    product: 'Morogoro Rice'
+    product: "Morogoro Rice"
   },
   {
-    product: 'Mutton'
+    product: "Mutton"
   },
   {
-    product: 'Mwezi Moja'
+    product: "Mwezi Moja"
   },
   {
-    product: 'Nambale Beans'
+    product: "Nambale Beans"
   },
   {
-    product: 'Nile Perch'
+    product: "Nile Perch"
   },
   {
-    product: 'NPK Fertilizer'
+    product: "NPK Fertilizer"
   },
   {
-    product: 'Old Beans'
+    product: "Old Beans"
   },
   {
-    product: 'Onions Dry'
+    product: "Onions Dry"
   },
   {
-    product: 'Oranges'
+    product: "Oranges"
   },
   {
-    product: 'OTHERS'
+    product: "OTHERS"
   },
   {
-    product: 'Paddy Rice'
+    product: "Paddy Rice"
   },
   {
-    product: 'Parsley'
+    product: "Parsley"
   },
   {
-    product: 'Passion Fruits'
+    product: "Passion Fruits"
   },
   {
-    product: 'Pawpaw'
+    product: "Pawpaw"
   },
   {
-    product: 'Pearl Millet'
+    product: "Pearl Millet"
   },
   {
-    product: 'Peas'
+    product: "Peas"
   },
   {
-    product: 'Pepper'
+    product: "Pepper"
   },
   {
-    product: 'Pigeon Peas'
+    product: "Pigeon Peas"
   },
   {
-    product: 'Pineapples'
+    product: "Pineapples"
   },
   {
-    product: 'Pork'
+    product: "Pork"
   },
   {
-    product: 'Pounded Cassava Leaves'
+    product: "Pounded Cassava Leaves"
   },
   {
-    product: 'Processed Honey'
+    product: "Processed Honey"
   },
   {
-    product: 'Pumpkins'
+    product: "Pumpkins"
   },
   {
-    product: 'Red Beans'
+    product: "Red Beans"
   },
   {
-    product: 'Red Irish Potatoes'
+    product: "Red Irish Potatoes"
   },
   {
-    product: 'Red Onions'
+    product: "Red Onions"
   },
   {
-    product: 'Red Sorghum'
+    product: "Red Sorghum"
   },
   {
-    product: 'Rice'
+    product: "Rice"
   },
   {
-    product: 'Rice Bran'
+    product: "Rice Bran"
   },
   {
-    product: 'Ripe Bananas'
+    product: "Ripe Bananas"
   },
   {
-    product: 'ROOTS & TUBERS'
+    product: "ROOTS & TUBERS"
   },
   {
-    product: 'Round Potatoes'
+    product: "Round Potatoes"
   },
   {
-    product: 'Rwandan Rice'
+    product: "Rwandan Rice"
   },
   {
-    product: 'Sheep'
+    product: "Sheep"
   },
   {
-    product: 'Sheep hide and skin'
+    product: "Sheep hide and skin"
   },
   {
-    product: 'Simsim'
+    product: "Simsim"
   },
   {
-    product: 'Sorghum'
+    product: "Sorghum"
   },
   {
-    product: 'Sorghum Flour'
+    product: "Sorghum Flour"
   },
   {
-    product: 'Sorghum Grain'
+    product: "Sorghum Grain"
   },
   {
-    product: 'Soya Beans'
+    product: "Soya Beans"
   },
   {
-    product: 'Spinach'
+    product: "Spinach"
   },
   {
-    product: 'Spring Onions'
+    product: "Spring Onions"
   },
   {
-    product: 'STATE DEPARTMENT OF AGRICULTURE.'
+    product: "STATE DEPARTMENT OF AGRICULTURE."
   },
   {
-    product: 'Strawberry'
+    product: "Strawberry"
   },
   {
-    product: 'Sun Dried Cassava'
+    product: "Sun Dried Cassava"
   },
   {
-    product: 'Sunflower'
+    product: "Sunflower"
   },
   {
-    product: 'Sunflower Seed'
+    product: "Sunflower Seed"
   },
   {
-    product: 'Sunflower Seed Cake'
+    product: "Sunflower Seed Cake"
   },
   {
-    product: 'Sunflower Seed Meal'
+    product: "Sunflower Seed Meal"
   },
   {
-    product: 'Super Rice'
+    product: "Super Rice"
   },
   {
-    product: 'Sweet Bananas'
+    product: "Sweet Bananas"
   },
   {
-    product: 'Sweet Potatoes'
+    product: "Sweet Potatoes"
   },
   {
-    product: 'Tanzanian  Rice'
+    product: "Tanzanian  Rice"
   },
   {
-    product: 'Tilapia'
+    product: "Tilapia"
   },
   {
-    product: 'Tobacco'
+    product: "Tobacco"
   },
   {
-    product: 'Tomatoes'
+    product: "Tomatoes"
   },
   {
-    product: 'Turkey'
+    product: "Turkey"
   },
   {
-    product: 'Unprocessed Cotton'
+    product: "Unprocessed Cotton"
   },
   {
-    product: 'Unprocessed Honey'
+    product: "Unprocessed Honey"
   },
   {
-    product: 'Unprocessed Tea'
+    product: "Unprocessed Tea"
   },
   {
-    product: 'Unprocessed Vanilla'
+    product: "Unprocessed Vanilla"
   },
   {
-    product: 'Unprocessed/husked rice'
+    product: "Unprocessed/husked rice"
   },
   {
-    product: 'Upland Rice'
+    product: "Upland Rice"
   },
   {
-    product: 'Urea Fertilisers'
+    product: "Urea Fertilisers"
   },
   {
-    product: 'Urea FertilisersÂ '
+    product: "Urea FertilisersÂ "
   },
   {
-    product: 'Wheat'
+    product: "Wheat"
   },
   {
-    product: 'Wheat Bran'
+    product: "Wheat Bran"
   },
   {
-    product: 'Wheat Flour'
+    product: "Wheat Flour"
   },
   {
-    product: 'White Beans'
+    product: "White Beans"
   },
   {
-    product: 'White Fleshed Sweet Potatoes'
+    product: "White Fleshed Sweet Potatoes"
   },
   {
-    product: 'White Irish Potatoes'
+    product: "White Irish Potatoes"
   },
   {
-    product: 'White Millet'
+    product: "White Millet"
   },
   {
-    product: 'White Onions'
+    product: "White Onions"
   },
   {
-    product: 'White Sorghum'
+    product: "White Sorghum"
   },
   {
-    product: 'Wood Charcoal'
+    product: "Wood Charcoal"
   },
   {
-    product: 'Yellow Beans'
+    product: "Yellow Beans"
   }
-]
+];
 
 export const productOptions = productList.map((product, index) => ({
   key: `product=${index}`,
   text: product.product,
   value: product.product
-}))
+}));
 
 export const handleProducts = (
   value,
@@ -1189,12 +1189,12 @@ export const handleProducts = (
 ) => {
   const productQuery = value.map((product, index) => {
     if (index > 0) {
-      return `&p=${product}`
+      return `&p=${product}`;
     } else {
-      return `p=${product}`
+      return `&p=${product}`;
     }
-  })
-  console.log(value)
-  productsUpdater(value)
-  productsQueryUpdater(productQuery.join(''))
-}
+  });
+  console.log(value);
+  productsUpdater(value);
+  productsQueryUpdater(productQuery.join(""));
+};
