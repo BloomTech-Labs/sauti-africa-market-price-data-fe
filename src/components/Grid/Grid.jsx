@@ -172,7 +172,7 @@ const Grid = () => {
   }
 
   const apiCall = () => {
-    const dateRangeQuery = dateRanges[0]
+    const dateRangeQuery = dateRanges && dateRanges[0]
       ? `&startDate=${dateRanges[0].format(
           'YYYY-MM-DD'
         )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
