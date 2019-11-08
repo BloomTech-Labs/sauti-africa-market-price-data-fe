@@ -49,25 +49,22 @@ const App = () => {
       {' '}
       {/*className="d-flex flex-column h-100"*/}
       <NavBar />
-      
-
-        <Switch>
-          <Route path="/" exact render={props => <Home {...props} />} />
-          {/* <Route
+      <Switch>
+        <Route path="/" exact render={props => <Home {...props} />} />
+        {/* <Route
             path="/grid"
             exact
             render={props => <GridPage {...props} apiKey={apiKey} />}
           /> */}
-          <Route exact path="/grid" component={GridPage}/>
-          <PrivateRoute
-            path="/profile"
-            component={Profile}
-            apiKey={apiKey}
-            setApiKey={setApiKey}
-          />
-          <Route exact path="/docs" component={DocsPage} />
-        </Switch>
-
+        <Route exact path="/grid" component={GridPage} />
+        <PrivateRoute
+          path="/profile"
+          component={Profile}
+          apiKey={apiKey}
+          setApiKey={setApiKey}
+        />
+        <Route exact path="/docs" component={DocsPage} />
+      </Switch>
       <Footer />
     </div>
   )

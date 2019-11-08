@@ -13,16 +13,13 @@ import { Dropdown, Button, Form } from 'semantic-ui-react'
 import moment from 'moment'
 import { DatePicker } from 'antd'
 
-import {
-  currencyOptions
-} from '../../config/gridDropdown'
+import { currencyOptions } from '../../config/gridDropdown'
 
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.css'
 
-
-const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker
 
 const Grid = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
@@ -50,50 +47,54 @@ const Grid = () => {
   const [token] = useGetToken()
   const [exportCSV, setExportCSV] = useState(null)
 
-  useEffect(()=> {
-    axios.get('http://localhost:8888/sauti/client/superlist')
-    .then(res => {
-      setList(res.data)
-    })
-    .catch(err => {
-      console.log(err.message)
-    })
-  
+  useEffect(() => {
+    axios
+      .get('http://localhost:8888/sauti/client/superlist')
+      .then(res => {
+        setList(res.data)
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
   }, [])
 
   // Options for dropDown
   let countriesOptions = []
- if(list) countriesOptions = list.countries.map((country, index) => ({
-    key: `country-${index}`,
-    value: country.country,
-    text: country.country
-  }))
- let marketOptions = []
-  if(list) marketOptions = list.markets.map((market, index) => ({
-    key: `market-${index}`,
-    text: market.market,
-    value: market.market
-  }))
-let pCategoryOptions = []
-  if(list) pCategoryOptions = list.categories.map((product_cat, index) => ({
-    key: `category-${index}`,
-    text: product_cat.product_cat,
-    value: product_cat.product_cat
-  }))
-let pAggregatorOptions = []
-  if(list) pAggregatorOptions = list.aggregators.map((product_agg, index) => ({
-    key: `Aggregator-${index}`,
-    text: product_agg.product_agg,
-    value: product_agg.product_agg
-  }))
-let productOptions = []
-  if(list) productOptions = list.products.map((product, index) => ({
-    key: `product-${index}`,
-    text: product.product,
-    value: product.product
-  }))
+  if (list)
+    countriesOptions = list.countries.map((country, index) => ({
+      key: `country-${index}`,
+      value: country.country,
+      text: country.country
+    }))
+  let marketOptions = []
+  if (list)
+    marketOptions = list.markets.map((market, index) => ({
+      key: `market-${index}`,
+      text: market.market,
+      value: market.market
+    }))
+  let pCategoryOptions = []
+  if (list)
+    pCategoryOptions = list.categories.map((product_cat, index) => ({
+      key: `category-${index}`,
+      text: product_cat.product_cat,
+      value: product_cat.product_cat
+    }))
+  let pAggregatorOptions = []
+  if (list)
+    pAggregatorOptions = list.aggregators.map((product_agg, index) => ({
+      key: `Aggregator-${index}`,
+      text: product_agg.product_agg,
+      value: product_agg.product_agg
+    }))
+  let productOptions = []
+  if (list)
+    productOptions = list.products.map((product, index) => ({
+      key: `product-${index}`,
+      text: product.product,
+      value: product.product
+    }))
 
-  
   // Submit handlers for dropDown
   const handleCountries = (value, countriesUpdater, queryUpdater) => {
     const countryQuery = value.map((country, index) => {
@@ -106,7 +107,7 @@ let productOptions = []
     countriesUpdater(value)
     queryUpdater(countryQuery.join(''))
   }
-  
+
   const handleMarkets = (value, marketsUpdater, marketQueryUpdater) => {
     const marketQuery = value.map((market, index) => {
       if (index > 0) {
@@ -119,8 +120,8 @@ let productOptions = []
     marketsUpdater(value)
     marketQueryUpdater(marketQuery.join(''))
   }
-  
-  const handlePCats = (value,pCatsUpdater,pCatsQueryUpdater) => {
+
+  const handlePCats = (value, pCatsUpdater, pCatsQueryUpdater) => {
     const pCatQuery = value.map((category, index) => {
       if (index > 0) {
         return `&pcat=${category}`
@@ -132,8 +133,8 @@ let productOptions = []
     pCatsUpdater(value)
     pCatsQueryUpdater(pCatQuery.join(''))
   }
-  
-  const handlePAggs = (value,pAggsUpdater,pAggsQueryUpdater) => {
+
+  const handlePAggs = (value, pAggsUpdater, pAggsQueryUpdater) => {
     const pAggQuery = value.map((aggregator, index) => {
       if (index > 0) {
         return `&pagg=${aggregator}`
@@ -145,8 +146,8 @@ let productOptions = []
     pAggsUpdater(value)
     pAggsQueryUpdater(pAggQuery.join(''))
   }
-  
-  const handleProducts = (value,productsUpdater,productsQueryUpdater) => {
+
+  const handleProducts = (value, productsUpdater, productsQueryUpdater) => {
     const productQuery = value.map((product, index) => {
       if (index > 0) {
         return `&p=${product}`
@@ -161,7 +162,7 @@ let productOptions = []
 
   function disabledDate(current) {
     // Can not select days after today and today
-    return current && current > moment().endOf('day');
+    return current && current > moment().endOf('day')
   }
 
   const onGridReady = params => {
@@ -171,16 +172,19 @@ let productOptions = []
   }
 
   const apiCall = () => {
-
-    const dateRangeQuery = (dateRanges) ? `&startDate=${dateRanges[0].format('YYYY-MM-DD')}&endDate=${dateRanges[1].format('YYYY-MM-DD')}` : '';
-    console.log('date', dateRangeQuery);
+    const dateRangeQuery = dateRanges[0]
+      ? `&startDate=${dateRanges[0].format(
+          'YYYY-MM-DD'
+        )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+      : ''
+    console.log('date', dateRangeQuery)
     setErr(false)
     axiosWithAuth([token])
       .get(
         // `https://sauti-africa-market-master.herokuapp.com/
         `http://localhost:8888/sauti/client/?currency=${currency ||
           'USD'}&${countryQuery || ''}&${marketQuery || ''}&${pCatQuery ||
-            ''}&${pAggQuery || ''}&${productQuery ||''}${dateRangeQuery || ''}`
+          ''}&${pAggQuery || ''}&${productQuery || ''}${dateRangeQuery || ''}`
       )
       .then(res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
@@ -193,117 +197,116 @@ let productOptions = []
 
   return (
     <Container className="flex-grow-1 mt-5">
-    <GridContext.Provider value={{ store, dispatch }}>
-      <div>
-        {err ? (
-          <div>You've reached the max amount of calls!</div>
-        ) : token ? (
-          <>
-            <Form>
-              <Dropdown
-                placeholder="Countries"
-                fluid
-                multiple
-                search
-                selection
-                options={countriesOptions}
-                onChange={(e, { value }) =>
-                  handleCountries(value, setCountries, setCountryQuery)
-                }
-                value={countries}
-              />
-              <Dropdown
-                placeholder="Markets"
-                fluid
-                multiple
-                search
-                selection
-                options={marketOptions}
-                onChange={(e, { value }) =>
-                  handleMarkets(value, setMarkets, setMarketQuery)
-                }
-                value={markets}
-              />
-              <Dropdown
-                placeholder="Product Category"
-                fluid
-                multiple 
-                search
-                selection
-                options={pCategoryOptions}
-                onChange={(e, { value }) =>
-                  handlePCats(value, setPCats, setPCatQuery)
-                }
-                value={pCats}
-              />
-              <Dropdown
-                placeholder="Product Aggregator"
-                fluid
-                multiple
-                search
-                selection
-                options={pAggregatorOptions}
-                onChange={(e, { value }) =>
-                  handlePAggs(value, setPAggs, setPAggQuery)
-                }
-                value={pAggs}
-              />
-              <Dropdown
-                placeholder="Products"
-                fluid
-                multiple
-                search
-                selection
-                options={productOptions}
-                onChange={(e, { value }) =>
-                  handleProducts(value, setProducts, setProductQuery)
-                }
-                value={products}
-              />
-              <Dropdown
-                placeholder="Currency"
-                fluid
-                search
-                selection
-                options={currencyOptions}
-                onChange={(e, { value }) => setCurrency(value)}
-                value={currency}
-              />
-              <RangePicker
-                value={dateRanges}
-                disabledDate={disabledDate}
-                onChange={(dates, date) => {
-                  console.log(dates)
-                  setDateRanges(dates);
-                }}
+      <GridContext.Provider value={{ store, dispatch }}>
+        <div>
+          {err ? (
+            <div>You've reached the max amount of calls!</div>
+          ) : token ? (
+            <>
+              <Form>
+                <Dropdown
+                  placeholder="Countries"
+                  fluid
+                  multiple
+                  search
+                  selection
+                  options={countriesOptions}
+                  onChange={(e, { value }) =>
+                    handleCountries(value, setCountries, setCountryQuery)
+                  }
+                  value={countries}
+                />
+                <Dropdown
+                  placeholder="Markets"
+                  fluid
+                  multiple
+                  search
+                  selection
+                  options={marketOptions}
+                  onChange={(e, { value }) =>
+                    handleMarkets(value, setMarkets, setMarketQuery)
+                  }
+                  value={markets}
+                />
+                <Dropdown
+                  placeholder="Product Category"
+                  fluid
+                  multiple
+                  search
+                  selection
+                  options={pCategoryOptions}
+                  onChange={(e, { value }) =>
+                    handlePCats(value, setPCats, setPCatQuery)
+                  }
+                  value={pCats}
+                />
+                <Dropdown
+                  placeholder="Product Aggregator"
+                  fluid
+                  multiple
+                  search
+                  selection
+                  options={pAggregatorOptions}
+                  onChange={(e, { value }) =>
+                    handlePAggs(value, setPAggs, setPAggQuery)
+                  }
+                  value={pAggs}
+                />
+                <Dropdown
+                  placeholder="Products"
+                  fluid
+                  multiple
+                  search
+                  selection
+                  options={productOptions}
+                  onChange={(e, { value }) =>
+                    handleProducts(value, setProducts, setProductQuery)
+                  }
+                  value={products}
+                />
+                <Dropdown
+                  placeholder="Currency"
+                  fluid
+                  search
+                  selection
+                  options={currencyOptions}
+                  onChange={(e, { value }) => setCurrency(value)}
+                  value={currency}
+                />
+                <RangePicker
+                  value={dateRanges}
+                  disabledDate={disabledDate}
+                  onChange={(dates, date) => {
+                    console.log(dates)
+                    setDateRanges(dates)
+                  }}
+                />
+              </Form>
+              <div>
+                <Button onClick={() => apiCall()}>Update Grid</Button>
+                {rowData[0] && (
+                  <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
+                    Export CSV
+                  </Button>
+                )}
+              </div>
+            </>
+          ) : null}
 
-              />
-            </Form>
-            <div>
-              <Button onClick={() => apiCall()}>Update Grid</Button>
-              {rowData[0] && (
-                <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
-                  Export CSV
-                </Button>
-              )}
-            </div>
-          </>
-        ) : null}
-
-        <div style={gridStyle} className="ag-theme-balham">
-          <AgGridReact
-            // properties
-            columnDefs={columnDefs}
-            rowData={rowData}
-            domLayout="autoHeight"
-            reactNext={true}
-            pagination={true}
-            // events
-            onGridReady={onGridReady}
-          ></AgGridReact>
+          <div style={gridStyle} className="ag-theme-balham">
+            <AgGridReact
+              // properties
+              columnDefs={columnDefs}
+              rowData={rowData}
+              domLayout="autoHeight"
+              reactNext={true}
+              pagination={true}
+              // events
+              onGridReady={onGridReady}
+            ></AgGridReact>
+          </div>
         </div>
-      </div>
-    </GridContext.Provider>
+      </GridContext.Provider>
     </Container>
   )
 }
