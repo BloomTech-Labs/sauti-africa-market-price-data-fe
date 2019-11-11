@@ -29,3 +29,36 @@
   left: 0;
   right: 0;
 }
+
+.ant-calendar-picker-input.ant-input {
+  display: flex;
+  width: 282%;
+}
+@media (max-width: 1200px) {
+  .ant-calendar-picker-input.ant-input {
+    width: 236%;
+  }
+}
+@media (max-width: 991px) {
+  .ant-calendar-picker-input.ant-input {
+    width: 175%;
+  }
+}
+@media (max-width: 767px) {
+  .ant-calendar-picker-input.ant-input {
+    width: 129.5%;
+  }
+}
+@media (max-width: 579px) {
+  .ant-calendar-picker-input.ant-input {
+    justify-content: space-evenly;
+    width: auto;
+  }
+}
+
+.appContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
