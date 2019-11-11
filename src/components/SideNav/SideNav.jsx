@@ -56,10 +56,7 @@ const SideNav = () => {
           name="Latest Price by Date Range Endpoint"
           onClick={() => scrollToPlay(dateRange)}
         />
-        <Menu.Item
-          name="Pivot Table Docs"
-          onClick={() => scrollToPlay(pivotdocs)}
-        />
+        <Menu.Item name="Pivot Table" onClick={() => scrollToPlay(pivotdocs)} />
       </Menu>
 
       <Container fluid className="center-api-column">
@@ -466,74 +463,121 @@ const SideNav = () => {
             />
           </article>
         </section>
-        
+
         <section className="articles-examples" ref={pivotdocs}>
-              <article className="left-article">
-                <h2>Pivot Table Docs</h2>
-                <h2>Filters</h2>
-                <h3>Countries</h3>
-                <p>Users have the ability to filter through the records based on the country.
-                The countries are abbreviated below are the full country names.</p>
-              </article>
-              <article className="right-article">
-                <img
-                src={countriesGif}
-                alt="Example countries filter"
-                className="gif-examples"
-              />
-              </article>
+          <article className="left-article">
+            <h2>Pivot Table</h2>
+            <h2>Filters</h2>
+            <h3>Countries</h3>
+            <p>
+              Users have the ability to filter through the records based on the
+              country. The countries are abbreviated below are the full country
+              names.
+            </p>
+            <h4>Abvreviation || Full country name</h4>
+            <li>BDI - Burundi</li>
+            <li>DRC - Democratic Republic of the Congo</li>
+            <li>KEN - Kenya</li>
+            <li>NWI - Malawi</li>
+            <li>RWA - Rwanda</li>
+            <li>SSD - South Sudan</li>
+            <li>TZA - Tanzania</li>
+            <li>UGA - Uganda</li>
+          </article>
+          <article className="right-article">
+            <img
+              src={countriesGif}
+              alt="Example countries filter"
+              className="gif-examples"
+            />
+          </article>
         </section>
         <section className="articles-examples">
-               <article className="left-article">
-                    <h3>Currency</h3>
-                    <p>the currency filter allows the user to search different records with that specific curren cy that belongs to its country.</p>
-               </article>
-               <article className="right-article">
-                    <img
-                    src={currencyGif}
-                    alt="Example currency filter"
-                    className="gif-examples"
-                    />
-               </article>
+          <article className="left-article">
+            <h3>Currency</h3>
+            <p>
+              the currency filter allows the user to search different records
+              with that specific curren cy that belongs to its country.
+            </p>
+            <h4>Abbreviation || Currency || Country</h4>
+            <li>MWK - Kwachas - Malawi</li>
+            <li>RWF - The Rwandan Franc - Rwanda</li>
+            <li>KES - Kenyan Shilling - Kenya</li>
+            <li>UGX - The Shilling - Uganda</li>
+            <li>TZS - Tanzanian Shilling - Tanzania</li>
+            <li>
+              CDF - The Congolese Franc - Democratic Republic of the Congo
+            </li>
+            <li>BIF - The Franc - Burundi</li>
+            <li>USD - U.S. Dollar - United States</li>
+          </article>
+          <article className="right-article">
+            <img
+              src={currencyGif}
+              alt="Example currency filter"
+              className="gif-examples"
+            />
+          </article>
         </section>
         <section className="articles-examples">
-              <article className="left-article">
-                  <h3>Markets</h3>
-                  <p>Markets range from all over Eastern Africa from Acura to Ziniya. There are currently 77 markets over 6 countries in Eastern Africa that you can collect data from and is being updated constantly. Find multiple products through these markets as well as prices from specific items to even product categories.</p>
-              </article>
-              <article className="right-article">
-                  <img
-                  src={marketGif}
-                  alt="Example markets filter"
-                  className="gif-examples"
-                  />
-              </article>
+          <article className="left-article">
+            <h3>Markets</h3>
+            <p>
+              Markets range from all over Eastern Africa from Acura to Ziniya.
+              There are currently more than 77 markets over 6 countries in
+              Eastern Africa and we are adding more everyday! That you can
+              collect data from and is being updated constantly. Find multiple
+              products through these markets as well as prices from specific
+              items to even product categories.
+            </p>
+          </article>
+          <article className="right-article">
+            <img
+              src={marketGif}
+              alt="Example markets filter"
+              className="gif-examples"
+            />
+          </article>
         </section>
         <section className="articles-examples">
-              <article className="left-article">
-                  <h3>Products</h3>
-                  <p>When using the products filters, user has the ability of searching even more specific records. You must first understand that there is a hierarchy. The top is products category, second is products aggregators, and last is products. Using these filters in unison can bring up records of market prices based on a specific product if that is what you want. </p>
-              </article>
-              <article className="right-article">
-                  <img
-                  src={productsGif}
-                  alt="Example products filter"
-                  className="gif-examples"
-                  />
-              </article>
+          <article className="left-article">
+            <h3>Products</h3>
+            <p>
+              When using the products filters, user has the ability of searching
+              even more specific records. You must first understand that there
+              is a hierarchy. The top is products category, second is products
+              aggregators, and last is products. Using these filters in unison
+              can bring up records of market prices based on a specific product
+              if that is what you want.{' '}
+            </p>
+          </article>
+          <article className="right-article">
+            <img
+              src={productsGif}
+              alt="Example products filter"
+              className="gif-examples"
+            />
+          </article>
         </section>
         <section className="articles-examples">
-              <article className="left-article">
-                  <h3>Date Ranges</h3>
-                  <p>Market prices are always changing and being updated. We wanted the user to be able to search Countries, Markets, Products and Currency from different dates so the user can get the most up to date data for their use. The user can retrieve records back from 2013. With that ability to pick a start date and end date. We’ll generate every record in between for the user.  </p>
-              </article>
-              <article className="right-article">
-                  <img
-                  src={timeRangeGif}
-                  alt="Example date ranges filter"
-                  className="gif-examples"
-                  />
-              </article> 
+          <article className="left-article">
+            <h3>Date Ranges</h3>
+            <p>
+              Market prices are always changing and being updated. We wanted the
+              user to be able to search Countries, Markets, Products and
+              Currency from different dates so the user can get the most up to
+              date data for their use. The user can retrieve records back from
+              2013. With that ability to pick a start date and end date. We’ll
+              generate every record in between for the user.{' '}
+            </p>
+          </article>
+          <article className="right-article">
+            <img
+              src={timeRangeGif}
+              alt="Example date ranges filter"
+              className="gif-examples"
+            />
+          </article>
         </section>
       </Container>
     </div>
