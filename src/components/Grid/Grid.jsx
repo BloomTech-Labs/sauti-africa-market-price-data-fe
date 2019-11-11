@@ -18,6 +18,7 @@ import { currencyOptions } from "../../config/gridDropdown";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 import "antd/dist/antd.css";
+import "./Grid.scss";
 
 const { RangePicker } = DatePicker;
 
@@ -243,7 +244,7 @@ const Grid = () => {
                   }
                   value={markets}
                 />
-                {/* <Dropdown
+                <Dropdown
                   placeholder="Product Category"
                   fluid
                   multiple
@@ -251,11 +252,11 @@ const Grid = () => {
                   selection
                   options={pCategoryOptions}
                   onChange={(e, { value }) =>
-                    dropdownHandler(value, setPCats, setPCatQuery, 'pcat')
+                    dropdownHandler(value, setPCats, setPCatQuery, "pcat")
                   }
                   value={pCats}
-                /> */}
-                {/* <Dropdown
+                />
+                <Dropdown
                   placeholder="Product Aggregator"
                   fluid
                   multiple
@@ -266,7 +267,7 @@ const Grid = () => {
                     dropdownHandler(value, setPAggs, setPAggQuery, "pagg")
                   }
                   value={pAggs}
-                /> */}
+                />
                 <Dropdown
                   placeholder="Products"
                   fluid
@@ -314,12 +315,13 @@ const Grid = () => {
               rowData={rowData}
               domLayout="autoHeight"
               reactNext={true}
-              pagination={true}
               // events
               onGridReady={onGridReady}
             ></AgGridReact>
           </div>
-          {page === 2 ? (
+          {!page ? (
+            <Button disabled>{"<"}</Button>
+          ) : page === 2 ? (
             <Button onClick={apiCall}>{"<"}</Button>
           ) : page === 1 ? (
             <Button disabled>{"<"}</Button>
