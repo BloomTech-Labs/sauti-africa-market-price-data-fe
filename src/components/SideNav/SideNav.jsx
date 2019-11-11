@@ -53,6 +53,10 @@ const SideNav = () => {
       </Menu>
 
       <Container fluid className="center-api-column">
+        <input id="slide-sidenav" type="checkbox" role="button" />
+        <label for="slide-sidenav">
+          <span>Close</span>
+        </label>
         <section className="articles-examples">
           <article className="left-article">
             <Header as="h2">API</Header>
