@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
-import Header from "./header";
-import Main from "./main";
+import Header from './header'
+import Main from './main'
 
-import "./Landing.scss";
+import './Landing.scss'
 
 const Landing = () => {
   return (
@@ -11,7 +11,7 @@ const Landing = () => {
       <Header />
       <Main />
     </div>
-  );
-};
+  )
+}
 
-export default Landing;
+export default Landing
