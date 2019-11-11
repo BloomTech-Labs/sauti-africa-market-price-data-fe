@@ -1,5 +1,11 @@
 @mixin for-phone-only {
-  @media (max-width: 599px) {
+  @media (max-width: 799px) {
+    @content;
+  }
+}
+
+@mixin for-non-widescreen {
+  @media (max-width: 1599px) {
     @content;
   }
 }
@@ -10,19 +16,19 @@
   box-sizing: border-box;
   align-items: baseline;
 
-  @include for-phone-only {
+  @include for-non-widescreen {
     flex-direction: column;
     justify-content: center;
   }
 }
 .side-nav-items {
   position: fixed;
-  @include for-phone-only {
+  @include for-non-widescreen {
     resize: vertical;
     overflow: auto;
     top: 0;
     left: 7rem;
-    position: sticky;
+    position: relative;
     text-align: center;
   }
 }
@@ -31,7 +37,6 @@
 
 .left-article {
   padding: 2rem;
-  margin-left: 25rem;
   width: 47%;
 
   @include for-phone-only {
@@ -55,7 +60,11 @@
 .articles-examples {
   display: flex;
   flex-direction: row;
+  padding-left: 25rem;
 
+  @include for-non-widescreen {
+    padding-left: 0;
+  }
   @include for-phone-only {
     flex-direction: column;
   }
@@ -65,5 +74,11 @@
   @include for-phone-only {
     width: 80%;
     height: 30%;
+  }
+}
+
+.container {
+  img {
+    width: 99%;
   }
 }
