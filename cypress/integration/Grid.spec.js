@@ -1,8 +1,8 @@
-describe('<Grid />', () => {
-    it('grid page renders', () => {
+describe('<Hero />', () => {
+    it('hero component renders', () => {
       cy.visit('/grid')
-      cy.get('Grid').within(() => {
-          cy.get('input:first').should('have.attr','placeholder', 'Countries')
-      })
+      cy.get('h1').should('have.text', 'Sauti Market Prices API')
+      cy.contains("A public-facing API that allows you to access Sauti Africa's market price data")
+      cy.contains('Please login to view the table')
     })
   })
