@@ -1,7 +1,7 @@
-import React from "react";
-import { NavLink as RouterNavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Event } from "../Tracking/Tracking";
+import React from 'react'
+import { NavLink as RouterNavLink } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Event } from '../Tracking/Tracking'
 
 import {
   NavLink,
@@ -9,20 +9,20 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem
-} from "reactstrap";
+} from 'reactstrap'
 
-import { useAuth0 } from "../../contexts";
+import { useAuth0 } from '../../contexts'
 
-import "./NavBar.scss";
-import "semantic-ui-css/semantic.min.css";
+import './NavBar.scss'
+import 'semantic-ui-css/semantic.min.css'
 
 const NavBar = () => {
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
 
   const logoutWithRedirect = () =>
     logout({
       returnTo: window.location.origin
-    });
+    })
 
   return (
     <div className="navbar">
@@ -84,8 +84,8 @@ const NavBar = () => {
               class="ui button login-btn"
               onClick={() => {
                 //google analytics event tracking
-                Event("Users", "Login");
-                loginWithRedirect({});
+                Event('Users', 'Login')
+                loginWithRedirect({})
               }}
             >
               Log In
@@ -123,7 +123,7 @@ const NavBar = () => {
         </div>
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar
