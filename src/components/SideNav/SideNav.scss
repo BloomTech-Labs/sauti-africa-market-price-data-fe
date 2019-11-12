@@ -47,6 +47,13 @@
   }
 }
 
+.ui.massive.vertical.menu {
+  @include for-phone-only() {
+    width: 100vw !important;
+    overflow: hidden !important;
+  }
+}
+
 .side-nav-items {
   position: fixed;
   z-index: 1000;

@@ -67,7 +67,7 @@ const SideNav = () => {
             onClick={() => scrollToPlay(dateRange)}
           />
           <Menu.Item
-            name="Pivot Table Docs"
+            name="Pivot Table"
             onClick={() => scrollToPlay(pivotdocs)}
           />
         </div>
@@ -88,7 +88,7 @@ const SideNav = () => {
               response. */}
               Sauti Africa Market Prices API is designed to provide up-to-date
               daily prices for about 100 products across 60 marketplaces in East
-              Africa. The API has resource-oriented URLs, retrns JSON-encoded
+              Africa. The API has resource-oriented URLs, returns JSON-encoded
               responses and uses standard HTTP response codes, authentication
               and verbs.
             </p>
@@ -115,7 +115,7 @@ const SideNav = () => {
               Africa Market Prices API, simply pass the API Key as part of the
               headers.
             </p>
-            <img src={apiKeyGif} />
+            <img src={apiKeyGif} alt="entering api key gif" />
           </article>
           <article className="right-article">
             <h3>API Endpoints</h3>
@@ -189,9 +189,9 @@ const SideNav = () => {
               </span>
             </h3>
             <p>
-              Returns a list of based on query parameter of /?list= If incorrect
+              Returns a list based on query parameter of /?list= If incorrect
               parameter is passed, it will default to returning a list of all
-              markets.{' '}
+              markets.
               <Popup
                 trigger={<Icon name="question circle" size="large" />}
                 content="You can scroll the URL below horizontally"
@@ -238,10 +238,10 @@ const SideNav = () => {
             </h3>
             <p>
               Returns array of records via query. Query filters accepted are
-              product, product_agg,category, market and country. Multiple of
-              same filter type can be passed too by simply adding same query key
-              with appropriate value. Default is to return 25 records based on
-              latest dates.
+              product, product_agg,category, market and country. Multiple
+              choices in the same filter type can be passed too by simply adding
+              same query key with appropriate value. Default is to return 25
+              records based on latest dates.
             </p>
             <p>All records are sorted by date descending.</p>
             <p>Check the example.</p>
@@ -428,8 +428,7 @@ const SideNav = () => {
               separated by pagination.
               <br />
               <br />
-              Starting date needs to be older than Ending Date for succesful
-              query.{' '}
+              startDate needs to be older than endDate for successful query.
               <Popup
                 trigger={<Icon name="question circle" size="large" />}
                 content="You can scroll the URL below horizontally"
@@ -481,14 +480,24 @@ const SideNav = () => {
 
         <section className="articles-examples" ref={pivotdocs}>
           <article className="left-article">
-            <h2>Pivot Table Docs</h2>
+            <h2>Pivot Table</h2>
             <h2>Filters</h2>
             <h3>Countries</h3>
             <p>
               Users have the ability to filter through the records based on the
-              country. The countries are abbreviated below are the full country
-              names.
+              country. The countries are abbreviated below along with their full
+              country names.
             </p>
+
+            <h4>Abvreviation || Full country name</h4>
+            <li>BDI - Burundi</li>
+            <li>DRC - Democratic Republic of the Congo</li>
+            <li>KEN - Kenya</li>
+            <li>NWI - Malawi</li>
+            <li>RWA - Rwanda</li>
+            <li>SSD - South Sudan</li>
+            <li>TZA - Tanzania</li>
+            <li>UGA - Uganda</li>
           </article>
           <article className="right-article">
             <img
@@ -502,9 +511,22 @@ const SideNav = () => {
           <article className="left-article">
             <h3>Currency</h3>
             <p>
-              the currency filter allows the user to search different records
-              with that specific curren cy that belongs to its country.
+              The currency filter allows the user to convert search result
+              retail and wholesale values to the selected currency. Currently,
+              the returned values are not adjusted for inflation.
             </p>
+
+            <h4>Abbreviation || Currency || Country</h4>
+            <li>MWK - Kwachas - Malawi</li>
+            <li>RWF - The Rwandan Franc - Rwanda</li>
+            <li>KES - Kenyan Shilling - Kenya</li>
+            <li>UGX - The Shilling - Uganda</li>
+            <li>TZS - Tanzanian Shilling - Tanzania</li>
+            <li>
+              CDF - The Congolese Franc - Democratic Republic of the Congo
+            </li>
+            <li>BIF - The Franc - Burundi</li>
+            <li>USD - U.S. Dollar - United States</li>
           </article>
           <article className="right-article">
             <img
@@ -519,10 +541,9 @@ const SideNav = () => {
             <h3>Markets</h3>
             <p>
               Markets range from all over Eastern Africa from Acura to Ziniya.
-              There are currently 77 markets over 6 countries in Eastern Africa
-              that you can collect data from and is being updated constantly.
-              Find multiple products through these markets as well as prices
-              from specific items to even product categories.
+              There are currently about 100 markets over 8 countries in Eastern
+              Africa and we are adding more every day. Find multiple products in
+              these markets as well as prices from specific items.
             </p>
           </article>
           <article className="right-article">
@@ -537,12 +558,11 @@ const SideNav = () => {
           <article className="left-article">
             <h3>Products</h3>
             <p>
-              When using the products filters, user has the ability of searching
+              When using the products filters, user has the ability to search
               even more specific records. You must first understand that there
               is a hierarchy. The top is products category, second is products
               aggregators, and last is products. Using these filters in unison
-              can bring up records of market prices based on a specific product
-              if that is what you want.{' '}
+              can bring up records of market prices based on a specific product.
             </p>
           </article>
           <article className="right-article">
@@ -558,11 +578,11 @@ const SideNav = () => {
             <h3>Date Ranges</h3>
             <p>
               Market prices are always changing and being updated. We wanted the
-              user to be able to search Countries, Markets, Products and
-              Currency from different dates so the user can get the most up to
+              user to be able to search countries, markets, products and
+              currency from different dates so the user can get the most up to
               date data for their use. The user can retrieve records back from
               2013. With that ability to pick a start date and end date. We’ll
-              generate every record in between for the user.{' '}
+              generate every record in between for the user.
             </p>
           </article>
           <article className="right-article">
