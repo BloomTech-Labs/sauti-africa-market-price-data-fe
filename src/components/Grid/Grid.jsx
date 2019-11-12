@@ -1,215 +1,230 @@
-import React, { useReducer, useState, useEffect } from "react";
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
-import axios from "axios";
-import { AgGridReact } from "ag-grid-react";
+import React, { useReducer, useState, useEffect } from 'react'
+import { axiosWithAuth } from '../../utils/axiosWithAuth'
+import axios from 'axios'
+import { AgGridReact } from 'ag-grid-react'
 // import DataGrid from '../DataGrid'
-import useGetToken from "../../hooks/useGetToken";
+import useGetToken from '../../hooks/useGetToken'
 
-import { GridContext } from "../../contexts";
-import { initialState, reducer } from "../../store";
+import { GridContext } from '../../contexts'
+import { initialState, reducer } from '../../store'
 
-import { Container } from "reactstrap";
-import { Dropdown, Button, Form } from "semantic-ui-react";
-import moment from "moment";
-import { DatePicker } from "antd";
+import { Container } from 'reactstrap'
+import { Dropdown, Button, Form } from 'semantic-ui-react'
+import moment from 'moment'
+import { DatePicker } from 'antd'
 
-import { currencyOptions } from "../../config/gridDropdown";
+import { currencyOptions } from '../../config/gridDropdown'
 
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-balham.css";
-import "antd/dist/antd.css";
-import "./Grid.scss";
+import 'ag-grid-community/dist/styles/ag-grid.css'
+import 'ag-grid-community/dist/styles/ag-theme-balham.css'
+import 'antd/dist/antd.css'
+import './Grid.scss'
 
-const { RangePicker } = DatePicker;
+const { RangePicker } = DatePicker
 
 const Grid = () => {
-  const [store, dispatch] = useReducer(reducer, initialState);
-  const { columnDefs, rowData, gridStyle } = store;
-  const [err, setErr] = useState(false);
+  const [store, dispatch] = useReducer(reducer, initialState)
+  const { columnDefs, rowData, gridStyle } = store
+  const [err, setErr] = useState(false)
 
   //Usestate to set inputs for table
-  const [list, setList] = useState(null);
+  const [list, setList] = useState(null)
 
   // UseState to set queries in URL
-  const [countryQuery, setCountryQuery] = useState();
-  const [marketQuery, setMarketQuery] = useState();
-  const [pCatQuery, setPCatQuery] = useState();
-  const [pAggQuery, setPAggQuery] = useState();
-  const [productQuery, setProductQuery] = useState();
-  const [next, setNext] = useState([]);
-  const [prev, setPrev] = useState([]);
-  const [count, setCount] = useState(null);
-  const [page, setPage] = useState(null);
-  const [countries, setCountries] = useState([]);
-  const [markets, setMarkets] = useState([]);
-  const [pCats, setPCats] = useState([]);
-  const [pAggs, setPAggs] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [currency, setCurrency] = useState();
-  const [dateRanges, setDateRanges] = useState(null);
+  const [countryQuery, setCountryQuery] = useState()
+  const [marketQuery, setMarketQuery] = useState()
+  const [pCatQuery, setPCatQuery] = useState()
+  const [pAggQuery, setPAggQuery] = useState()
+  const [productQuery, setProductQuery] = useState()
+  const [next, setNext] = useState([])
+  const [prev, setPrev] = useState([])
+  const [count, setCount] = useState(null)
+  const [page, setPage] = useState(null)
+  const [countries, setCountries] = useState([])
+  const [markets, setMarkets] = useState([])
+  const [pCats, setPCats] = useState([])
+  const [pAggs, setPAggs] = useState([])
+  const [products, setProducts] = useState([])
+  const [currency, setCurrency] = useState()
+  const [dateRanges, setDateRanges] = useState(null)
 
-  const [token] = useGetToken();
-  const [exportCSV, setExportCSV] = useState(null);
+  const [token] = useGetToken()
+  const [agGridAPI, setAPI] = useState(null)
 
   useEffect(() => {
     axios
       .get(
-        "https://sauti-africa-market-master.herokuapp.com/sauti/client/superlist"
+        'https://sauti-africa-market-master.herokuapp.com/sauti/client/superlist'
       )
       .then(res => {
-        setList(res.data);
+        setList(res.data)
       })
       .catch(err => {
-        console.log(err.message);
-      });
-  }, []);
+        console.log(err.message)
+      })
+  }, [])
 
   // Options for dropDown
   let countriesOptions,
     marketOptions,
     pCategoryOptions,
     pAggregatorOptions,
-    productOptions;
+    productOptions
   if (list) {
     countriesOptions = list.countries.map((country, index) => ({
       key: `country-${index}`,
       value: country.country,
       text: country.country
-    }));
+    }))
     marketOptions = list.markets.map((market, index) => ({
       key: `market-${index}`,
       text: market.market,
       value: market.market
-    }));
+    }))
     pCategoryOptions = list.categories.map((product_cat, index) => ({
       key: `category-${index}`,
       text: product_cat.product_cat,
       value: product_cat.product_cat
-    }));
+    }))
     pAggregatorOptions = list.aggregators.map((product_agg, index) => ({
       key: `Aggregator-${index}`,
       text: product_agg.product_agg,
       value: product_agg.product_agg
-    }));
+    }))
     productOptions = list.products.map((product, index) => ({
       key: `product-${index}`,
       text: product.product,
       value: product.product
-    }));
+    }))
   }
 
   // Submit handlers for dropDown
   const dropdownHandler = (value, valueUpdater, queryUpdater, prefix) => {
-    valueUpdater(value);
-    if (value.length) queryUpdater(`&${prefix}=${value.join(`&${prefix}=`)}`);
-  };
+    valueUpdater(value)
+    if (value.length) queryUpdater(`&${prefix}=${value.join(`&${prefix}=`)}`)
+  }
 
   function disabledDate(current) {
     // Can not select days after today and today
-    return current && current > moment().endOf("day");
+    return current && current > moment().endOf('day')
   }
 
   const onGridReady = params => {
-    params.api.sizeColumnsToFit();
-    setExportCSV(params.api);
-  };
+    params.api.sizeColumnsToFit()
+    setAPI(params.api)
+  }
 
   const nextApiCall = async () => {
+    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
-            "YYYY-MM-DD"
-          )}&endDate=${dateRanges[1].format("YYYY-MM-DD")}`
-        : "";
-    setErr(false);
-    let nextCursor = null;
-    let n = next[next.length - 1];
-    if (next) nextCursor = n;
+            'YYYY-MM-DD'
+          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+        : ''
+    setErr(false)
+    let nextCursor = null
+    let n = next[next.length - 1]
+    if (next) nextCursor = n
     axiosWithAuth([token])
       .get(
         `https://sauti-africa-market-master.herokuapp.com/sauti/client/?currency=${currency ||
-          "USD"}${countryQuery || ""}${marketQuery || ""}${pCatQuery ||
-          ""}${pAggQuery || ""}${productQuery ||
-          ""}${dateRangeQuery}&next=${nextCursor}`
+          'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
+          ''}${pAggQuery || ''}${productQuery ||
+          ''}${dateRangeQuery}&next=${nextCursor}`
       )
       .then(async res => {
-        dispatch({ type: "SET_ROW_DATA", payload: res.data.records });
-        const p = page;
-        const currentPage = typeof p === "number" ? p + 1 : 1;
+        dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
+        const p = page
+        const currentPage = typeof p === 'number' ? p + 1 : 1
 
-        await setPrev([...prev, res.data.prev]);
-        await setNext([...next, res.data.next]);
-        await setPage(currentPage);
+        await setPrev([...prev, res.data.prev])
+        await setNext([...next, res.data.next])
+        await setPage(currentPage)
+
+        agGridAPI.hideOverlay()
       })
       .catch(e => {
-        console.log({ apiCallErr: e });
-        setErr(true);
-      });
-  };
+        console.log({ apiCallErr: e })
+
+        agGridAPI.hideOverlay()
+        setErr(true)
+      })
+  }
 
   const prevApiCall = async () => {
+    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
-            "YYYY-MM-DD"
-          )}&endDate=${dateRanges[1].format("YYYY-MM-DD")}`
-        : "";
-    setErr(false);
-    let p = page;
-    const currentPage = typeof p === "number" && p > 1 ? p - 1 : 1;
-    await setPage(currentPage);
-    let nextCursor = null;
-    let nextPage = null;
-    if (prev && page) nextPage = prev[page - 2];
-    if (nextPage) nextCursor = nextPage;
+            'YYYY-MM-DD'
+          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+        : ''
+    setErr(false)
+    let p = page
+    const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
+    await setPage(currentPage)
+    let nextCursor = null
+    let nextPage = null
+    if (prev && page) nextPage = prev[page - 2]
+    if (nextPage) nextCursor = nextPage
     axiosWithAuth([token])
       .get(
         `https://sauti-africa-market-master.herokuapp.com/sauti/client/?currency=${currency ||
-          "USD"}${countryQuery || ""}${marketQuery || ""}${pCatQuery ||
-          ""}${pAggQuery || ""}${productQuery ||
-          ""}${dateRangeQuery}&next=${nextCursor}`
+          'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
+          ''}${pAggQuery || ''}${productQuery ||
+          ''}${dateRangeQuery}&next=${nextCursor}`
       )
       .then(async res => {
-        dispatch({ type: "SET_ROW_DATA", payload: res.data.records });
+        dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
 
-        await setNext([...next, res.data.next]);
-        await setPrev([...prev, res.data.prev]);
+        await setNext([...next, res.data.next])
+        await setPrev([...prev, res.data.prev])
+
+        agGridAPI.hideOverlay()
       })
       .catch(e => {
-        console.log({ apiCallErr: e });
-        setErr(true);
-      });
-  };
+        console.log({ apiCallErr: e })
+
+        agGridAPI.hideOverlay()
+        setErr(true)
+      })
+  }
 
   const apiCall = async () => {
+    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
-            "YYYY-MM-DD"
-          )}&endDate=${dateRanges[1].format("YYYY-MM-DD")}`
-        : "";
-    setErr(false);
+            'YYYY-MM-DD'
+          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+        : ''
+    setErr(false)
     axiosWithAuth([token])
       .get(
         `https://sauti-africa-market-master.herokuapp.com/sauti/client/?currency=${currency ||
-          "USD"}${countryQuery || ""}${marketQuery || ""}${pCatQuery ||
-          ""}${pAggQuery || ""}${productQuery || ""}${dateRangeQuery}`
+          'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
+          ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
       )
       .then(async res => {
-        dispatch({ type: "SET_ROW_DATA", payload: res.data.records });
+        dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
 
-        setNext([...next, res.data.next]);
-        let newCount = Math.ceil(parseInt(res.data.count[0]["count(*)"]) / 50);
+        setNext([...next, res.data.next])
+        let newCount = Math.ceil(parseInt(res.data.count[0]['count(*)']) / 50)
 
-        await setPrev([...prev, res.data.prev]);
-        await setPage(1);
-        await setCount(newCount);
+        await setPrev([...prev, res.data.prev])
+        await setPage(1)
+        await setCount(newCount)
+
+        agGridAPI.hideOverlay()
       })
       .catch(e => {
-        console.log({ apiCallErr: e });
-        setErr(true);
-      });
-  };
+        console.log({ apiCallErr: e })
+        setErr(true)
+
+        agGridAPI.hideOverlay()
+      })
+  }
 
   return (
     <Container className="flex-grow-1 mt-5">
@@ -228,7 +243,7 @@ const Grid = () => {
                   selection
                   options={countriesOptions}
                   onChange={(e, { value }) =>
-                    dropdownHandler(value, setCountries, setCountryQuery, "c")
+                    dropdownHandler(value, setCountries, setCountryQuery, 'c')
                   }
                   value={countries}
                 />
@@ -240,7 +255,7 @@ const Grid = () => {
                   selection
                   options={marketOptions}
                   onChange={(e, { value }) =>
-                    dropdownHandler(value, setMarkets, setMarketQuery, "m")
+                    dropdownHandler(value, setMarkets, setMarketQuery, 'm')
                   }
                   value={markets}
                 />
@@ -252,7 +267,7 @@ const Grid = () => {
                   selection
                   options={pCategoryOptions}
                   onChange={(e, { value }) =>
-                    dropdownHandler(value, setPCats, setPCatQuery, "pcat")
+                    dropdownHandler(value, setPCats, setPCatQuery, 'pcat')
                   }
                   value={pCats}
                 />
@@ -264,7 +279,7 @@ const Grid = () => {
                   selection
                   options={pAggregatorOptions}
                   onChange={(e, { value }) =>
-                    dropdownHandler(value, setPAggs, setPAggQuery, "pagg")
+                    dropdownHandler(value, setPAggs, setPAggQuery, 'pagg')
                   }
                   value={pAggs}
                 />
@@ -276,7 +291,7 @@ const Grid = () => {
                   selection
                   options={productOptions}
                   onChange={(e, { value }) =>
-                    dropdownHandler(value, setProducts, setProductQuery, "p")
+                    dropdownHandler(value, setProducts, setProductQuery, 'p')
                   }
                   value={products}
                 />
@@ -293,14 +308,14 @@ const Grid = () => {
                   value={dateRanges}
                   disabledDate={disabledDate}
                   onChange={(dates, date) => {
-                    setDateRanges(dates);
+                    setDateRanges(dates)
                   }}
                 />
               </Form>
               <div>
                 <Button onClick={() => apiCall()}>Update Grid</Button>
                 {rowData[0] && (
-                  <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
+                  <Button onClick={() => agGridAPI.exportDataAsCsv(rowData)}>
                     Export CSV
                   </Button>
                 )}
@@ -320,13 +335,13 @@ const Grid = () => {
             ></AgGridReact>
           </div>
           {!page ? (
-            <Button disabled>{"<"}</Button>
+            <Button disabled>{'<'}</Button>
           ) : page === 2 ? (
-            <Button onClick={apiCall}>{"<"}</Button>
+            <Button onClick={apiCall}>{'<'}</Button>
           ) : page === 1 ? (
-            <Button disabled>{"<"}</Button>
+            <Button disabled>{'<'}</Button>
           ) : (
-            <Button onClick={prevApiCall}>{"<"}</Button>
+            <Button onClick={prevApiCall}>{'<'}</Button>
           )}
           {next && page < count ? (
             <Button onClick={nextApiCall}>{`>`}</Button>
@@ -337,7 +352,7 @@ const Grid = () => {
         </div>
       </GridContext.Provider>
     </Container>
-  );
-};
+  )
+}
 
-export default Grid;
+export default Grid
