@@ -12,3 +12,10 @@
     }
   }
 }
+
+.ant-calendar-date-panel {
+  @media (max-width: 550px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
