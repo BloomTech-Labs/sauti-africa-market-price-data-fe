@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import Playground from '../Playground/playground.js'
 import {
   Container,
   Header,
@@ -593,6 +594,7 @@ const SideNav = () => {
             />
           </article>
         </section>
+        <Playground/>
       </Container>
     </div>
   )
