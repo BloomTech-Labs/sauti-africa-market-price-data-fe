@@ -1,5 +1,13 @@
-import React, { useRef } from 'react'
-import { Container, Header, Menu, Table, Popup, Icon } from 'semantic-ui-react'
+import React, { useRef, useState } from 'react'
+import {
+  Container,
+  Header,
+  Menu,
+  Table,
+  Popup,
+  Icon,
+  Button
+} from 'semantic-ui-react'
 import Highlight from 'react-highlight'
 
 import apiKeyGif from '../../assets/apiKey.gif'
@@ -21,6 +29,7 @@ const SideNav = () => {
   //Managing the state of Side Nav Tabbing between by setting the active item
   // const [active, setActive] = useState({ activeItem: 'Quick Start' })
   // const handleItemClick = (e, { name }) => setActive({ activeItem: name })
+  const [sidenav, toggleSidenav] = useState(true)
 
   //Applying scrolling to places of the page
   const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop)
@@ -34,39 +43,42 @@ const SideNav = () => {
   const pivotdocs = useRef()
 
   return (
-    <div className="side-nav">
+    <div className={sidenav ? 'side-nav' : 'side-nav hide-nav'}>
       <Menu size="massive" pointing vertical className="side-nav-items">
-        <Menu.Item name="API" />
-        <Menu.Item name="Quick Start" onClick={() => scrollToPlay(quick)} />
-        <Menu.Item name="Reference" onClick={() => scrollToPlay(refer)} />
-        <Menu.Item name="Lists Endpoint" onClick={() => scrollToPlay(list)} />
-        <Menu.Item
-          name="Filter Search Endpoint"
-          onClick={() => scrollToPlay(filter)}
-        />
-        <Menu.Item
-          name="Latest Price in All Markets Endpoint"
-          onClick={() => scrollToPlay(latestPrice)}
-        />
-        <Menu.Item
-          name="Latest Price by Market Endpoint"
-          onClick={() => scrollToPlay(lastestMarketPrice)}
-        />
-        <Menu.Item
-          name="Latest Price by Date Range Endpoint"
-          onClick={() => scrollToPlay(dateRange)}
-        />
-        <Menu.Item
-          name="Pivot Table Docs"
-          onClick={() => scrollToPlay(pivotdocs)}
-        />
+        <div className="menu-content">
+          <Menu.Item name="API" />
+          <Menu.Item name="Quick Start" onClick={() => scrollToPlay(quick)} />
+          <Menu.Item name="Reference" onClick={() => scrollToPlay(refer)} />
+          <Menu.Item name="Lists Endpoint" onClick={() => scrollToPlay(list)} />
+          <Menu.Item
+            name="Filter Search Endpoint"
+            onClick={() => scrollToPlay(filter)}
+          />
+          <Menu.Item
+            name="Latest Price in All Markets Endpoint"
+            onClick={() => scrollToPlay(latestPrice)}
+          />
+          <Menu.Item
+            name="Latest Price by Market Endpoint"
+            onClick={() => scrollToPlay(lastestMarketPrice)}
+          />
+          <Menu.Item
+            name="Latest Price by Date Range Endpoint"
+            onClick={() => scrollToPlay(dateRange)}
+          />
+          <Menu.Item
+            name="Pivot Table Docs"
+            onClick={() => scrollToPlay(pivotdocs)}
+          />
+        </div>
+        <div className="menu-control">
+          <Button role="button" onClick={() => toggleSidenav(!sidenav)}>
+            Menu
+          </Button>
+        </div>
       </Menu>
 
       <Container fluid className="center-api-column">
-        <input id="slide-sidenav" type="checkbox" role="button" />
-        <label for="slide-sidenav">
-          <span>Close</span>
-        </label>
         <section className="articles-examples">
           <article className="left-article">
             <Header as="h2">API</Header>
@@ -466,74 +478,100 @@ const SideNav = () => {
             />
           </article>
         </section>
-        
+
         <section className="articles-examples" ref={pivotdocs}>
-              <article className="left-article">
-                <h2>Pivot Table Docs</h2>
-                <h2>Filters</h2>
-                <h3>Countries</h3>
-                <p>Users have the ability to filter through the records based on the country.
-                The countries are abbreviated below are the full country names.</p>
-              </article>
-              <article className="right-article">
-                <img
-                src={countriesGif}
-                alt="Example countries filter"
-                className="gif-examples"
-              />
-              </article>
+          <article className="left-article">
+            <h2>Pivot Table Docs</h2>
+            <h2>Filters</h2>
+            <h3>Countries</h3>
+            <p>
+              Users have the ability to filter through the records based on the
+              country. The countries are abbreviated below are the full country
+              names.
+            </p>
+          </article>
+          <article className="right-article">
+            <img
+              src={countriesGif}
+              alt="Example countries filter"
+              className="gif-examples"
+            />
+          </article>
         </section>
         <section className="articles-examples">
-               <article className="left-article">
-                    <h3>Currency</h3>
-                    <p>the currency filter allows the user to search different records with that specific curren cy that belongs to its country.</p>
-               </article>
-               <article className="right-article">
-                    <img
-                    src={currencyGif}
-                    alt="Example currency filter"
-                    className="gif-examples"
-                    />
-               </article>
+          <article className="left-article">
+            <h3>Currency</h3>
+            <p>
+              the currency filter allows the user to search different records
+              with that specific curren cy that belongs to its country.
+            </p>
+          </article>
+          <article className="right-article">
+            <img
+              src={currencyGif}
+              alt="Example currency filter"
+              className="gif-examples"
+            />
+          </article>
         </section>
         <section className="articles-examples">
-              <article className="left-article">
-                  <h3>Markets</h3>
-                  <p>Markets range from all over Eastern Africa from Acura to Ziniya. There are currently 77 markets over 6 countries in Eastern Africa that you can collect data from and is being updated constantly. Find multiple products through these markets as well as prices from specific items to even product categories.</p>
-              </article>
-              <article className="right-article">
-                  <img
-                  src={marketGif}
-                  alt="Example markets filter"
-                  className="gif-examples"
-                  />
-              </article>
+          <article className="left-article">
+            <h3>Markets</h3>
+            <p>
+              Markets range from all over Eastern Africa from Acura to Ziniya.
+              There are currently 77 markets over 6 countries in Eastern Africa
+              that you can collect data from and is being updated constantly.
+              Find multiple products through these markets as well as prices
+              from specific items to even product categories.
+            </p>
+          </article>
+          <article className="right-article">
+            <img
+              src={marketGif}
+              alt="Example markets filter"
+              className="gif-examples"
+            />
+          </article>
         </section>
         <section className="articles-examples">
-              <article className="left-article">
-                  <h3>Products</h3>
-                  <p>When using the products filters, user has the ability of searching even more specific records. You must first understand that there is a hierarchy. The top is products category, second is products aggregators, and last is products. Using these filters in unison can bring up records of market prices based on a specific product if that is what you want. </p>
-              </article>
-              <article className="right-article">
-                  <img
-                  src={productsGif}
-                  alt="Example products filter"
-                  className="gif-examples"
-                  />
-              </article>
+          <article className="left-article">
+            <h3>Products</h3>
+            <p>
+              When using the products filters, user has the ability of searching
+              even more specific records. You must first understand that there
+              is a hierarchy. The top is products category, second is products
+              aggregators, and last is products. Using these filters in unison
+              can bring up records of market prices based on a specific product
+              if that is what you want.{' '}
+            </p>
+          </article>
+          <article className="right-article">
+            <img
+              src={productsGif}
+              alt="Example products filter"
+              className="gif-examples"
+            />
+          </article>
         </section>
         <section className="articles-examples">
-              <article className="left-article">
-                  <h3>Date Ranges</h3>
-                  <p>Market prices are always changing and being updated. We wanted the user to be able to search Countries, Markets, Products and Currency from different dates so the user can get the most up to date data for their use. The user can retrieve records back from 2013. With that ability to pick a start date and end date. We’ll generate every record in between for the user.  </p>
-              </article>
-              <article className="right-article">
-                  <img
-                  src={timeRangeGif}
-                  alt="Example date ranges filter"
-                  className="gif-examples"
-                  />
-              </article> 
+          <article className="left-article">
+            <h3>Date Ranges</h3>
+            <p>
+              Market prices are always changing and being updated. We wanted the
+              user to be able to search Countries, Markets, Products and
+              Currency from different dates so the user can get the most up to
+              date data for their use. The user can retrieve records back from
+              2013. With that ability to pick a start date and end date. We’ll
+              generate every record in between for the user.{' '}
+            </p>
+          </article>
+          <article className="right-article">
+            <img
+              src={timeRangeGif}
+              alt="Example date ranges filter"
+              className="gif-examples"
+            />
+          </article>
         </section>
       </Container>
     </div>
