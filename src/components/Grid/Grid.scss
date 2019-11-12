@@ -1,0 +1,14 @@
+.ant-calendar-picker {
+  width: 100%;
+  display: flex;
+
+  .ant-input {
+    width: 100% !important;
+
+    .ant-calendar-range-picker-input {
+      @media (max-width: 500px) {
+        width: 50% !important;
+      }
+    }
+  }
+}
