@@ -16,12 +16,17 @@ const Content = ({ apiKey }) => {
     setData([])
     axios
       .get(
-        // 'https://sauti-africa-market-master.herokuapp.com/
-        'https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/?currency=USD',
+        '/sauti/developer/filter/?currency=USD',
         {
           headers: {
             key: apiKey
           }
+        },
+        {
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
         }
       )
       .then(res => {
