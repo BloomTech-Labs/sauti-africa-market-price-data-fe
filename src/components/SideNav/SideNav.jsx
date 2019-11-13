@@ -67,7 +67,7 @@ const SideNav = () => {
             onClick={() => scrollToPlay(dateRange)}
           />
           <Menu.Item
-            name="Pivot Table"
+            name="Get Data Table"
             onClick={() => scrollToPlay(pivotdocs)}
           />
         </div>
@@ -480,7 +480,7 @@ const SideNav = () => {
 
         <section className="articles-examples" ref={pivotdocs}>
           <article className="left-article">
-            <h2>Pivot Table</h2>
+            <h2>Get Data Table</h2>
             <h2>Filters</h2>
             <h3>Countries</h3>
             <p>
