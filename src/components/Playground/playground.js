@@ -5,33 +5,44 @@ import axios from 'axios'
 import Highlight from 'react-highlight'
 import "highlight.js/styles/monokai-sublime.css"
  export default function Playground(){
-    const [userAnswer, setUserAnswer] = useState({url: ""})
+    const [userAnswer, setUserAnswer] = useState({url: ''})
     const [data, setData] = useState([])
+    const [bad, setBad] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(null)
     const [token] = useGetToken()
     const handleChange = e => {e.preventDefault()
         console.log('e.target.name', e.target.name)
         console.log('e.target.value', e.target.value)
         setUserAnswer({...userAnswer, [e.target.name]: e.target.value})
     }
-    function makeCall (){
-        axios
-        .get(`http://localhost:8888/sauti/`)
+    const handleSubmit= (e, value) => {
+        e.preventDefault()
+        makeCall(value)
+    }
+    function makeCall (value){
+        axiosWithAuth([token])
+      
+        .get(`http://localhost:8888/sauti/?${value}`)
         .then(res => {
             console.log(res)
-            setData(res.data.records)
+            setData(res.data)
         })
-        .catch(err => {
-            console.log(err.message)
+        .catch(error => {
+            console.log(error.message)
+            setBad(true)
+            setErrorMessage(error.message)
+
         })
 
     }
-    useEffect(()=> {
-      makeCall()
+    // useEffect(()=> {
+    //   makeCall()
 
-    },[])
+    // },[])
     return(
         <>
         <form>
+            http://localhost:8888/?
             <input 
             name='url'
             type='text'
@@ -39,16 +50,17 @@ import "highlight.js/styles/monokai-sublime.css"
             onChange={handleChange}
             />
         </form>
-        <button>make your call!</button>
-        {data ? data.map(entry => {
+        <button onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</button>
+        {data[0] && !bad ? data.map(entry => {
             return (
                 <>
                     <Highlight className="JSON">{JSON.stringify(entry, null, 2)}</Highlight>
                 </>
             )
-        }): <div>done messed up</div>
+        }):  <Highlight>{errorMessage}</Highlight>
 
         }
+        <p>something should be above this</p>
             
         
 

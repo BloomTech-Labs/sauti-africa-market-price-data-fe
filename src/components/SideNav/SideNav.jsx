@@ -17,11 +17,11 @@ import filterGif from '../../assets/filterexample.gif'
 import priceAllGif from '../../assets/priceallmarketsexample.gif'
 import priceProductMarketGif from '../../assets/pricemarketproductexample.gif'
 import priceDateGif from '../../assets/pricedateexample.gif'
-import countriesGif from '../../assets/Countries.gif'
-import currencyGif from '../../assets/Currency.gif'
-import marketGif from '../../assets/Market.gif'
-import productsGif from '../../assets/Products.gif'
-import timeRangeGif from '../../assets/Timerange.gif'
+import countryGif from '../../assets/country.gif'
+import currenciesGif from '../../assets/currencies.gif'
+import marketsGif from '../../assets/markets.gif'
+import productGif from '../../assets/product.gif'
+import dateRangeGif from '../../assets/date-range.gif'
 
 import 'highlight.js/styles/monokai-sublime.css'
 import './SideNav.scss'
@@ -88,7 +88,7 @@ const SideNav = () => {
               specific data from an internal database and send out JSON
               response. */}
               Sauti Africa Market Prices API is designed to provide up-to-date
-              daily prices for about 100 products across 60 marketplaces in East
+              daily prices for over 150 products across more than 100 marketplaces in East
               Africa. The API has resource-oriented URLs, returns JSON-encoded
               responses and uses standard HTTP response codes, authentication
               and verbs.
@@ -489,22 +489,57 @@ const SideNav = () => {
               country. The countries are abbreviated below along with their full
               country names.
             </p>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Abbreviation</Table.HeaderCell>
+                  <Table.HeaderCell>Country Name</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
 
-            <h4>Abvreviation || Full country name</h4>
-            <li>BDI - Burundi</li>
-            <li>DRC - Democratic Republic of the Congo</li>
-            <li>KEN - Kenya</li>
-            <li>NWI - Malawi</li>
-            <li>RWA - Rwanda</li>
-            <li>SSD - South Sudan</li>
-            <li>TZA - Tanzania</li>
-            <li>UGA - Uganda</li>
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>BDI</Table.Cell>
+                  <Table.Cell>Burundi</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>DRC</Table.Cell>
+                  <Table.Cell>
+                    Democratic Republic of the Congo
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>KEN</Table.Cell>
+                  <Table.Cell>Kenya</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>MWI</Table.Cell>
+                  <Table.Cell>Malawi</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>RWA</Table.Cell>
+                  <Table.Cell>Rawanda</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>SSD</Table.Cell>
+                  <Table.Cell>South Sudan</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>TZA</Table.Cell>
+                  <Table.Cell>Tanzania</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>UGA</Table.Cell>
+                  <Table.Cell>Uganda</Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
           </article>
           <article className="right-article">
             <img
-              src={countriesGif}
+              src={countryGif}
               alt="Example countries filter"
-              className="gif-examples"
+              className="gif-example-country"
             />
           </article>
         </section>
@@ -516,22 +551,66 @@ const SideNav = () => {
               retail and wholesale values to the selected currency. Currently,
               the returned values are not adjusted for inflation.
             </p>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Abbreviation</Table.HeaderCell>
+                  <Table.HeaderCell>Currency</Table.HeaderCell>
+                  <Table.HeaderCell>Country</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
 
-            <h4>Abbreviation || Currency || Country</h4>
-            <li>MWK - Kwachas - Malawi</li>
-            <li>RWF - The Rwandan Franc - Rwanda</li>
-            <li>KES - Kenyan Shilling - Kenya</li>
-            <li>UGX - The Shilling - Uganda</li>
-            <li>TZS - Tanzanian Shilling - Tanzania</li>
-            <li>
-              CDF - The Congolese Franc - Democratic Republic of the Congo
-            </li>
-            <li>BIF - The Franc - Burundi</li>
-            <li>USD - U.S. Dollar - United States</li>
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>BIF</Table.Cell>
+                  <Table.Cell>The Franc</Table.Cell>
+                  <Table.Cell>Burundi</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>CDF</Table.Cell>
+                  <Table.Cell>
+                    The Congolese Franc
+                  </Table.Cell>
+                  <Table.Cell>
+                    Democratic Republic of the Congo
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>KES</Table.Cell>
+                  <Table.Cell>Kenyan Shilling</Table.Cell>
+                  <Table.Cell>Kenya</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>MWK</Table.Cell>
+                  <Table.Cell>Kwachas</Table.Cell>
+                  <Table.Cell>Malawi</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>RWF</Table.Cell>
+                  <Table.Cell>The Rawandan Franc</Table.Cell>
+                  <Table.Cell>Rawanda</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>UGX</Table.Cell>
+                  <Table.Cell>The Shilling</Table.Cell>
+                  <Table.Cell>Uganda</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>TZS</Table.Cell>
+                  <Table.Cell>Tanzanian Shilling</Table.Cell>
+                  <Table.Cell>Tanzania</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>USD</Table.Cell>
+                  <Table.Cell>U.S. Dollar</Table.Cell>
+                  <Table.Cell>United States</Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
           </article>
           <article className="right-article">
             <img
-              src={currencyGif}
+              src={currenciesGif}
               alt="Example currency filter"
               className="gif-examples"
             />
@@ -542,14 +621,13 @@ const SideNav = () => {
             <h3>Markets</h3>
             <p>
               Markets range from all over Eastern Africa from Acura to Ziniya.
-              There are currently about 100 markets over 8 countries in Eastern
-              Africa and we are adding more every day. Find multiple products in
+              There are currently over 100 markets. Find multiple products in
               these markets as well as prices from specific items.
             </p>
           </article>
           <article className="right-article">
             <img
-              src={marketGif}
+              src={marketsGif}
               alt="Example markets filter"
               className="gif-examples"
             />
@@ -568,7 +646,7 @@ const SideNav = () => {
           </article>
           <article className="right-article">
             <img
-              src={productsGif}
+              src={productGif}
               alt="Example products filter"
               className="gif-examples"
             />
@@ -588,7 +666,7 @@ const SideNav = () => {
           </article>
           <article className="right-article">
             <img
-              src={timeRangeGif}
+              src={dateRangeGif}
               alt="Example date ranges filter"
               className="gif-examples"
             />
