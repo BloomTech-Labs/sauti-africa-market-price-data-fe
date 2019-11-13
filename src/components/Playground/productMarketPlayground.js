@@ -4,8 +4,9 @@ import useGetToken from '../../hooks/useGetToken'
 import axios from 'axios'
 import Highlight from 'react-highlight'
 import "highlight.js/styles/monokai-sublime.css"
- export default function Playground(){
-    const [userAnswer, setUserAnswer] = useState({url: ''})
+
+export default function PmPlayground(){
+    const [userAnswer, setUserAnswer] = useState({url: 'product=yellow%20beans&market=lira'})
     const [data, setData] = useState([])
     const [bad, setBad] = useState(false)
     const [errorMessage, setErrorMessage] = useState(null)
@@ -18,11 +19,16 @@ import "highlight.js/styles/monokai-sublime.css"
     const handleSubmit= (e, value) => {
         e.preventDefault()
         makeCall(value)
+        
+    }
+    const clearUrl = (e) =>{
+        e.preventDefault()
+        setUserAnswer({url: ''})
     }
     function makeCall (value){
         axiosWithAuth([token])
       
-        .get(`http://localhost:8888/sauti/?${value}`)
+        .get(`http://localhost:8888/sauti/client/playground/latest?${value}`)
         .then(res => {
             console.log(res)
             setData(res.data)
@@ -42,7 +48,7 @@ import "highlight.js/styles/monokai-sublime.css"
     return(
         <>
         <form>
-            http://localhost:8888/?
+            http://localhost:8888/sauti/client/playground/latest?
             <input 
             name='url'
             type='text'
@@ -51,6 +57,7 @@ import "highlight.js/styles/monokai-sublime.css"
             />
         </form>
         <button onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</button>
+        <button onClick={(e)=> clearUrl(e)}>Clear URL</button>
         {data[0] && !bad ? data.map(entry => {
             return (
                 <>
@@ -60,12 +67,6 @@ import "highlight.js/styles/monokai-sublime.css"
         }):  <Highlight>{errorMessage}</Highlight>
 
         }
-        <p>something should be above this</p>
-            
-        
-
-
         </>
-
     )
 }

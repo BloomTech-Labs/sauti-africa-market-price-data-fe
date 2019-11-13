@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react'
-import Playground from '../Playground/playground.js'
+import FilterPlayground from '../Playground/filterPlayground.js'
+import DrPlayground from '../Playground/dateRangePlayground.js'
+import PmPlayground from '../Playground/productMarketPlayground.js'
 import {
   Container,
   Header,
@@ -31,6 +33,12 @@ const SideNav = () => {
   // const [active, setActive] = useState({ activeItem: 'Quick Start' })
   // const handleItemClick = (e, { name }) => setActive({ activeItem: name })
   const [sidenav, toggleSidenav] = useState(true)
+
+  //conditionally render playground components via boolean
+  const [playFilter, setPlayFilter] = useState(false)
+  const [playDate, setPlayDate] = useState(false)
+  const [playPrice, setPlayPrice] = useState(false)
+
 
   //Applying scrolling to places of the page
   const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop)
@@ -176,6 +184,7 @@ const SideNav = () => {
                 'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/range/'
               }
             </Highlight>
+
           </article>
         </section>
         <section className="articles-examples" ref={refer}>
@@ -310,6 +319,8 @@ const SideNav = () => {
                 </Table.Row>
               </Table.Body>
             </Table>
+            <button onClick={() => setPlayFilter(!playFilter)}>Try it out</button>
+            {playFilter && <FilterPlayground/>}
           </article>
           <article className="right-article">
             <img
@@ -382,7 +393,7 @@ const SideNav = () => {
               {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
               <br />
               {
-                'developer/product/pricebymarket/?market=[MARKET]a&product=[PRODUCT]'
+                'developer/product/pricebymarket/?market=[MARKET]&product=[PRODUCT]'
               }
             </Highlight>
             <h3>Request Parameters</h3>
@@ -405,6 +416,8 @@ const SideNav = () => {
                 </Table.Row>
               </Table.Body>
             </Table>
+            <button onClick={() => setPlayPrice(!playPrice)}>Try it out</button>
+              {playPrice && <PmPlayground/>}
           </article>
           <article className="right-article">
             <img
@@ -469,6 +482,8 @@ const SideNav = () => {
                 </Table.Row>
               </Table.Body>
             </Table>
+            <button onClick={() => setPlayDate(!playDate)}>Try it out</button>
+            {playDate && <DrPlayground/>}
           </article>
           <article className="right-article">
             <img
@@ -672,7 +687,6 @@ const SideNav = () => {
             />
           </article>
         </section>
-        <Playground/>
       </Container>
     </div>
   )
