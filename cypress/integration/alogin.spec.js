@@ -1,5 +1,6 @@
 describe('login', () => {
   it('should successfully log into our app', () => {
+    cy.visit('/')
     cy.login()
       .then(resp => {
         return resp.body
@@ -19,13 +20,14 @@ describe('login', () => {
         })
       })
   })
-  // describe('<Grid />', () => {
-  //   it('grid page renders', () => {
-  //     cy.visit('/grid')
-  //     cy.get('form').within(() => {
-  //         cy.get('input:first').should('have.attr','placeholder', 'Countries')
-  //     })
-
-  //   })
-  // })
+  describe('<Grid />', () => {
+    it('grid page renders', () => {
+      cy.visit('/grid')
+      cy.get('form').within(() => {
+        cy.get('div:first')
+          .find('div')
+          .contains('Countries')
+      })
+    })
+  })
 })
