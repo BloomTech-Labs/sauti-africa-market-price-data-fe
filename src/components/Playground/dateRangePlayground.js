@@ -33,9 +33,12 @@ import "highlight.js/styles/monokai-sublime.css"
             setData(res.data)
         })
         .catch(error => {
-            console.log(error.message)
+            console.log(error)
+            console.log("trying something else", error.message)
+            console.log("trying something", error.errorMessage)
+            console.log('response', error.response)
             setBad(true)
-            setErrorMessage(error.message)
+            setErrorMessage(error.response.data.errorMessage)
 
         })
 
