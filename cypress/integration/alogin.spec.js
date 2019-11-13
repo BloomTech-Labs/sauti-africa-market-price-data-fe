@@ -23,6 +23,7 @@ describe('login', () => {
   describe('<Grid />', () => {
     it('grid page renders', () => {
       cy.visit('/grid')
+      // cy.pause().reload()
       cy.get('form').within(() => {
         cy.get('div:first')
           .find('div')
