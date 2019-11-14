@@ -33,6 +33,7 @@ const SideNav = () => {
 
   //Applying scrolling to places of the page
   const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop);
+  const api = useRef();
   const quick = useRef();
   const refer = useRef();
   const list = useRef();
