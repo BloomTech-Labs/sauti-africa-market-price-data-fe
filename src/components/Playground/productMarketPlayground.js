@@ -3,7 +3,7 @@ import {axiosWithAuth} from '../../utils/axiosWithAuth'
 import useGetToken from '../../hooks/useGetToken'
 import axios from 'axios'
 import Highlight from 'react-highlight'
-import {Button, Input} from 'semantic-ui-react'
+import {Button, Input, Label} from 'semantic-ui-react'
 import "highlight.js/styles/monokai-sublime.css"
 
 export default function PmPlayground(){
@@ -51,18 +51,20 @@ export default function PmPlayground(){
 
     // },[])
     return(
-        <>
-        <form>
-            http://localhost:8888/sauti/client/playground/latest?
-            <Input 
+        <div className='playground'>
+        <form className="playForm">
+           <Label as='a' basic color='teal'>sauti/developer/product/pricebymarket/?</Label>
+            <Input className="playURL"
             name='url'
             type='text'
             value={userAnswer.url}
             onChange={handleChange}
             />
         </form>
-        <Button disabled={disabledBtn} onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</Button>
-        <Button onClick={(e)=> clearUrl(e)}>Clear URL</Button>
+        <div>
+            <Button disabled={disabledBtn} onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</Button>
+            <Button onClick={(e)=> clearUrl(e)}>Clear URL</Button>
+        </div>
         {data[0] && !bad ? data.map(entry => {
             return (
                 <>
@@ -72,6 +74,6 @@ export default function PmPlayground(){
         }):  <Highlight>{errorMessage}</Highlight>
 
         }
-        </>
+        </div>
     )
 }

@@ -1,7 +1,24 @@
+.playground{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
 .playForm{
-    border: 1px solid red;
+    display: flex;
+}
+a.ui.basic{
+    // margin-top: 1rem;
+    // margin-bottom: 0.2rem;
+    padding-top: .877rem;
+    padding-bottom: .85rem;
 }
 
 .playURL {
-    border: 1px solid blue;
+    // border: 1px solid blue;
+    // margin-bottom: 0.5rem;
+    // margin-top: 0.5rem;
+}
+small {
+    border: 1px solid red;
+    padding-bottom: 1rem;
 }

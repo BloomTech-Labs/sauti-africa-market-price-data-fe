@@ -4,7 +4,7 @@ import useGetToken from '../../hooks/useGetToken'
 import axios from 'axios'
 import Highlight from 'react-highlight'
 import './Playground.scss'
-import {Button, Input} from 'semantic-ui-react'
+import {Button, Input, Label} from 'semantic-ui-react'
 import "highlight.js/styles/monokai-sublime.css"
  export default function DrPlayground(){
     const [userAnswer, setUserAnswer] = useState({url: 'product=yellow%20beans&startDate=2019-01-01&endDate=2019-10-28'})
@@ -53,9 +53,9 @@ import "highlight.js/styles/monokai-sublime.css"
 
     // },[])
     return(
-        <>
+        <div className='playground'>
         <form className="playForm">
-            http://localhost:8888/sauti/client/playground/date?
+        <Label as='a' basic color='violet'>sauti/developer/product/range/?</Label>
             <Input className="playURL"
             name='url'
             type='text'
@@ -63,8 +63,10 @@ import "highlight.js/styles/monokai-sublime.css"
             onChange={handleChange}
             />
         </form>
-        <Button disabled={disabledBtn} className="playAPIBtn" onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</Button>
-        <Button className="playClearBtn" onClick={(e)=> clearUrl(e)}>Clear URL</Button>
+        <div>
+            <Button disabled={disabledBtn} className="playAPIBtn" onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</Button>
+            <Button className="playClearBtn" onClick={(e)=> clearUrl(e)}>Clear URL</Button>
+        </div>
         {data[0] && !bad ? data.map(entry => {
             return (
                 <>
@@ -74,6 +76,6 @@ import "highlight.js/styles/monokai-sublime.css"
         }):  <Highlight>{errorMessage}</Highlight>
 
         }
-        </>
+        </div>
     )
 }
