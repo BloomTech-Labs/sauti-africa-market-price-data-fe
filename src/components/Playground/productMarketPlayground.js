@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import useGetToken from "../../hooks/useGetToken";
-import axios from "axios";
 import Highlight from "react-highlight";
 import { Button, Input, Label } from "semantic-ui-react";
 import "highlight.js/styles/monokai-sublime.css";
@@ -17,8 +16,6 @@ export default function PmPlayground() {
   const [token] = useGetToken();
   const handleChange = e => {
     e.preventDefault();
-    console.log("e.target.name", e.target.name);
-    console.log("e.target.value", e.target.value);
     setUserAnswer({ ...userAnswer, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e, value) => {
@@ -37,12 +34,9 @@ export default function PmPlayground() {
         `https://sauti-africa-market-master.herokuapp.com/sauti/client/playground/latest?${value}`
       )
       .then(res => {
-        console.log(res);
         setData(res.data);
       })
       .catch(error => {
-        console.log(error.message);
-        console.log(error.response.data);
         setBad(true);
         setErrorMessage(error.response.data.errorMessage);
       });

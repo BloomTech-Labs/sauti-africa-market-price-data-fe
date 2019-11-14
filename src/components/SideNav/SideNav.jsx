@@ -40,7 +40,7 @@ const SideNav = () => {
   const [playPrice, setPlayPrice] = useState(false);
 
   //Applying scrolling to places of the page
-  const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop);
+  const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop - 36);
   const api = useRef();
   const quick = useRef();
   const refer = useRef();
