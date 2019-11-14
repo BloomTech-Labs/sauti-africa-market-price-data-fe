@@ -21,6 +21,8 @@
 .env.production.local
 
 cypress.env.json
+/cypress/screenshots/*.png
+/cypress/videos/*.mp4
 
 npm-debug.log*
 yarn-debug.log*

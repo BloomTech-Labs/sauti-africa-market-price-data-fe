@@ -103,6 +103,34 @@ In order for the app to function correctly, the user must set up their own envir
 
 Front-End Testing is done via Cypress.io and Backend Testing is done via supertest
 
+Testing on the front-end requires a `cypress.json` and `cypress.env.json` file with the following information:
+
+`cypress.json`
+
+```json
+{
+  "baseUrl": "http://localhost:3000",
+  "chromeWebSecurity": false,
+  "defaultCommandTimeout": 20000
+}
+```
+
+`cypress.env.json`
+(substitute the corresponding values from your auth0 application)
+
+```json
+
+   "auth_audience": "https://my_tenant.auth0.com/api/v2/",
+   "auth_url": "https://my_tenant.auth0.com/oauth/token",
+   "auth_client_id": "my_client_id",
+   "auth_client_secret": "my_client_secret",
+   "auth_username": "my_username",
+   "auth_password": "my_password"
+}
+```
+
+Your auth0 application should be configured with _Classic Login_, and _Disable Clickjacking_ should be turned off in _Tenant Settings -> Advanced_. Social login is not supported for testing, only an account registered with email / password.
+
 # Installation Instructions
 
 - Clone this repo
@@ -153,3 +181,7 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 ## Documentation
 
 See [Backend Documentation](https://github.com/Lambda-School-Labs/sauti-africa-market-price-data-be) for details on the backend of our project.
+
+```
+
+```
