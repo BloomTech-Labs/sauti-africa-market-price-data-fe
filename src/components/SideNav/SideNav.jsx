@@ -10,8 +10,8 @@ import {
   Popup,
   Icon,
   Button
-} from 'semantic-ui-react'
-import Highlight from 'react-highlight'
+} from "semantic-ui-react";
+import Highlight from "react-highlight";
 
 import apiKeyGif from '../../assets/apiKey.gif'
 import listGif from '../../assets/listexample.gif'
@@ -25,14 +25,14 @@ import marketsGif from '../../assets/markets.gif'
 import productGif from '../../assets/product.gif'
 import dateRangeGif from '../../assets/date-range.gif'
 
-import 'highlight.js/styles/monokai-sublime.css'
-import './SideNav.scss'
+import "highlight.js/styles/monokai-sublime.css";
+import "./SideNav.scss";
 
 const SideNav = () => {
   //Managing the state of Side Nav Tabbing between by setting the active item
   // const [active, setActive] = useState({ activeItem: 'Quick Start' })
   // const handleItemClick = (e, { name }) => setActive({ activeItem: name })
-  const [sidenav, toggleSidenav] = useState(true)
+  const [sidenav, toggleSidenav] = useState(true);
 
   //conditionally render playground components via boolean
   const [playFilter, setPlayFilter] = useState(false)
@@ -41,21 +41,22 @@ const SideNav = () => {
 
 
   //Applying scrolling to places of the page
-  const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop)
-  const quick = useRef()
-  const refer = useRef()
-  const list = useRef()
-  const filter = useRef()
-  const latestPrice = useRef()
-  const lastestMarketPrice = useRef()
-  const dateRange = useRef()
-  const pivotdocs = useRef()
+  const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop);
+  const api = useRef();
+  const quick = useRef();
+  const refer = useRef();
+  const list = useRef();
+  const filter = useRef();
+  const latestPrice = useRef();
+  const lastestMarketPrice = useRef();
+  const dateRange = useRef();
+  const pivotdocs = useRef();
 
   return (
-    <div className={sidenav ? 'side-nav' : 'side-nav hide-nav'}>
+    <div className={sidenav ? "side-nav" : "side-nav hide-nav"}>
       <Menu size="massive" pointing vertical className="side-nav-items">
         <div className="menu-content">
-          <Menu.Item name="API" />
+          <Menu.Item name="API" onClick={() => scrollToPlay(api)} />
           <Menu.Item name="Quick Start" onClick={() => scrollToPlay(quick)} />
           <Menu.Item name="Reference" onClick={() => scrollToPlay(refer)} />
           <Menu.Item name="Lists Endpoint" onClick={() => scrollToPlay(list)} />
@@ -88,7 +89,7 @@ const SideNav = () => {
       </Menu>
 
       <Container fluid className="center-api-column">
-        <section className="articles-examples">
+        <section className="articles-examples" ref={api}>
           <article className="left-article">
             <Header as="h2">API</Header>
             <p>
@@ -137,7 +138,7 @@ const SideNav = () => {
             </h5>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer"
               }
             </Highlight>
             <h5>Available Endpoints</h5>
@@ -145,14 +146,14 @@ const SideNav = () => {
             <h6>specific list - market, country, source, product</h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/"
               }
             </Highlight>
 
             <h6>filter</h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/"
               }
             </Highlight>
 
@@ -161,7 +162,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/latestprice/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/latestprice/"
               }
             </Highlight>
 
@@ -171,7 +172,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/pricebymarket/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/pricebymarket/"
               }
             </Highlight>
 
@@ -181,7 +182,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/range/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/range/"
               }
             </Highlight>
 
@@ -192,9 +193,9 @@ const SideNav = () => {
             <Header as="h2">API Reference</Header>
 
             {/* Specific List: Market, Country, Source, Product */}
-            <h3 style={{ color: 'chartreuse' }} ref={list}>
-              GET{' '}
-              <span style={{ color: 'black' }}>
+            <h3 style={{ color: "chartreuse" }} ref={list}>
+              GET{" "}
+              <span style={{ color: "black" }}>
                 Specific List: Market, Country, Source, Product
               </span>
             </h3>
@@ -208,9 +209,9 @@ const SideNav = () => {
                 position="right center"
               />
               <Highlight language="javascript" className="highlight">
-                {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+                {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
                 <br />
-                {'developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'}
+                {"developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]"}
               </Highlight>
             </p>
             <h3>Request Parameters</h3>
@@ -243,21 +244,27 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Perform Filter Search */}
-            <h3 style={{ color: 'chartreuse' }} ref={filter}>
-              GET <span style={{ color: 'black' }}>Perform Filter Search</span>
+            <h3 style={{ color: "chartreuse" }} ref={filter}>
+              GET <span style={{ color: "black" }}>Perform Filter Search</span>
             </h3>
             <p>
               Returns array of records via query. Query filters accepted are
-              product, product_agg,category, market and country. Multiple
-              choices in the same filter type can be passed too by simply adding
-              same query key with appropriate value. Default is to return 25
-              records based on latest dates.
+              product, product_agg,category, market and country. Additional
+              query parameters for cursor pagination include count (optional)
+              and next (optional). Multiple choices in the same filter type can
+              be passed too by simply adding same query key with appropriate
+              value. Default is to return 50 records based on latest dates.
             </p>
-            <p>All records are sorted by date descending.</p>
+            <p>All records are sorted by date descending and id descending.</p>
             <p>Check the example.</p>
             <p>
-              This endpoint has pagination built in. Default count of records is
-              25 at first page. Maximum count of records is 500 per call.{' '}
+              This endpoint has cursor pagination built in. Default count of
+              records is 50 at first page. Maximum count of records is 500 per
+              call. Along with the records, this endpoint returns a next value
+              and a topPageValue for ease of use in implementing pagination in
+              applications. On initial calls (i.e. when no next value is passed
+              in), a pageCount (total count of pages based on number of records
+              and count) will also be returned.{" "}
               <Popup
                 trigger={<Icon name="question circle" size="large" />}
                 content="You can scroll the URL below horizontally"
@@ -265,14 +272,14 @@ const SideNav = () => {
               />
             </p>
             <Highlight language="javascript">
-              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
               <br />
               {
-                'developer/filter/?p=[PRODUCT]&market=[MARKET]&pcat=[PRODUCT CATEGORY]'
+                "developer/filter/?p=[PRODUCT]&market=[MARKET]&pcat=[PRODUCT CATEGORY]"
               }
               <br />
               {
-                '&pagg=[PRODUCT AGGREGATE]&c=[COUNTRY]&page=[PAGE NUMBER]&count=[NUMBER OF RECORDS]'
+                "&pagg=[PRODUCT AGGREGATE]&c=[COUNTRY]&count=[NUMBER OF RECORDS PER PAGE]&next=[NEXT VALUE]"
               }
             </Highlight>
             <h3>Request Parameters</h3>
@@ -305,16 +312,18 @@ const SideNav = () => {
                   <Table.Cell>Product aggregate name - 2nd Level</Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                  <Table.Cell>page</Table.Cell>
-                  <Table.Cell>
-                    Page number, by default sets to 1 if not passed.
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
                   <Table.Cell>count</Table.Cell>
                   <Table.Cell>
                     Sets the count for number of records in each call. Max is
-                    500
+                    500. Default to 50.
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>next</Table.Cell>
+                  <Table.Cell>
+                    Concatenation of the date and id of the first record on the
+                    next page. This value is returned to the user on each call.
+                    This allows for pagination of records.
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>
@@ -333,9 +342,9 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Latest Prices on a Product across all Markets */}
-            <h3 style={{ color: 'chartreuse' }} ref={latestPrice}>
-              GET{' '}
-              <span style={{ color: 'black' }}>
+            <h3 style={{ color: "chartreuse" }} ref={latestPrice}>
+              GET{" "}
+              <span style={{ color: "black" }}>
                 Latest Prices on a Product across all Markets
               </span>
             </h3>
@@ -343,9 +352,9 @@ const SideNav = () => {
               Returns all records on given product. Pass the query /?product=
             </p>
             <Highlight language="javascript">
-              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
               <br />
-              {'developer/product/latestprice/?product=[PRODUCT]'}
+              {"developer/product/latestprice/?product=[PRODUCT]"}
             </Highlight>
             <h3>Request Parameters</h3>
             <Table celled>
@@ -375,14 +384,14 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Latest Price on a product in a particular market */}
-            <h3 style={{ color: 'chartreuse' }} ref={lastestMarketPrice}>
-              GET{' '}
-              <span style={{ color: 'black' }}>
+            <h3 style={{ color: "chartreuse" }} ref={lastestMarketPrice}>
+              GET{" "}
+              <span style={{ color: "black" }}>
                 Latest Price on a product in a particular market
               </span>
             </h3>
             <p>
-              Returns price of a single product from a single market.{' '}
+              Returns price of a single product from a single market.{" "}
               <Popup
                 trigger={<Icon name="question circle" size="large" />}
                 content="You can scroll the URL below horizontally"
@@ -390,7 +399,7 @@ const SideNav = () => {
               />
             </p>
             <Highlight language="javascript">
-              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
               <br />
               {
                 'developer/product/pricebymarket/?market=[MARKET]&product=[PRODUCT]'
@@ -430,17 +439,23 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Find prices of a product across a date range */}
-            <h3 style={{ color: 'chartreuse' }} ref={dateRange}>
-              GET{' '}
-              <span style={{ color: 'black' }}>
+            <h3 style={{ color: "chartreuse" }} ref={dateRange}>
+              GET{" "}
+              <span style={{ color: "black" }}>
                 Find prices of a product across a date range
               </span>
             </h3>
             <p>
-              Pass the query paramaters of a product, startDate and endDate.
-              Sends a response of all available records in that date range
-              separated by pagination.
-              <br />
+              Pass the query paramaters of a product, startDate, endDate, count
+              (optional), and next (optional). Sends a response of all available
+              records in that date range separated by cursor pagination. This
+              endpoint has cursor pagination built in. Default count of records
+              is 50 at first page. Maximum count of records is 500 per call.
+              Along with the records, this endpoint returns a next value and a
+              topPageValue for ease of use in implementing pagination in
+              applications. On initial calls (i.e. when no next value is passed
+              in), a pageCount (total count of pages based on number of records
+              and count) will also be returned. <br />
               <br />
               startDate needs to be older than endDate for successful query.
               <Popup
@@ -450,10 +465,10 @@ const SideNav = () => {
               />
             </p>
             <Highlight language="javascript">
-              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
               <br />
               {
-                'developer/product/range/?product=[PRODUCT]&startDate=[START DATE]&endDate=[END DATE]'
+                "developer/product/range/?product=[PRODUCT]&startDate=[START DATE]&endDate=[END DATE]&count=[COUNT]&next=[NEXT]"
               }
             </Highlight>
             <h3>Request Parameters</h3>
@@ -479,6 +494,21 @@ const SideNav = () => {
                 <Table.Row>
                   <Table.Cell>endDate</Table.Cell>
                   <Table.Cell>Ending date where range stops</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>count</Table.Cell>
+                  <Table.Cell>
+                    Sets the count for number of records in each call. Max is
+                    500. Default to 50.
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>next</Table.Cell>
+                  <Table.Cell>
+                    Concatenation of the date and id of the first record on the
+                    next page. This value is returned to the user on each call.
+                    This allows for pagination of records.
+                  </Table.Cell>
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -689,7 +719,7 @@ const SideNav = () => {
         </section>
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default SideNav
+export default SideNav;
