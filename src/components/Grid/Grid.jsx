@@ -130,11 +130,28 @@ const Grid = () => {
 
   // Submit handlers for dropDown
   const dropdownHandler = (value, valueUpdater, queryUpdater, prefix) => {
-    console.log(value)
     valueUpdater(value)
-    if (Array.isArray(value) && value.length)
-      queryUpdater(`&${prefix}=${value.join(`&${prefix}=`)}`)
+    if (Array.isArray(value)) {
+      if (value.length) {
+        queryUpdater(`&${prefix}=${value.join(`&${prefix}=`)}`)
+      } else {
+        queryUpdater(null)
+      }
+    }
     localStorage.setItem(prefix, JSON.stringify(value))
+  }
+
+  function resetSearch() {
+    dropdownHandler([], setCountries, setCountryQuery, 'c')
+    dropdownHandler([], setMarkets, setMarketQuery, 'm')
+    dropdownHandler([], setProducts, setProductQuery, 'p')
+    dropdownHandler([], setPCats, setPCatQuery, 'pcat')
+    dropdownHandler([], setPAggs, setPAggQuery, 'pagg')
+    dropdownHandler('', setCurrency, null, 'cur')
+    'c,m,p,pcat,pagg,cur,rowdata,next,prev,count,page'
+      .split(',')
+      .forEach(key => localStorage.removeItem(key))
+    dispatch({ type: 'SET_ROW_DATA', payload: [] })
   }
 
   function disabledDate(current) {
@@ -368,6 +385,7 @@ const Grid = () => {
               </Form>
               <div>
                 <Button onClick={() => apiCall()}>Update Grid</Button>
+                <Button onClick={() => resetSearch()}>Reset</Button>
                 {rowData[0] && (
                   <Button onClick={() => agGridAPI.exportDataAsCsv(rowData)}>
                     Export CSV
