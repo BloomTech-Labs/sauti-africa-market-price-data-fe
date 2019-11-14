@@ -3,11 +3,13 @@ import {axiosWithAuth} from '../../utils/axiosWithAuth'
 import useGetToken from '../../hooks/useGetToken'
 import axios from 'axios'
 import Highlight from 'react-highlight'
+import {Button, Input} from 'semantic-ui-react'
 import "highlight.js/styles/monokai-sublime.css"
  export default function FilterPlayground(){
     const [userAnswer, setUserAnswer] = useState({url: ''})
     const [data, setData] = useState([])
     const [bad, setBad] = useState(false)
+    const [disabledBtn, setDisabledBtn] = useState(false)
     const [errorMessage, setErrorMessage] = useState(null)
     const [token] = useGetToken()
     const handleChange = e => {e.preventDefault()
@@ -18,6 +20,8 @@ import "highlight.js/styles/monokai-sublime.css"
     const handleSubmit= (e, value) => {
         e.preventDefault()
         makeCall(value)
+        setDisabledBtn(true)
+        setTimeout(()=> setDisabledBtn(false), 10000)
         
     }
     const clearUrl = (e) =>{
@@ -48,15 +52,15 @@ import "highlight.js/styles/monokai-sublime.css"
         <>
         <form>
             http://localhost:8888/?
-            <input 
+            <Input 
             name='url'
             type='text'
             value={userAnswer.url}
             onChange={handleChange}
             />
         </form>
-        <button onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</button>
-        <button onClick={(e)=> clearUrl(e)}>Clear URL</button>
+        <Button disabled={disabledBtn} onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</Button>
+        <Button onClick={(e)=> clearUrl(e)}>Clear URL</Button>
         {data[0] && !bad ? data.map(entry => {
             return (
                 <>

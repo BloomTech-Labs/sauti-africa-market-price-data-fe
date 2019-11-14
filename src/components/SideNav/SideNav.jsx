@@ -319,7 +319,7 @@ const SideNav = () => {
                 </Table.Row>
               </Table.Body>
             </Table>
-            <button onClick={() => setPlayFilter(!playFilter)}>Try it out</button>
+            <Button color="violet" onClick={() => setPlayFilter(!playFilter)}>{!playFilter? "try it now": "close playground"}</Button>
             {playFilter && <FilterPlayground/>}
           </article>
           <article className="right-article">
@@ -416,7 +416,7 @@ const SideNav = () => {
                 </Table.Row>
               </Table.Body>
             </Table>
-            <button onClick={() => setPlayPrice(!playPrice)}>Try it out</button>
+            <Button  color="violet" onClick={() => setPlayPrice(!playPrice)}>{!playPrice? "try it now": "close playground"}</Button>
               {playPrice && <PmPlayground/>}
           </article>
           <article className="right-article">
@@ -482,7 +482,7 @@ const SideNav = () => {
                 </Table.Row>
               </Table.Body>
             </Table>
-            <button onClick={() => setPlayDate(!playDate)}>Try it out</button>
+            <Button color="violet" onClick={() => setPlayDate(!playDate)}>{!playDate? "try it now": "close playground"}</Button>
             {playDate && <DrPlayground/>}
           </article>
           <article className="right-article">
