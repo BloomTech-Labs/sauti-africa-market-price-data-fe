@@ -66,7 +66,7 @@ const Grid = () => {
     localStorage.getItem('p') ? JSON.parse(localStorage.getItem('p')) : []
   )
   const [currency, setCurrency] = useState(
-    localStorage.getItem('cur') ? JSON.parse(localStorage.getItem('cur')) : []
+    localStorage.getItem('cur') ? JSON.parse(localStorage.getItem('cur')) : ''
   )
 
   const [dateRanges, setDateRanges] = useState(null)
