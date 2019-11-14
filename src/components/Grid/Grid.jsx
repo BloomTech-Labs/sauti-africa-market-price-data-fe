@@ -329,7 +329,9 @@ const Grid = () => {
                 reactNext={true}
                 // events
                 onGridReady={onGridReady}
-              ></AgGridReact>
+              >
+                {/* On load of the grid, check for localstoragePut the ability to save RowData into local storage*/}
+              </AgGridReact>
             </div>
           </LoadingOverlay>
 
