@@ -51,18 +51,18 @@ import "highlight.js/styles/monokai-sublime.css"
     return(
         <div className='playground'>
         <form className="playForm">
-        <Label as='a' basic color='grey'>sauti/developer/filter/?</Label>
-            <Input className="playURL"
-            name='url'
-            type='text'
-            value={userAnswer.url}
-            onChange={handleChange}
-            />
+            <Label as='a' basic color='violet'>sauti/developer/filter/?</Label>
+                <Input className="playURL"
+                name='url'
+                type='text'
+                value={userAnswer.url}
+                onChange={handleChange}
+                />
+            <Button onClick={(e)=> clearUrl(e)}>Clear URL</Button>
         </form>
         <small>pagination disabled for playground</small>
         <div>
-            <Button disabled={disabledBtn} onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</Button>
-            <Button onClick={(e)=> clearUrl(e)}>Clear URL</Button>
+            <Button className='playBtn' disabled={disabledBtn} onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</Button>
         </div>
         {data[0] && !bad ? data.map(entry => {
             return (

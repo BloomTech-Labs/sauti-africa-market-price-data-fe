@@ -53,17 +53,17 @@ export default function PmPlayground(){
     return(
         <div className='playground'>
         <form className="playForm">
-           <Label as='a' basic color='teal'>sauti/developer/product/pricebymarket/?</Label>
+           <Label as='a' basic color='violet'>sauti/developer/product/pricebymarket/?</Label>
             <Input className="playURL"
             name='url'
             type='text'
             value={userAnswer.url}
             onChange={handleChange}
             />
+             <Button onClick={(e)=> clearUrl(e)}>Clear URL</Button>
         </form>
         <div>
-            <Button disabled={disabledBtn} onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</Button>
-            <Button onClick={(e)=> clearUrl(e)}>Clear URL</Button>
+            <Button className='playBtn' disabled={disabledBtn} onClick={ e => handleSubmit(e, userAnswer.url)}>make your call!</Button>
         </div>
         {data[0] && !bad ? data.map(entry => {
             return (
