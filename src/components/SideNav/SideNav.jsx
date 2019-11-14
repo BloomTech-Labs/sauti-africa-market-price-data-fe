@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react'
-import FilterPlayground from '../Playground/filterPlayground.js'
-import DrPlayground from '../Playground/dateRangePlayground.js'
-import PmPlayground from '../Playground/productMarketPlayground.js'
+import React, { useRef, useState } from "react";
+import FilterPlayground from "../Playground/filterPlayground.js";
+import DrPlayground from "../Playground/dateRangePlayground.js";
+import PmPlayground from "../Playground/productMarketPlayground.js";
 import {
   Container,
   Header,
@@ -13,17 +13,17 @@ import {
 } from "semantic-ui-react";
 import Highlight from "react-highlight";
 
-import apiKeyGif from '../../assets/apiKey.gif'
-import listGif from '../../assets/listexample.gif'
-import filterGif from '../../assets/filterexample.gif'
-import priceAllGif from '../../assets/priceallmarketsexample.gif'
-import priceProductMarketGif from '../../assets/pricemarketproductexample.gif'
-import priceDateGif from '../../assets/pricedateexample.gif'
-import countryGif from '../../assets/country.gif'
-import currenciesGif from '../../assets/currencies.gif'
-import marketsGif from '../../assets/markets.gif'
-import productGif from '../../assets/product.gif'
-import dateRangeGif from '../../assets/date-range.gif'
+import apiKeyGif from "../../assets/apiKey.gif";
+import listGif from "../../assets/listexample.gif";
+import filterGif from "../../assets/filterexample.gif";
+import priceAllGif from "../../assets/priceallmarketsexample.gif";
+import priceProductMarketGif from "../../assets/pricemarketproductexample.gif";
+import priceDateGif from "../../assets/pricedateexample.gif";
+import countryGif from "../../assets/country.gif";
+import currenciesGif from "../../assets/currencies.gif";
+import marketsGif from "../../assets/markets.gif";
+import productGif from "../../assets/product.gif";
+import dateRangeGif from "../../assets/date-range.gif";
 
 import "highlight.js/styles/monokai-sublime.css";
 import "./SideNav.scss";
@@ -35,10 +35,9 @@ const SideNav = () => {
   const [sidenav, toggleSidenav] = useState(true);
 
   //conditionally render playground components via boolean
-  const [playFilter, setPlayFilter] = useState(false)
-  const [playDate, setPlayDate] = useState(false)
-  const [playPrice, setPlayPrice] = useState(false)
-
+  const [playFilter, setPlayFilter] = useState(false);
+  const [playDate, setPlayDate] = useState(false);
+  const [playPrice, setPlayPrice] = useState(false);
 
   //Applying scrolling to places of the page
   const scrollToPlay = ref => window.scrollTo(0, ref.current.offsetTop);
@@ -97,10 +96,10 @@ const SideNav = () => {
               specific data from an internal database and send out JSON
               response. */}
               Sauti Africa Market Prices API is designed to provide up-to-date
-              daily prices for over 150 products across more than 100 marketplaces in East
-              Africa. The API has resource-oriented URLs, returns JSON-encoded
-              responses and uses standard HTTP response codes, authentication
-              and verbs.
+              daily prices for over 150 products across more than 100
+              marketplaces in East Africa. The API has resource-oriented URLs,
+              returns JSON-encoded responses and uses standard HTTP response
+              codes, authentication and verbs.
             </p>
           </article>
           <article className="right-article">
@@ -185,7 +184,6 @@ const SideNav = () => {
                 "https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/range/"
               }
             </Highlight>
-
           </article>
         </section>
         <section className="articles-examples" ref={refer}>
@@ -259,9 +257,9 @@ const SideNav = () => {
             <p>Check the example.</p>
             <p>
               This endpoint has cursor pagination built in. Default count of
-              records is 50 at first page. Maximum count of records is 500 per
-              call. Along with the records, this endpoint returns a next value
-              and a topPageValue for ease of use in implementing pagination in
+              records is 50. Maximum count of records is 500 per call. Along
+              with the records, this endpoint returns a next value and a
+              topPageValue for ease of use in implementing pagination in
               applications. On initial calls (i.e. when no next value is passed
               in), a pageCount (total count of pages based on number of records
               and count) will also be returned.{" "}
@@ -328,8 +326,10 @@ const SideNav = () => {
                 </Table.Row>
               </Table.Body>
             </Table>
-            <Button color="violet" onClick={() => setPlayFilter(!playFilter)}>{!playFilter? "try it now": "close playground"}</Button>
-            {playFilter && <FilterPlayground/>}
+            <Button color="violet" onClick={() => setPlayFilter(!playFilter)}>
+              {!playFilter ? "try it now" : "close playground"}
+            </Button>
+            {playFilter && <FilterPlayground />}
           </article>
           <article className="right-article">
             <img
@@ -402,7 +402,7 @@ const SideNav = () => {
               {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
               <br />
               {
-                'developer/product/pricebymarket/?market=[MARKET]&product=[PRODUCT]'
+                "developer/product/pricebymarket/?market=[MARKET]&product=[PRODUCT]"
               }
             </Highlight>
             <h3>Request Parameters</h3>
@@ -425,8 +425,10 @@ const SideNav = () => {
                 </Table.Row>
               </Table.Body>
             </Table>
-            <Button  color="violet" onClick={() => setPlayPrice(!playPrice)}>{!playPrice? "try it now": "close playground"}</Button>
-              {playPrice && <PmPlayground/>}
+            <Button color="violet" onClick={() => setPlayPrice(!playPrice)}>
+              {!playPrice ? "try it now" : "close playground"}
+            </Button>
+            {playPrice && <PmPlayground />}
           </article>
           <article className="right-article">
             <img
@@ -450,12 +452,12 @@ const SideNav = () => {
               (optional), and next (optional). Sends a response of all available
               records in that date range separated by cursor pagination. This
               endpoint has cursor pagination built in. Default count of records
-              is 50 at first page. Maximum count of records is 500 per call.
-              Along with the records, this endpoint returns a next value and a
-              topPageValue for ease of use in implementing pagination in
-              applications. On initial calls (i.e. when no next value is passed
-              in), a pageCount (total count of pages based on number of records
-              and count) will also be returned. <br />
+              is 50. Maximum count of records is 500 per call. Along with the
+              records, this endpoint returns a next value and a topPageValue for
+              ease of use in implementing pagination in applications. On initial
+              calls (i.e. when no next value is passed in), a pageCount (total
+              count of pages based on number of records and count) will also be
+              returned. <br />
               <br />
               startDate needs to be older than endDate for successful query.
               <Popup
@@ -512,8 +514,10 @@ const SideNav = () => {
                 </Table.Row>
               </Table.Body>
             </Table>
-            <Button color="violet" onClick={() => setPlayDate(!playDate)}>{!playDate? "try it now": "close playground"}</Button>
-            {playDate && <DrPlayground/>}
+            <Button color="violet" onClick={() => setPlayDate(!playDate)}>
+              {!playDate ? "try it now" : "close playground"}
+            </Button>
+            {playDate && <DrPlayground />}
           </article>
           <article className="right-article">
             <img
@@ -549,9 +553,7 @@ const SideNav = () => {
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>DRC</Table.Cell>
-                  <Table.Cell>
-                    Democratic Republic of the Congo
-                  </Table.Cell>
+                  <Table.Cell>Democratic Republic of the Congo</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>KEN</Table.Cell>
@@ -613,12 +615,8 @@ const SideNav = () => {
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>CDF</Table.Cell>
-                  <Table.Cell>
-                    The Congolese Franc
-                  </Table.Cell>
-                  <Table.Cell>
-                    Democratic Republic of the Congo
-                  </Table.Cell>
+                  <Table.Cell>The Congolese Franc</Table.Cell>
+                  <Table.Cell>Democratic Republic of the Congo</Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>KES</Table.Cell>
