@@ -153,9 +153,7 @@ const Grid = () => {
     dropdownHandler([], setPCats, setPCatQuery, 'pcat')
     dropdownHandler([], setPAggs, setPAggQuery, 'pagg')
     dropdownHandler('', setCurrency, null, 'cur')
-    'c,m,p,pcat,pagg,cur,rowdata,next,prev,count,page'
-      .split(',')
-      .forEach(key => localStorage.removeItem(key))
+    localStorage.clear()
     setPage(0)
     setCount(0)
     setPrev([])
