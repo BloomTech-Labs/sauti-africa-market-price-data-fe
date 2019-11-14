@@ -21,13 +21,16 @@ const Profile = ({ apiKey, setApiKey }) => {
       const { sub } = user
 
       const response = await axios.post(
-        // 'https://sauti-africa-market-master.herokuapp.com/
-        'https://sauti-africa-market-master.herokuapp.com/api/apikeyRoute/private',
+        '/api/apikeyRoute/private',
         { id: sub },
         {
           headers: {
             Authorization: `Bearer ${token}`
-          }
+          },
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
         }
       )
       setApiKey(response.data.key)

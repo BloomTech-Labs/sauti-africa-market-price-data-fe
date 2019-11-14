@@ -19,10 +19,15 @@ import 'semantic-ui-css/semantic.min.css'
 const NavBar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
 
-  const logoutWithRedirect = () =>
+  const logoutWithRedirect = () => {
+    // Clear local storage
+    'c,m,p,pcat,pagg,cur,rowdata,next,prev,count,page'
+      .split(',')
+      .forEach(key => localStorage.removeItem(key))
     logout({
       returnTo: window.location.origin
     })
+  }
 
   return (
     <div className="navbar">
