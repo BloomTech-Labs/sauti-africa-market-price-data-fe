@@ -10,15 +10,40 @@
   }
 }
 
+.ui.massive.vertical.menu {
+  @include for-non-widescreen {
+    width: 100% !important;
+    // text-align: center;
+  }
+}
 .side-nav {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   box-sizing: border-box;
   align-items: baseline;
 
+  .menu-content {
+    height: auto;
+    overflow: hidden;
+    @include for-non-widescreen {
+      height: 0;
+    }
+  }
+
+  .menu-control {
+    display: block;
+    text-align: left;
+    margin: 0 0 1rem 1rem;
+  }
+}
+
+.ui.vertical.menu {
+  border: none !important;
+  background: white !important;
+  // box-shadow: 0 0 0 0 transparent !important;
   @include for-non-widescreen {
-    flex-direction: column;
-    justify-content: center;
+    background: transparent !important;
+    box-shadow: 0 0 0 0 transparent !important;
   }
 }
 
@@ -31,16 +56,18 @@
 
 .side-nav-items {
   position: fixed;
+  z-index: 1000;
   @include for-non-widescreen {
-    resize: vertical;
-    overflow: auto;
+    position: sticky;
     top: 0;
-    left: 7rem;
-    position: relative;
-    text-align: center;
   }
 }
 .center-api-column {
+  padding-left: 25rem !important;
+
+  @include for-non-widescreen {
+    padding-left: 0 !important;
+  }
 }
 
 .left-article {
@@ -68,15 +95,12 @@
 .articles-examples {
   display: flex;
   flex-direction: row;
-  padding-left: 25rem;
 
-  @include for-non-widescreen {
-    padding-left: 0;
-  }
   @include for-phone-only {
     flex-direction: column;
   }
 }
+
 .gif-examples {
   width: 99%;
   @include for-phone-only {
@@ -85,8 +109,31 @@
   }
 }
 
-.container {
+.ui.fluid.container {
+  margin-left: 0 !important;
+  padding-left: 0;
   img {
     width: 99%;
+  }
+}
+
+.hide-nav {
+  .menu-content {
+    height: 0;
+    @include for-non-widescreen {
+      height: auto;
+    }
+  }
+
+  .ui.vertical.menu {
+    background: transparent !important;
+    box-shadow: 0 0 0 0 transparent !important;
+    @include for-non-widescreen {
+      background: white !important;
+    }
+  }
+
+  .center-api-column {
+    padding-left: 0 !important;
   }
 }
