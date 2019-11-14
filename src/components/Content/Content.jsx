@@ -1,38 +1,43 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react'
+import axios from 'axios'
 
-import Grid from "../Grid";
-import { Button } from "reactstrap";
+import Grid from '../Grid'
+import { Button } from 'reactstrap'
 
-import Highlight from "react-highlight";
-import "highlight.js/styles/monokai-sublime.css";
+import Highlight from 'react-highlight'
+import 'highlight.js/styles/monokai-sublime.css'
 
 const Content = ({ apiKey }) => {
-  const [data, setData] = useState([]);
-  const [err, setErr] = useState(false);
+  const [data, setData] = useState([])
+  const [err, setErr] = useState(false)
 
   const apiCall = () => {
-    setErr(false);
-    setData([]);
+    setErr(false)
+    setData([])
     axios
       .get(
-        // 'https://sauti-africa-market-master.herokuapp.com/
-        "https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/?currency=USD",
+        '/sauti/developer/filter/?currency=USD',
         {
           headers: {
             key: apiKey
           }
+        },
+        {
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
         }
       )
       .then(res => {
-        setData(res.data.records);
+        setData(res.data.records)
       })
       .catch(e => {
-        console.log({ apiCallErr: e });
-        setErr(true);
-        setData([]);
-      });
-  };
+        console.log({ apiCallErr: e })
+        setErr(true)
+        setData([])
+      })
+  }
 
   return (
     <div className="next-steps my-5">
@@ -54,7 +59,7 @@ const Content = ({ apiKey }) => {
               <Highlight className="JSON">
                 {JSON.stringify(entry, null, 2)}
               </Highlight>
-            );
+            )
           })
         )}
       </div>
@@ -66,7 +71,7 @@ const Content = ({ apiKey }) => {
         ) : null}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Content;
+export default Content
