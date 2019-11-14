@@ -72,7 +72,7 @@ const Grid = () => {
   const [dateRanges, setDateRanges] = useState(null)
 
   const [token] = useGetToken()
-  const [exportCSV, setExportCSV] = useState(null)
+  const [agGridAPI, setAPI] = useState(null)
 
   useEffect(() => {
     const cachedRowData = localStorage.getItem('rowdata')
@@ -80,9 +80,12 @@ const Grid = () => {
       dispatch({ type: 'SET_ROW_DATA', payload: JSON.parse(cachedRowData) })
     }
     axios
-      .get(
-        'https://sauti-africa-market-master.herokuapp.com/sauti/client/superlist'
-      )
+      .get('/sauti/client/superlist', {
+        baseURL:
+          process.env.NODE_ENV !== 'development'
+            ? 'https://sauti-africa-market-master.herokuapp.com/'
+            : 'http://localhost:8888/'
+      })
       .then(res => {
         setList(res.data)
       })
@@ -141,10 +144,11 @@ const Grid = () => {
 
   const onGridReady = params => {
     params.api.sizeColumnsToFit()
-    setExportCSV(params.api)
+    setAPI(params.api)
   }
 
   const nextApiCall = async () => {
+    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
@@ -157,10 +161,15 @@ const Grid = () => {
     if (next) nextCursor = n
     axiosWithAuth([token])
       .get(
-        `https://sauti-africa-market-master.herokuapp.com/sauti/client/?currency=${currency ||
-          'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
-          ''}${pAggQuery || ''}${productQuery ||
-          ''}${dateRangeQuery}&next=${nextCursor}`
+        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+          ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`,
+        {
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
+        }
       )
       .then(async res => {
         localStorage.setItem('rowdata', JSON.stringify(res.data.records))
@@ -182,6 +191,7 @@ const Grid = () => {
   }
 
   const prevApiCall = async () => {
+    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
@@ -199,10 +209,15 @@ const Grid = () => {
     if (nextPage) nextCursor = nextPage
     axiosWithAuth([token])
       .get(
-        `https://sauti-africa-market-master.herokuapp.com/sauti/client/?currency=${currency ||
-          'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
-          ''}${pAggQuery || ''}${productQuery ||
-          ''}${dateRangeQuery}&next=${nextCursor}`
+        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+          ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`,
+        {
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
+        }
       )
       .then(async res => {
         localStorage.setItem('rowdata', JSON.stringify(res.data.records))
@@ -220,6 +235,7 @@ const Grid = () => {
   }
 
   const apiCall = async () => {
+    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
@@ -229,9 +245,15 @@ const Grid = () => {
     setErr(false)
     axiosWithAuth([token])
       .get(
-        `https://sauti-africa-market-master.herokuapp.com/sauti/client/?currency=${currency ||
-          'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
-          ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
+        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+          ''}${productQuery || ''}${dateRangeQuery}`,
+        {
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
+        }
       )
       .then(async res => {
         localStorage.setItem('rowdata', JSON.stringify(res.data.records))
@@ -251,6 +273,8 @@ const Grid = () => {
       .catch(e => {
         console.log({ apiCallErr: e })
         setErr(true)
+
+        agGridAPI.hideOverlay()
       })
   }
 
@@ -345,7 +369,7 @@ const Grid = () => {
               <div>
                 <Button onClick={() => apiCall()}>Update Grid</Button>
                 {rowData[0] && (
-                  <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
+                  <Button onClick={() => agGridAPI.exportDataAsCsv(rowData)}>
                     Export CSV
                   </Button>
                 )}
