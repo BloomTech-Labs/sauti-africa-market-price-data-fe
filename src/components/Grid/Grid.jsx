@@ -151,6 +151,10 @@ const Grid = () => {
     'c,m,p,pcat,pagg,cur,rowdata,next,prev,count,page'
       .split(',')
       .forEach(key => localStorage.removeItem(key))
+    setPage(0)
+    setCount(0)
+    setPrev([])
+    setNext([])
     dispatch({ type: 'SET_ROW_DATA', payload: [] })
   }
 
