@@ -184,6 +184,30 @@ const Grid = () => {
       })
   }
 
+  //Call for Export All CSV
+  const apiCallForCSV = async () => {
+    const dateRangeQuery =
+      dateRanges && dateRanges[0]
+        ? `&startDate=${dateRanges[0].format(
+            'YYYY-MM-DD'
+          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+        : ''
+
+    axiosWithAuth([token])
+      .get(
+        `https://sauti-africa-market-master.herokuapp.com/sauti/client/export/?currency=${currency ||
+          'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
+          ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
+      )
+      .then(async res => {
+        console.log(res)
+          window.location.href = res.config.url
+      })
+      .catch(e => {
+        console.log({ apiCallErr: e })
+      })
+  }
+
   const apiCall = async () => {
     const dateRangeQuery =
       dateRanges && dateRanges[0]
@@ -310,10 +334,11 @@ const Grid = () => {
                 >
                   Update Grid
                 </Button>
-                {rowData[0] && (
+                {rowData[0] && (<>
                   <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
-                    Export CSV
+                    Export CSV Per Page
                   </Button>
+                  <Button onClick={()=> apiCallForCSV()}>Export All Data as CSV</Button></>
                 )}
               </div>
             </>
