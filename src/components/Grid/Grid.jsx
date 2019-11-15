@@ -210,7 +210,8 @@ const Grid = () => {
   const nextApiCall = async () => {
     if (callCache[page + 1]) {
       const p = page
-      const currentPage = typeof p === 'number' ? p + 1 : 1
+      const currentPage =
+        typeof p === 'number' && p + 1 <= count ? p + 1 : count
       dispatch({
         type: 'SET_ROW_DATA',
         payload: callCache[currentPage].records
@@ -260,7 +261,8 @@ const Grid = () => {
           localStorage.setItem('rowdata', JSON.stringify(res.data.records))
 
           const p = page
-          const currentPage = typeof p === 'number' ? p + 1 : 1
+          const currentPage =
+            typeof p === 'number' && p + 1 <= count ? p + 1 : count
 
           await setPrev([...prev, res.data.prev])
           await setNext([...next, res.data.next])
