@@ -40,12 +40,12 @@ const Grid = () => {
   const [next, setNext] = useState(
     localStorage.getItem('next')
       ? JSON.parse(localStorage.getItem('next'))
-      : null
+      : [null, null]
   )
   const [prev, setPrev] = useState(
     localStorage.getItem('prev')
       ? JSON.parse(localStorage.getItem('prev'))
-      : null
+      : [null, null]
   )
   const [count, setCount] = useState(
     localStorage.getItem('count')
@@ -84,6 +84,7 @@ const Grid = () => {
   const [agGridAPI, setAPI] = useState(null)
 
   useEffect(() => {
+    restoreQuery()
     const cachedRowData = localStorage.getItem('rowdata')
     if (cachedRowData) {
       dispatch({ type: 'SET_ROW_DATA', payload: JSON.parse(cachedRowData) })
@@ -101,6 +102,7 @@ const Grid = () => {
       .catch(err => {
         console.log(err.message)
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Options for dropDown
@@ -178,6 +180,16 @@ const Grid = () => {
       setDateRanges(dates)
       localStorage.setItem('dates', serialize(dates))
     } else localStorage.removeItem('dates')
+  }
+
+  function restoreQuery() {
+    dropdownHandler(countries, setCountries, setCountryQuery, 'c')
+    dropdownHandler(markets, setMarkets, setMarketQuery, 'm')
+    dropdownHandler(products, setProducts, setProductQuery, 'p')
+    dropdownHandler(pCats, setPCats, setPCatQuery, 'pcat')
+    dropdownHandler(pAggs, setPAggs, setPAggQuery, 'pagg')
+    dropdownHandler(currency, setCurrency, null, 'cur')
+    datesHandler(dateRanges)
   }
 
   function resetSearch() {
@@ -258,6 +270,8 @@ const Grid = () => {
         )
         .then(async res => {
           dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
+
+          agGridAPI.hideOverlay()
           localStorage.setItem('rowdata', JSON.stringify(res.data.records))
 
           const p = page
@@ -275,6 +289,8 @@ const Grid = () => {
         .catch(e => {
           console.log({ apiCallErr: e })
           setErr(true)
+
+          agGridAPI.hideOverlay()
         })
     }
   }
@@ -336,6 +352,7 @@ const Grid = () => {
         )
         .then(async res => {
           dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
+          agGridAPI.hideOverlay()
           localStorage.setItem('rowdata', JSON.stringify(res.data.records))
 
           await setPrev([...prev, res.data.prev])
@@ -347,6 +364,8 @@ const Grid = () => {
         .catch(e => {
           console.log({ apiCallErr: e })
           setErr(true)
+
+          agGridAPI.hideOverlay()
         })
     }
   }
@@ -370,7 +389,7 @@ const Grid = () => {
         JSON.stringify([...next, callCache[currentPage].next])
       )
       let newCount = Math.ceil(
-        parseInt(callCache[currentPage].count[0]['count(*)']) / 50
+        parseInt(callCache[currentPage].count[0]['count(*)']) / 30
       )
 
       await setPrev([...prev, callCache[currentPage].prev])
@@ -407,12 +426,13 @@ const Grid = () => {
           let p = page
           const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
           dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
+
+          agGridAPI.hideOverlay()
           localStorage.setItem('rowdata', JSON.stringify(res.data.records))
           callCache[currentPage] = res.data
-
           setNext([...next, res.data.next])
           localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
-          let newCount = Math.ceil(parseInt(res.data.count[0]['count(*)']) / 50)
+          let newCount = Math.ceil(parseInt(res.data.count[0]['count(*)']) / 30)
 
           await setPrev([...prev, res.data.prev])
           await setPage(currentPage)
@@ -445,7 +465,7 @@ const Grid = () => {
                   multiple
                   search
                   selection
-                  options={countriesOptions}
+                  options={countriesOptions || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setCountries, setCountryQuery, 'c')
                   }
@@ -457,7 +477,7 @@ const Grid = () => {
                   multiple
                   search
                   selection
-                  options={marketOptions}
+                  options={marketOptions || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setMarkets, setMarketQuery, 'm')
                   }
@@ -469,7 +489,7 @@ const Grid = () => {
                   multiple
                   search
                   selection
-                  options={pCategoryOptions}
+                  options={pCategoryOptions || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setPCats, setPCatQuery, 'pcat')
                   }
@@ -481,7 +501,7 @@ const Grid = () => {
                   multiple
                   search
                   selection
-                  options={pAggregatorOptions}
+                  options={pAggregatorOptions || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setPAggs, setPAggQuery, 'pagg')
                   }
@@ -493,7 +513,7 @@ const Grid = () => {
                   multiple
                   search
                   selection
-                  options={productOptions}
+                  options={productOptions || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setProducts, setProductQuery, 'p')
                   }
@@ -504,7 +524,7 @@ const Grid = () => {
                   fluid
                   search
                   selection
-                  options={currencyOptions}
+                  options={currencyOptions || ''}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setCurrency, null, 'cur')
                   }
