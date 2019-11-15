@@ -7,8 +7,8 @@ import { Header, Card, Image, Message, Icon } from 'semantic-ui-react'
 import Loading from '../Loading/Loading'
 import { useAuth0 } from '../../contexts'
 
-import Highlight from 'react-highlight'
-import 'highlight.js/styles/monokai-sublime.css'
+// import Highlight from 'react-highlight'
+// import 'highlight.js/styles/monokai-sublime.css'
 
 const Profile = ({ apiKey, setApiKey }) => {
   const { loading, user, getTokenSilently } = useAuth0()
@@ -16,7 +16,7 @@ const Profile = ({ apiKey, setApiKey }) => {
 
   const AlertMessage = () => (
     <Message icon>
-      <Icon name='circle notched' loading />
+      <Icon name="circle notched" loading />
       <Message.Content>
         <Message.Header>Just one second</Message.Header>
         We are fetching that API for you.
@@ -32,13 +32,16 @@ const Profile = ({ apiKey, setApiKey }) => {
       const { sub } = user
 
       const response = await axios.post(
-        // 'https://sauti-africa-market-master.herokuapp.com/
-        'https://sauti-africa-market-master.herokuapp.com/api/apikeyRoute/private',
+        '/api/apikeyRoute/private',
         { id: sub },
         {
           headers: {
             Authorization: `Bearer ${token}`
-          }
+          },
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
         }
       )
       setApiKey(response.data.key)
@@ -53,20 +56,20 @@ const Profile = ({ apiKey, setApiKey }) => {
   }
 
   return (
-    <Container className='mb-5'>
-      <Header as='h2' icon textAlign='center'>
-        <Icon name='users' circular />
+    <Container className="mb-5">
+      <Header as="h2" icon textAlign="center">
+        <Icon name="users" circular />
         <Header.Content>{`Welcome,  ${user.given_name}!`}</Header.Content>
       </Header>
-      <Row className='align-items-center profile-header mb-5 text-center text-md-center'>
+      <Row className="align-items-center profile-header mb-5 text-center text-md-center">
         <Card>
           <Image src={user.picture} wrapped ui={false} />
           <Card.Content>
             <Card.Header>{user.name}</Card.Header>
             <span></span>
             <Card.Meta>
-              <span className='date'>
-                <Icon name='mail' />
+              <span className="date">
+                <Icon name="mail" />
                 {user.email}
               </span>
             </Card.Meta>
@@ -91,10 +94,11 @@ const Profile = ({ apiKey, setApiKey }) => {
           {apiKey ? <h2>{apiKey}</h2> : null}
           {!apiKey && !keyLoading ? (
             <Button
-              className='btn btn-danger float-middle'
-              size='lg'
-              color='tomato'
-              onClick={getApiKey}>
+              className="btn btn-danger float-middle"
+              size="lg"
+              color="tomato"
+              onClick={getApiKey}
+            >
               Get API Key
             </Button>
           ) : null}
