@@ -101,8 +101,20 @@
   }
 }
 
+.gif-example-country {
+  width: 99%;
+  height: auto;
+  padding-top: 10rem;
+  @include for-phone-only {
+    width: 80%;
+    height: 30%;
+    padding-top: none;
+  }
+}
+
 .gif-examples {
   width: 99%;
+  height: auto;
   @include for-phone-only {
     width: 80%;
     height: 30%;
