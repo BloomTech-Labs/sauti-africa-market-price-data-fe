@@ -49,6 +49,7 @@ const SideNav = () => {
   const latestPrice = useRef();
   const lastestMarketPrice = useRef();
   const dateRange = useRef();
+  const errorBox = useRef();
   const pivotdocs = useRef();
 
   return (
@@ -74,6 +75,10 @@ const SideNav = () => {
           <Menu.Item
             name="Latest Price by Date Range Endpoint"
             onClick={() => scrollToPlay(dateRange)}
+          />
+           <Menu.Item
+            name="Errors"
+            onClick={() => scrollToPlay(errorBox)}
           />
           <Menu.Item
             name="Pivot Table"
@@ -527,6 +532,47 @@ const SideNav = () => {
             />
           </article>
         </section>
+        <section className="articles-examples" ref={errorBox}>
+          <article className="left-article">
+            <h2>Errors</h2>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Error Code</Table.HeaderCell>
+                  <Table.HeaderCell>Summary</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>200 ✅</Table.Cell>
+                  <Table.Cell>OK - Worked as expected!</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>400 🙃</Table.Cell>
+                  <Table.Cell>Bad Request -  Request was missing a parameter.</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>401 ✋</Table.Cell>
+                  <Table.Cell>Unauthorized - Not valid API key.</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>403 🛑</Table.Cell>
+                  <Table.Cell>Forbidden  - Reached maximum API call limit.</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>404 😱</Table.Cell>
+                  <Table.Cell>Not Found - The requested resource does not exist.</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>500 😭</Table.Cell>
+                  <Table.Cell>Server Error - Something went wrong on our end.</Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+          </article>
+        </section>
+
 
         <section className="articles-examples" ref={pivotdocs}>
           <article className="left-article">
