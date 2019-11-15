@@ -200,7 +200,6 @@ const Grid = () => {
           ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
       )
       .then(async res => {
-        console.log(res)
           window.location.href = res.config.url
       })
       .catch(e => {
