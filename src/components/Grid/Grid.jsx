@@ -69,7 +69,11 @@ const Grid = () => {
     localStorage.getItem('cur') ? JSON.parse(localStorage.getItem('cur')) : ''
   )
 
-  const [dateRanges, setDateRanges] = useState(null)
+  const [dateRanges, setDateRanges] = useState(
+    localStorage.getItem('dates')
+      ? deserialize(localStorage.getItem('dates'))
+      : []
+  )
 
   const [token] = useGetToken()
   const [agGridAPI, setAPI] = useState(null)
@@ -141,9 +145,34 @@ const Grid = () => {
     localStorage.setItem(prefix, JSON.stringify(value))
   }
 
+  function serialize(collection) {
+    return JSON.stringify(collection, function(k, v) {
+      if (
+        typeof v === 'string' &&
+        v.match(
+          /\d{4}-[01]\d-[0-3]\dT?[0-2]\d:[0-5]\d(?::[0-5]\d(?:.\d{1,6})?)?(?:([+-])([0-2]\d):?([0-5]\d)|Z)/
+        )
+      ) {
+        return 'moment:' + moment(v).valueOf()
+      }
+      return v
+    })
+  }
+
+  function deserialize(serializedData) {
+    return JSON.parse(serializedData, function(k, v) {
+      if (typeof v === 'string' && v.includes('moment:')) {
+        return moment(parseInt(v.split(':')[1], 10))
+      }
+      return v
+    })
+  }
+
   function datesHandler(dates) {
-    setDateRanges(dates)
-    localStorage.setItem('dates', JSON.stringify(dates))
+    if (dates) {
+      setDateRanges(dates)
+      localStorage.setItem('dates', serialize(dates))
+    } else localStorage.removeItem('dates')
   }
 
   function resetSearch() {
@@ -198,8 +227,6 @@ const Grid = () => {
       .then(async res => {
         localStorage.setItem('rowdata', JSON.stringify(res.data.records))
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
-        agGridAPI.hideOverlay()
-
         const p = page
         const currentPage = typeof p === 'number' ? p + 1 : 1
 
@@ -248,7 +275,7 @@ const Grid = () => {
       .then(async res => {
         localStorage.setItem('rowdata', JSON.stringify(res.data.records))
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
-        agGridAPI.hideOverlay()
+
         await setNext([...next, res.data.next])
         await setPrev([...prev, res.data.prev])
         localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
@@ -258,7 +285,6 @@ const Grid = () => {
         console.log({ apiCallErr: e })
         setErr(true)
       })
-    agGridAPI.hideOverlay()
   }
 
   const apiCall = async () => {
@@ -285,7 +311,6 @@ const Grid = () => {
       .then(async res => {
         localStorage.setItem('rowdata', JSON.stringify(res.data.records))
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
-        agGridAPI.hideOverlay()
 
         setNext([...next, res.data.next])
         localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
@@ -301,6 +326,7 @@ const Grid = () => {
       .catch(e => {
         console.log({ apiCallErr: e })
         setErr(true)
+
         agGridAPI.hideOverlay()
       })
   }
