@@ -25,97 +25,87 @@ const NavBar = () => {
     })
 
   return (
-    <div className="navbar">
-      <div className="logo">
+    <div className='navbar'>
+      <div className='logo'>
         <NavLink
           tag={RouterNavLink}
-          to="/"
+          to='/'
           exact
-          activeClassName="router-link-exact-active"
-        >
-          Sauti<span className="logo-dot">.</span>
+          activeClassName='router-link-exact-active'>
+          Sauti<span className='logo-dot'>.</span>
         </NavLink>
       </div>
-      <nav className="nav">
-        <div className="links">
+      <nav className='nav'>
+        <div className='links'>
           <NavLink
             tag={RouterNavLink}
-            to="/"
+            to='/'
             exact
-            activeClassName="router-link-exact-active"
-          >
+            activeClassName='router-link-exact-active'>
             HOME
           </NavLink>
           <NavLink
             tag={RouterNavLink}
-            to="/docs"
+            to='/docs'
             exact
-            activeClassName="router-link-exact-active"
-          >
+            activeClassName='router-link-exact-active'>
             DOCS
           </NavLink>
           <NavLink
             tag={RouterNavLink}
-            to="/grid"
+            to='/grid'
             exact
-            activeClassName="router-link-exact-active"
-          >
+            activeClassName='router-link-exact-active'>
             TABLE
           </NavLink>
           <a
-            href="https://www.facebook.com/sautiorg/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="facebook f icon"></i>
+            href='https://www.facebook.com/sautiorg/'
+            target='_blank'
+            rel='noopener noreferrer'>
+            <i className='facebook f icon'></i>
           </a>
           <a
-            href="https://twitter.com/sautiorg?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <i className="twitter icon"></i>
+            href='https://twitter.com/sautiorg?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor'
+            target='_blank'
+            rel='noopener noreferrer'>
+            <i className='twitter icon'></i>
           </a>
         </div>
 
         <div>
           {!isAuthenticated && (
             <button
-              class="ui button login-btn"
+              class='ui button login-btn'
               onClick={() => {
                 //google analytics event tracking
                 Event('Users', 'Login')
                 loginWithRedirect({})
-              }}
-            >
+              }}>
               Log In
             </button>
           )}
           {isAuthenticated && (
             <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret id="profileDropDown">
+              <DropdownToggle nav caret id='profileDropDown'>
                 <img
                   src={user.picture}
-                  alt="Profile"
-                  className="nav-user-profile rounded-circle"
-                  width="50"
+                  alt='Profile'
+                  className='nav-user-profile rounded-circle'
+                  width='50'
                 />
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem header>{user.name}</DropdownItem>
                 <DropdownItem
                   tag={RouterNavLink}
-                  to="/profile"
-                  className="dropdown-profile"
-                  activeClassName="router-link-exact-active"
-                >
-                  <FontAwesomeIcon icon="user" className="mr-3" /> Profile
+                  to='/profile'
+                  className='dropdown-profile'
+                  activeClassName='router-link-exact-active'>
+                  <FontAwesomeIcon icon='user' className='mr-3' /> Profile
                 </DropdownItem>
                 <DropdownItem
-                  id="qsLogoutBtn"
-                  onClick={() => logoutWithRedirect()}
-                >
-                  <FontAwesomeIcon icon="power-off" className="mr-3" /> Log out
+                  id='qsLogoutBtn'
+                  onClick={() => logoutWithRedirect()}>
+                  <FontAwesomeIcon icon='power-off' className='mr-3' /> Log out
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
