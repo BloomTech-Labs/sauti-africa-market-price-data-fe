@@ -29,18 +29,6 @@ const App = () => {
     PageView();
   });
 
-  // useEffect(()=> {
-  //   axios.get('http://localhost:8888/sauti/client/superlist')
-  //   .then(res => {
-  //     // console.log("in the use effect", res.data)
-  //     setList(res.data)
-  //   })
-  //   .catch(err => {
-  //     console.log(err.message)
-  //   })
-
-  // }, [])
-
   if (loading) {
     return <Loading />;
   }
