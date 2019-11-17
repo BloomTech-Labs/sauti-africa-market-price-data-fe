@@ -63,7 +63,7 @@ const NavBar = () => {
             exact
             activeClassName="router-link-exact-active"
           >
-            TABLE
+            GET DATA
           </NavLink>
           <a
             href="https://www.facebook.com/sautiorg/"

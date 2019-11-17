@@ -52,6 +52,7 @@ const SideNav = () => {
   const latestPrice = useRef()
   const lastestMarketPrice = useRef()
   const dateRange = useRef()
+  const errorBox = useRef()
   const pivotdocs = useRef()
 
   return (
@@ -78,8 +79,9 @@ const SideNav = () => {
             name="Latest Price by Date Range Endpoint"
             onClick={() => scrollToPlay(dateRange)}
           />
+          <Menu.Item name="Errors" onClick={() => scrollToPlay(errorBox)} />
           <Menu.Item
-            name="Pivot Table"
+            name="Get Data Table"
             onClick={() => scrollToPlay(pivotdocs)}
           />
         </div>
@@ -530,10 +532,88 @@ const SideNav = () => {
             />
           </article>
         </section>
+        <section className="articles-examples" ref={errorBox}>
+          <article className="left-article">
+            <h2>Errors</h2>
+            <Table celled>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Error Code</Table.HeaderCell>
+                  <Table.HeaderCell>Summary</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>
+                    200{' '}
+                    <span role="img" aria-label="checkmark">
+                      ✅
+                    </span>
+                  </Table.Cell>
+                  <Table.Cell>OK - Worked as expected!</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>
+                    400{' '}
+                    <span role="img" aria-label="upside-down smiley face">
+                      🙃
+                    </span>
+                  </Table.Cell>
+                  <Table.Cell>
+                    Bad Request - Request was missing a parameter.
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>
+                    401{' '}
+                    <span role="img" aria-label="halt hand sign">
+                      ✋
+                    </span>
+                  </Table.Cell>
+                  <Table.Cell>Unauthorized - Not valid API key.</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>
+                    403{' '}
+                    <span role="img" aria-label="stop sign">
+                      🛑
+                    </span>
+                  </Table.Cell>
+                  <Table.Cell>
+                    Forbidden - Reached maximum API call limit.
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>
+                    404{' '}
+                    <span role="img" aria-label="surprised face">
+                      😱
+                    </span>
+                  </Table.Cell>
+                  <Table.Cell>
+                    Not Found - The requested resource does not exist.
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>
+                    500{' '}
+                    <span role="img" aria-label="crying face">
+                      😭
+                    </span>
+                  </Table.Cell>
+                  <Table.Cell>
+                    Server Error - Something went wrong on our end.
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+          </article>
+        </section>
 
         <section className="articles-examples" ref={pivotdocs}>
           <article className="left-article">
-            <h2>Pivot Table</h2>
+            <h2>Get Data Table</h2>
             <h2>Filters</h2>
             <h3>Countries</h3>
             <p>

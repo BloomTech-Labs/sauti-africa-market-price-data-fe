@@ -14,6 +14,7 @@ import moment from 'moment'
 import { DatePicker } from 'antd'
 
 import { currencyOptions } from '../../config/gridDropdown'
+import LoadingOverlay from 'react-loading-overlay'
 
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
@@ -80,8 +81,9 @@ const Grid = () => {
       : []
   )
 
+  const [spinner, setSpinner] = useState(false)
   const [token] = useGetToken()
-  const [agGridAPI, setAPI] = useState(null)
+  const [exportCSV, setExportCSV] = useState(null)
 
   useEffect(() => {
     restoreQuery()
@@ -216,11 +218,10 @@ const Grid = () => {
 
   const onGridReady = params => {
     params.api.sizeColumnsToFit()
-    setAPI(params.api)
+    setExportCSV(params.api)
   }
 
   const nextApiCall = async () => {
-    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
@@ -245,9 +246,7 @@ const Grid = () => {
       )
       .then(async res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
-
-        agGridAPI.hideOverlay()
-        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
+        setSpinner(false)
 
         const p = page
         const currentPage =
@@ -264,13 +263,11 @@ const Grid = () => {
       .catch(e => {
         console.log({ apiCallErr: e })
         setErr(true)
-
-        agGridAPI.hideOverlay()
+        setSpinner(false)
       })
   }
 
   const prevApiCall = async () => {
-    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
@@ -302,9 +299,8 @@ const Grid = () => {
       )
       .then(async res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
-        agGridAPI.hideOverlay()
-        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
-
+        setSpinner(false)
+        await setNext([...next, res.data.next])
         await setPrev([...prev, res.data.prev])
         await setNext([...next, res.data.next])
         callCache[currentPage] = res.data
@@ -313,14 +309,36 @@ const Grid = () => {
       })
       .catch(e => {
         console.log({ apiCallErr: e })
+        setSpinner(false)
         setErr(true)
+      })
+    setSpinner(false)
+  }
 
-        agGridAPI.hideOverlay()
+  //Call for Export All CSV
+  const apiCallForCSV = async () => {
+    const dateRangeQuery =
+      dateRanges && dateRanges[0]
+        ? `&startDate=${dateRanges[0].format(
+            'YYYY-MM-DD'
+          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+        : ''
+
+    axiosWithAuth([token])
+      .get(
+        `http://localhost:8888/sauti/client/export/?currency=${currency ||
+          'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
+          ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
+      )
+      .then(async res => {
+        window.location.href = res.config.url
+      })
+      .catch(e => {
+        console.log({ apiCallErr: e })
       })
   }
 
   const apiCall = async () => {
-    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
@@ -344,8 +362,8 @@ const Grid = () => {
         let p = page
         const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
+        setSpinner(false)
 
-        agGridAPI.hideOverlay()
         localStorage.setItem('rowdata', JSON.stringify(res.data.records))
         callCache[currentPage] = res.data
         setNext([...next, res.data.next])
@@ -363,8 +381,7 @@ const Grid = () => {
         console.log(e)
         console.log({ apiCallErr: e })
         setErr(true)
-
-        agGridAPI.hideOverlay()
+        setSpinner(false)
       })
   }
 
@@ -459,46 +476,81 @@ const Grid = () => {
               <div>
                 <Button
                   onClick={() => {
-                    callCache = []
                     apiCall()
+                    setSpinner(true)
                   }}
                 >
                   Update Grid
-                </Button>
-                <Button onClick={() => resetSearch()}>Reset</Button>
+                </Button>{' '}
+                <Button onClick={() => resetSearch()}>Reset</Button>{' '}
                 {rowData[0] && (
-                  <Button onClick={() => agGridAPI.exportDataAsCsv(rowData)}>
-                    Export CSV
-                  </Button>
+                  <>
+                    <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
+                      Export CSV Per Page
+                    </Button>{' '}
+                    <Button onClick={() => apiCallForCSV()}>
+                      Export All Data as CSV
+                    </Button>
+                  </>
                 )}
               </div>
             </>
           ) : null}
 
-          <div style={gridStyle} className="ag-theme-balham">
-            <AgGridReact
-              // properties
-              columnDefs={columnDefs}
-              rowData={rowData}
-              domLayout="autoHeight"
-              reactNext={true}
-              // events
-              onGridReady={onGridReady}
-            ></AgGridReact>
-          </div>
+          <LoadingOverlay active={spinner} spinner text="Getting Data...">
+            <div style={gridStyle} className="ag-theme-balham">
+              <AgGridReact
+                // properties
+                columnDefs={columnDefs}
+                rowData={rowData}
+                domLayout="autoHeight"
+                reactNext={true}
+                // events
+                onGridReady={onGridReady}
+              >
+                {/* On load of the grid, check for localstoragePut the ability to save RowData into local storage*/}
+              </AgGridReact>
+            </div>
+          </LoadingOverlay>
+
           {!page ? (
             <Button disabled>{'<'}</Button>
           ) : page === 2 ? (
-            <Button onClick={apiCall}>{'<'}</Button>
+            <Button
+              onClick={() => {
+                apiCall()
+                setSpinner(true)
+              }}
+            >
+              {'<'}
+            </Button>
           ) : page === 1 ? (
             <Button disabled>{'<'}</Button>
           ) : (
-            <Button onClick={prevApiCall}>{'<'}</Button>
+            <Button
+              onClick={() => {
+                prevApiCall()
+                setSpinner(true)
+              }}
+            >
+              {'<'}
+            </Button>
           )}
           {next && page < count ? (
-            <Button onClick={nextApiCall}>{`>`}</Button>
+            <Button
+              onClick={() => {
+                nextApiCall()
+                setSpinner(true)
+              }}
+            >{`>`}</Button>
           ) : (
-            <Button disabled onClick={nextApiCall}>{`>`}</Button>
+            <Button
+              disabled
+              onClick={() => {
+                nextApiCall()
+                setSpinner(true)
+              }}
+            >{`>`}</Button>
           )}
           {page ? <span>{`${page} of ${count}`}</span> : null}
         </div>
