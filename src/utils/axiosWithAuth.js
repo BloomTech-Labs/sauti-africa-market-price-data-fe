@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import { promisify } from 'util'
 
 let cache = {
   maxEntries: 20,
@@ -20,7 +19,6 @@ let cache = {
       const keyToDelete = this.cacheData.keys().next().value
       this.cacheData.delete(keyToDelete)
     }
-
     this.cacheData.set(key, value)
   }
 }
@@ -29,9 +27,9 @@ export const axiosWithAuth = token => {
   return {
     get: async function(path, params) {
       const found = cache.get(path)
-      if (found) return await found
+      if (found) return found
       try {
-        const response = axios.get(path, {
+        const response = await axios.get(path, {
           ...params,
           headers: { Authorization: `Bearer ${token}` }
         })
@@ -41,6 +39,11 @@ export const axiosWithAuth = token => {
         return new Error(error)
       }
     },
-    post: function() {}
+    post: function(path, params) {
+      return axios.post(path, {
+        ...params,
+        headers: { Authorization: `Bearer ${token}` }
+      })
+    }
   }
 }
