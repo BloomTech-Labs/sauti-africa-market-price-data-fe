@@ -105,7 +105,6 @@ const NavBar = () => {
                 />
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem header>{user.name}</DropdownItem>
                 <DropdownItem
                   tag={RouterNavLink}
                   to="/profile"

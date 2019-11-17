@@ -326,9 +326,15 @@ const Grid = () => {
 
     axiosWithAuth([token])
       .get(
-        `http://localhost:8888/sauti/client/export/?currency=${currency ||
+        `/sauti/client/export/?currency=${currency ||
           'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
-          ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
+          ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`,
+          {
+            baseURL:
+              process.env.NODE_ENV !== 'development'
+                ? 'https://sauti-africa-market-master.herokuapp.com/'
+                : 'http://localhost:8888/'
+          }
       )
       .then(async res => {
         window.location.href = res.config.url
