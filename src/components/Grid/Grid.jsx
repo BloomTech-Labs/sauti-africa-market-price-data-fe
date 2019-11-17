@@ -1,6 +1,5 @@
 import React, { useReducer, useState, useEffect } from 'react'
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
-import axios from 'axios'
 import { AgGridReact } from 'ag-grid-react'
 // import DataGrid from '../DataGrid'
 import useGetToken from '../../hooks/useGetToken'
@@ -91,7 +90,7 @@ const Grid = () => {
     if (cachedRowData) {
       dispatch({ type: 'SET_ROW_DATA', payload: JSON.parse(cachedRowData) })
     }
-    axios
+    axiosWithAuth([token])
       .get('/sauti/client/superlist', {
         baseURL:
           process.env.NODE_ENV !== 'development'
@@ -326,15 +325,9 @@ const Grid = () => {
 
     axiosWithAuth([token])
       .get(
-        `/sauti/client/export/?currency=${currency ||
+        `http://localhost:8888/sauti/client/export/?currency=${currency ||
           'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
-          ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`,
-          {
-            baseURL:
-              process.env.NODE_ENV !== 'development'
-                ? 'https://sauti-africa-market-master.herokuapp.com/'
-                : 'http://localhost:8888/'
-          }
+          ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
       )
       .then(async res => {
         window.location.href = res.config.url

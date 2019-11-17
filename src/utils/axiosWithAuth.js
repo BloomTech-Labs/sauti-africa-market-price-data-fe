@@ -3,7 +3,9 @@ import axios from 'axios'
 let cache = {
   maxEntries: 20,
   cacheData: new Map(),
+  superlist: null,
   get: function(key) {
+    if (key.includes('superlist')) return this.superlist
     const hasKey = this.cacheData.has(key)
     let value
     if (hasKey) {
@@ -14,12 +16,16 @@ let cache = {
     return value
   },
   set: function(key, value) {
-    if (this.cacheData.size >= this.maxEntries) {
-      // least-recently used cache eviction strategy
-      const keyToDelete = this.cacheData.keys().next().value
-      this.cacheData.delete(keyToDelete)
+    if (key.includes('superlist')) {
+      this.superlist = value
+    } else {
+      if (this.cacheData.size >= this.maxEntries) {
+        // least-recently used cache eviction strategy
+        const keyToDelete = this.cacheData.keys().next().value
+        this.cacheData.delete(keyToDelete)
+      }
+      this.cacheData.set(key, value)
     }
-    this.cacheData.set(key, value)
   }
 }
 
