@@ -220,234 +220,152 @@ const Grid = () => {
   }
 
   const nextApiCall = async () => {
-    if (callCache[page + 1]) {
-      const p = page
-      const currentPage =
-        typeof p === 'number' && p + 1 <= count ? p + 1 : count
-      dispatch({
-        type: 'SET_ROW_DATA',
-        payload: callCache[currentPage].records
+    agGridAPI.showLoadingOverlay()
+    const dateRangeQuery =
+      dateRanges && dateRanges[0]
+        ? `&startDate=${dateRanges[0].format(
+            'YYYY-MM-DD'
+          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+        : ''
+    setErr(false)
+    let nextCursor = null
+    let n = next[next.length - 1]
+    if (next) nextCursor = n
+    axiosWithAuth([token])
+      .get(
+        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+          ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`,
+        {
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
+        }
+      )
+      .then(async res => {
+        dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
+
+        agGridAPI.hideOverlay()
+        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
+
+        const p = page
+        const currentPage =
+          typeof p === 'number' && p + 1 <= count ? p + 1 : count
+
+        await setPrev([...prev, res.data.prev])
+        await setNext([...next, res.data.next])
+        await setPage(currentPage)
+        callCache[currentPage] = res.data
+        localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
+        localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
+        localStorage.setItem('page', JSON.stringify(currentPage))
       })
-      localStorage.setItem(
-        'rowdata',
-        JSON.stringify(callCache[currentPage].records)
-      )
-      await setPage(currentPage)
-      localStorage.setItem('page', JSON.stringify(currentPage))
-      await setPrev([...prev, callCache[currentPage].prev])
-      await setNext([...next, callCache[currentPage].next])
-      localStorage.setItem(
-        'prev',
-        JSON.stringify([...prev, callCache[currentPage].prev])
-      )
-      localStorage.setItem(
-        'next',
-        JSON.stringify([...next, callCache[currentPage].next])
-      )
-    } else {
-      agGridAPI.showLoadingOverlay()
-      const dateRangeQuery =
-        dateRanges && dateRanges[0]
-          ? `&startDate=${dateRanges[0].format(
-              'YYYY-MM-DD'
-            )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
-          : ''
-      setErr(false)
-      let nextCursor = null
-      let n = next[next.length - 1]
-      if (next) nextCursor = n
-      axiosWithAuth([token])
-        .get(
-          `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-            ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
-            ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`,
-          {
-            baseURL:
-              process.env.NODE_ENV !== 'development'
-                ? 'https://sauti-africa-market-master.herokuapp.com/'
-                : 'http://localhost:8888/'
-          }
-        )
-        .then(async res => {
-          dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
+      .catch(e => {
+        console.log({ apiCallErr: e })
+        setErr(true)
 
-          agGridAPI.hideOverlay()
-          localStorage.setItem('rowdata', JSON.stringify(res.data.records))
-
-          const p = page
-          const currentPage =
-            typeof p === 'number' && p + 1 <= count ? p + 1 : count
-
-          await setPrev([...prev, res.data.prev])
-          await setNext([...next, res.data.next])
-          await setPage(currentPage)
-          callCache[currentPage] = res.data
-          localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
-          localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
-          localStorage.setItem('page', JSON.stringify(currentPage))
-        })
-        .catch(e => {
-          console.log({ apiCallErr: e })
-          setErr(true)
-
-          agGridAPI.hideOverlay()
-        })
-    }
+        agGridAPI.hideOverlay()
+      })
   }
 
   const prevApiCall = async () => {
-    if (callCache[page - 1]) {
-      let p = page
-      const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
-      dispatch({
-        type: 'SET_ROW_DATA',
-        payload: callCache[currentPage].records
+    agGridAPI.showLoadingOverlay()
+    const dateRangeQuery =
+      dateRanges && dateRanges[0]
+        ? `&startDate=${dateRanges[0].format(
+            'YYYY-MM-DD'
+          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+        : ''
+
+    setErr(false)
+    let p = page
+    const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
+    await setPage(currentPage)
+
+    localStorage.setItem('page', JSON.stringify(currentPage))
+    let nextCursor = null
+    let nextPage = null
+    if (prev && page) nextPage = prev[page - 2]
+    if (nextPage) nextCursor = nextPage
+    axiosWithAuth([token])
+      .get(
+        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+          ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`,
+        {
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
+        }
+      )
+      .then(async res => {
+        dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
+        agGridAPI.hideOverlay()
+        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
+
+        await setPrev([...prev, res.data.prev])
+        await setNext([...next, res.data.next])
+        callCache[currentPage] = res.data
+        localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
+        localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
       })
-      localStorage.setItem(
-        'rowdata',
-        JSON.stringify(callCache[currentPage].records)
-      )
-      await setPage(currentPage)
-      localStorage.setItem('page', JSON.stringify(currentPage))
-      await setPrev([...prev, callCache[currentPage].prev])
-      await setNext([...next, callCache[currentPage].next])
-      localStorage.setItem(
-        'prev',
-        JSON.stringify([...prev, callCache[currentPage].prev])
-      )
-      localStorage.setItem(
-        'next',
-        JSON.stringify([...next, callCache[currentPage].next])
-      )
-    } else {
-      agGridAPI.showLoadingOverlay()
-      const dateRangeQuery =
-        dateRanges && dateRanges[0]
-          ? `&startDate=${dateRanges[0].format(
-              'YYYY-MM-DD'
-            )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
-          : ''
+      .catch(e => {
+        console.log({ apiCallErr: e })
+        setErr(true)
 
-      setErr(false)
-      let p = page
-      const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
-      await setPage(currentPage)
-
-      localStorage.setItem('page', JSON.stringify(currentPage))
-      let nextCursor = null
-      let nextPage = null
-      if (prev && page) nextPage = prev[page - 2]
-      if (nextPage) nextCursor = nextPage
-      axiosWithAuth([token])
-        .get(
-          `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-            ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
-            ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`,
-          {
-            baseURL:
-              process.env.NODE_ENV !== 'development'
-                ? 'https://sauti-africa-market-master.herokuapp.com/'
-                : 'http://localhost:8888/'
-          }
-        )
-        .then(async res => {
-          dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
-          agGridAPI.hideOverlay()
-          localStorage.setItem('rowdata', JSON.stringify(res.data.records))
-
-          await setPrev([...prev, res.data.prev])
-          await setNext([...next, res.data.next])
-          callCache[currentPage] = res.data
-          localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
-          localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
-        })
-        .catch(e => {
-          console.log({ apiCallErr: e })
-          setErr(true)
-
-          agGridAPI.hideOverlay()
-        })
-    }
+        agGridAPI.hideOverlay()
+      })
   }
 
   const apiCall = async () => {
-    if (callCache[page - 1 || page]) {
-      let p = page
-      const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
-      dispatch({
-        type: 'SET_ROW_DATA',
-        payload: callCache[currentPage].records
+    agGridAPI.showLoadingOverlay()
+    const dateRangeQuery =
+      dateRanges && dateRanges[0]
+        ? `&startDate=${dateRanges[0].format(
+            'YYYY-MM-DD'
+          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+        : ''
+    setErr(false)
+    axiosWithAuth([token])
+      .get(
+        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+          ''}${productQuery || ''}${dateRangeQuery}`,
+        {
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
+        }
+      )
+      .then(async res => {
+        let p = page
+        const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
+        dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
+
+        agGridAPI.hideOverlay()
+        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
+        callCache[currentPage] = res.data
+        setNext([...next, res.data.next])
+        localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
+        let newCount = Math.ceil(parseInt(res.data.count[0]['count(*)']) / 30)
+
+        await setPrev([...prev, res.data.prev])
+        await setPage(currentPage)
+        await setCount(newCount)
+        localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
+        localStorage.setItem('page', JSON.stringify(currentPage))
+        localStorage.setItem('count', newCount)
       })
-      localStorage.setItem(
-        'rowdata',
-        JSON.stringify(callCache[currentPage].records)
-      )
+      .catch(e => {
+        console.log(e)
+        console.log({ apiCallErr: e })
+        setErr(true)
 
-      setNext([...next, callCache[currentPage].next])
-      localStorage.setItem(
-        'next',
-        JSON.stringify([...next, callCache[currentPage].next])
-      )
-      let newCount = Math.ceil(
-        parseInt(callCache[currentPage].count[0]['count(*)']) / 30
-      )
-
-      await setPrev([...prev, callCache[currentPage].prev])
-      await setPage(currentPage)
-      await setCount(newCount)
-      localStorage.setItem(
-        'prev',
-        JSON.stringify([...prev, callCache[currentPage].prev])
-      )
-      localStorage.setItem('page', JSON.stringify(currentPage))
-      localStorage.setItem('count', newCount)
-    } else {
-      agGridAPI.showLoadingOverlay()
-      const dateRangeQuery =
-        dateRanges && dateRanges[0]
-          ? `&startDate=${dateRanges[0].format(
-              'YYYY-MM-DD'
-            )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
-          : ''
-      setErr(false)
-      axiosWithAuth([token])
-        .get(
-          `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-            ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
-            ''}${productQuery || ''}${dateRangeQuery}`,
-          {
-            baseURL:
-              process.env.NODE_ENV !== 'development'
-                ? 'https://sauti-africa-market-master.herokuapp.com/'
-                : 'http://localhost:8888/'
-          }
-        )
-        .then(async res => {
-          let p = page
-          const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
-          dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
-
-          agGridAPI.hideOverlay()
-          localStorage.setItem('rowdata', JSON.stringify(res.data.records))
-          callCache[currentPage] = res.data
-          setNext([...next, res.data.next])
-          localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
-          let newCount = Math.ceil(parseInt(res.data.count[0]['count(*)']) / 30)
-
-          await setPrev([...prev, res.data.prev])
-          await setPage(currentPage)
-          await setCount(newCount)
-          localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
-          localStorage.setItem('page', JSON.stringify(currentPage))
-          localStorage.setItem('count', newCount)
-        })
-        .catch(e => {
-          console.log({ apiCallErr: e })
-          setErr(true)
-
-          agGridAPI.hideOverlay()
-        })
-    }
+        agGridAPI.hideOverlay()
+      })
   }
 
   return (
