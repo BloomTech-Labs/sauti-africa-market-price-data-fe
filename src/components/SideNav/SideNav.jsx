@@ -211,12 +211,12 @@ const SideNav = () => {
                 content="You can scroll the URL below horizontally"
                 position="right center"
               />
-              <Highlight language="javascript" className="highlight">
-                {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
-                <br />
-                {'developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'}
-              </Highlight>
             </p>
+            <Highlight language="javascript" className="highlight">
+              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              <br />
+              {'developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'}
+            </Highlight>
             <h3>Request Parameters</h3>
             <Table celled>
               <Table.Header>

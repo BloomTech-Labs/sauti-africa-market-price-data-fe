@@ -1,45 +1,46 @@
-import React, { useState } from "react";
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
-import useGetToken from "../../hooks/useGetToken";
-import Highlight from "react-highlight";
-import { Button, Input, Label } from "semantic-ui-react";
-import "highlight.js/styles/monokai-sublime.css";
+import React, { useState } from 'react'
+import axios from 'axios'
+import Highlight from 'react-highlight'
+import { Button, Input, Label } from 'semantic-ui-react'
+import 'highlight.js/styles/monokai-sublime.css'
 
 export default function PmPlayground() {
   const [userAnswer, setUserAnswer] = useState({
-    url: "product=yellow%20beans&market=lira"
-  });
-  const [data, setData] = useState([]);
-  const [bad, setBad] = useState(false);
-  const [disabledBtn, setDisabledBtn] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [token] = useGetToken();
+    url: 'product=yellow%20beans&market=lira'
+  })
+  const [data, setData] = useState([])
+  const [bad, setBad] = useState(false)
+  const [disabledBtn, setDisabledBtn] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(null)
   const handleChange = e => {
-    e.preventDefault();
-    setUserAnswer({ ...userAnswer, [e.target.name]: e.target.value });
-  };
+    e.preventDefault()
+    setUserAnswer({ ...userAnswer, [e.target.name]: e.target.value })
+  }
   const handleSubmit = (e, value) => {
-    e.preventDefault();
-    makeCall(value);
-    setDisabledBtn(true);
-    setTimeout(() => setDisabledBtn(false), 10000);
-  };
+    e.preventDefault()
+    makeCall(value)
+    setDisabledBtn(true)
+    setTimeout(() => setDisabledBtn(false), 10000)
+  }
   const clearUrl = e => {
-    e.preventDefault();
-    setUserAnswer({ url: "" });
-  };
+    e.preventDefault()
+    setUserAnswer({ url: '' })
+  }
   function makeCall(value) {
-    axiosWithAuth([token])
-      .get(
-        `https://sauti-africa-market-master.herokuapp.com/sauti/client/playground/latest?${value}`
-      )
+    axios
+      .get(`/sauti/client/playground/latest?${value}`, {
+        baseURL:
+          process.env.NODE_ENV !== 'development'
+            ? 'https://sauti-africa-market-master.herokuapp.com/'
+            : 'http://localhost:8888/'
+      })
       .then(res => {
-        setData(res.data);
+        setData(res.data)
       })
       .catch(error => {
-        setBad(true);
-        setErrorMessage(error.response.data.errorMessage);
-      });
+        setBad(true)
+        setErrorMessage(error.message)
+      })
   }
   // useEffect(()=> {
   //   makeCall()
@@ -77,11 +78,11 @@ export default function PmPlayground() {
                 {JSON.stringify(entry, null, 2)}
               </Highlight>
             </>
-          );
+          )
         })
       ) : (
         <Highlight>{errorMessage}</Highlight>
       )}
     </div>
-  );
+  )
 }
