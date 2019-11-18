@@ -25,7 +25,12 @@ export default function FilterPlayground() {
   }
   function makeCall(value) {
     axios
-      .get(`https://sauti-africa-market-master.herokuapp.com/sauti/?${value}`)
+      .get(`/sauti/?${value}`, {
+        baseURL:
+          process.env.NODE_ENV !== 'development'
+            ? 'https://sauti-africa-market-master.herokuapp.com/'
+            : 'http://localhost:8888/'
+      })
       .then(res => {
         setData(res.data)
       })

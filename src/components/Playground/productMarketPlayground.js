@@ -28,9 +28,12 @@ export default function PmPlayground() {
   }
   function makeCall(value) {
     axios
-      .get(
-        `https://sauti-africa-market-master.herokuapp.com/sauti/client/playground/latest?${value}`
-      )
+      .get(`/sauti/client/playground/latest?${value}`, {
+        baseURL:
+          process.env.NODE_ENV !== 'development'
+            ? 'https://sauti-africa-market-master.herokuapp.com/'
+            : 'http://localhost:8888/'
+      })
       .then(res => {
         setData(res.data)
       })

@@ -30,7 +30,13 @@ export default function DrPlayground() {
   function makeCall(value) {
     axios
       .get(
-        `https://sauti-africa-market-master.herokuapp.com/sauti/client/playground/date?${value}`
+        `/sauti/client/playground/date?${value}`,
+        {
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
+        }
       )
       .then(res => {
         setData(res.data)
