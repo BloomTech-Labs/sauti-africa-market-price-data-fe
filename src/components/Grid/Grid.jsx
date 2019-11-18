@@ -1,7 +1,7 @@
 import React, { useReducer, useState, useEffect } from 'react'
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
 import { AgGridReact } from 'ag-grid-react'
-// import DataGrid from '../DataGrid'
+import queryString from 'query-string'
 import useGetToken from '../../hooks/useGetToken'
 
 import { GridContext } from '../../contexts'
@@ -51,24 +51,12 @@ const Grid = () => {
   const [page, setPage] = useState(
     localStorage.getItem('page') ? JSON.parse(localStorage.getItem('page')) : 0
   )
-  const [countries, setCountries] = useState(
-    localStorage.getItem('c') ? JSON.parse(localStorage.getItem('c')) : []
-  )
-  const [markets, setMarkets] = useState(
-    localStorage.getItem('m') ? JSON.parse(localStorage.getItem('m')) : []
-  )
-  const [pCats, setPCats] = useState(
-    localStorage.getItem('pcat') ? JSON.parse(localStorage.getItem('pcat')) : []
-  )
-  const [pAggs, setPAggs] = useState(
-    localStorage.getItem('pagg') ? JSON.parse(localStorage.getItem('pagg')) : []
-  )
-  const [products, setProducts] = useState(
-    localStorage.getItem('p') ? JSON.parse(localStorage.getItem('p')) : []
-  )
-  const [currency, setCurrency] = useState(
-    localStorage.getItem('cur') ? JSON.parse(localStorage.getItem('cur')) : ''
-  )
+  const [countries, setCountries] = useState([])
+  const [markets, setMarkets] = useState([])
+  const [pCats, setPCats] = useState([])
+  const [pAggs, setPAggs] = useState([])
+  const [products, setProducts] = useState([])
+  const [currency, setCurrency] = useState('USD')
 
   const [dateRanges, setDateRanges] = useState(
     localStorage.getItem('dates')
@@ -144,7 +132,7 @@ const Grid = () => {
         queryUpdater(null)
       }
     }
-    localStorage.setItem(prefix, JSON.stringify(value))
+    // localStorage.setItem(prefix, JSON.stringify(value))
   }
 
   function serialize(collection) {
@@ -178,13 +166,54 @@ const Grid = () => {
   }
 
   function restoreQuery() {
-    dropdownHandler(countries, setCountries, setCountryQuery, 'c')
-    dropdownHandler(markets, setMarkets, setMarketQuery, 'm')
-    dropdownHandler(products, setProducts, setProductQuery, 'p')
-    dropdownHandler(pCats, setPCats, setPCatQuery, 'pcat')
-    dropdownHandler(pAggs, setPAggs, setPAggQuery, 'pagg')
-    dropdownHandler(currency, setCurrency, null, 'cur')
-    datesHandler(dateRanges)
+    const query = localStorage.getItem('q')
+    if (query) {
+      const {
+        c = [],
+        m = [],
+        p = [],
+        pcat = [],
+        pagg = [],
+        currency = '',
+        startDate = null,
+        endDate = null
+      } = queryString.parse(query.split('?')[1])
+
+      dropdownHandler(
+        Array.isArray(c) ? c : [c],
+        setCountries,
+        setCountryQuery,
+        'c'
+      )
+      dropdownHandler(
+        Array.isArray(m) ? m : [m],
+        setMarkets,
+        setMarketQuery,
+        'm'
+      )
+      dropdownHandler(
+        Array.isArray(p) ? p : [p],
+        setProducts,
+        setProductQuery,
+        'p'
+      )
+      dropdownHandler(
+        Array.isArray(pcat) ? pcat : [pcat],
+        setPCats,
+        setPCatQuery,
+        'pcat'
+      )
+      dropdownHandler(
+        Array.isArray(pagg) ? pagg : [pagg],
+        setPAggs,
+        setPAggQuery,
+        'pagg'
+      )
+      dropdownHandler(currency, setCurrency, null, 'cur')
+      datesHandler(
+        startDate && endDate ? [moment(startDate), moment(endDate)] : []
+      )
+    }
   }
 
   function resetSearch() {
@@ -194,7 +223,7 @@ const Grid = () => {
     dropdownHandler([], setProducts, setProductQuery, 'p')
     dropdownHandler([], setPCats, setPCatQuery, 'pcat')
     dropdownHandler([], setPAggs, setPAggQuery, 'pagg')
-    dropdownHandler('', setCurrency, null, 'cur')
+    dropdownHandler('USD', setCurrency, null, 'cur')
     datesHandler([])
     localStorage.clear()
     setPage(0)
@@ -229,6 +258,7 @@ const Grid = () => {
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
       ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
+    localStorage.setItem('q', query)
     axiosWithAuth([token])
       .get(query)
       .then(async res => {
@@ -275,6 +305,7 @@ const Grid = () => {
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
       ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
+    localStorage.setItem('q', query)
     axiosWithAuth([token])
       .get(query)
       .then(async res => {
@@ -328,6 +359,7 @@ const Grid = () => {
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
       ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}`
+    localStorage.setItem('q', query)
     axiosWithAuth([token])
       .get(query)
       .then(async res => {
