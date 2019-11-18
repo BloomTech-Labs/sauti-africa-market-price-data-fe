@@ -88,12 +88,7 @@ const Grid = () => {
       dispatch({ type: 'SET_ROW_DATA', payload: JSON.parse(cachedRowData) })
     }
     axiosWithAuth([token])
-      .get('/sauti/client/superlist', {
-        baseURL:
-          process.env.NODE_ENV !== 'development'
-            ? 'https://sauti-africa-market-master.herokuapp.com/'
-            : 'http://localhost:8888/'
-      })
+      .get('/sauti/client/superlist')
       .then(res => {
         setList(res.data)
         setSpinner(false)
@@ -231,18 +226,11 @@ const Grid = () => {
     let nextCursor = null
     let n = next[next.length - 1]
     if (next) nextCursor = n
+    const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
     axiosWithAuth([token])
-      .get(
-        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
-          ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`,
-        {
-          baseURL:
-            process.env.NODE_ENV !== 'development'
-              ? 'https://sauti-africa-market-master.herokuapp.com/'
-              : 'http://localhost:8888/'
-        }
-      )
+      .get(query)
       .then(async res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
         setSpinner(false)
@@ -284,18 +272,11 @@ const Grid = () => {
     let nextPage = null
     if (prev && page) nextPage = prev[page - 2]
     if (nextPage) nextCursor = nextPage
+    const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
     axiosWithAuth([token])
-      .get(
-        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
-          ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`,
-        {
-          baseURL:
-            process.env.NODE_ENV !== 'development'
-              ? 'https://sauti-africa-market-master.herokuapp.com/'
-              : 'http://localhost:8888/'
-        }
-      )
+      .get(query)
       .then(async res => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
         setSpinner(false)
@@ -322,13 +303,11 @@ const Grid = () => {
             'YYYY-MM-DD'
           )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
-
+    const query = `http://localhost:8888/sauti/client/export/?currency=${currency ||
+      'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
+      ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
     axiosWithAuth([token])
-      .get(
-        `http://localhost:8888/sauti/client/export/?currency=${currency ||
-          'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
-          ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
-      )
+      .get(query)
       .then(async res => {
         window.location.href = res.config.url
       })
@@ -346,18 +325,11 @@ const Grid = () => {
           )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
     setErr(false)
+    const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${productQuery || ''}${dateRangeQuery}`
     axiosWithAuth([token])
-      .get(
-        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
-          ''}${productQuery || ''}${dateRangeQuery}`,
-        {
-          baseURL:
-            process.env.NODE_ENV !== 'development'
-              ? 'https://sauti-africa-market-master.herokuapp.com/'
-              : 'http://localhost:8888/'
-        }
-      )
+      .get(query)
       .then(async res => {
         let p = page
         const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1

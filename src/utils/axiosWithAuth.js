@@ -40,11 +40,15 @@ export const axiosWithAuth = token => {
       try {
         const response = axios.get(path, {
           ...params,
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
+          baseURL:
+            process.env.NODE_ENV !== 'development'
+              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              : 'http://localhost:8888/'
         })
         cache.set(path, response)
         return response
-      } catch (error) {        
+      } catch (error) {
         cache.del(path)
         return new Error(error)
       }
