@@ -52,12 +52,6 @@ export const axiosWithAuth = (token, exclude) => {
         cache.del(path)
         return { error }
       }
-    },
-    post: function(path, params) {
-      return axios.post(path, {
-        ...params,
-        headers: { Authorization: `Bearer ${token}` }
-      })
     }
   }
 }
