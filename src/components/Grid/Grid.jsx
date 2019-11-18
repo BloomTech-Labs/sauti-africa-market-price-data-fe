@@ -8,7 +8,7 @@ import { GridContext } from '../../contexts'
 import { initialState, reducer } from '../../store'
 
 import { Container } from 'reactstrap'
-import { Dropdown, Button, Form } from 'semantic-ui-react'
+import { Dropdown, Button, Form, Message } from 'semantic-ui-react'
 import moment from 'moment'
 import { DatePicker } from 'antd'
 
@@ -508,9 +508,9 @@ const Grid = () => {
             </LoadingOverlay>
           )}
           {err && (
-            <div>
-              <h1>{err}</h1>
-            </div>
+            <Message negative>
+              <Message.Header>{err}</Message.Header>
+            </Message>
           )}
           <LoadingOverlay
             active={spinner && spinner !== 'One moment please...'}

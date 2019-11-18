@@ -50,7 +50,6 @@ export const axiosWithAuth = (token, exclude) => {
         return response
       } catch (error) {
         cache.del(path)
-        console.log(error)
         return { error }
       }
     },
