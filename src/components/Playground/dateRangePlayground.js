@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { axiosWithAuth } from '../../utils/axiosWithAuth'
-import useGetToken from '../../hooks/useGetToken'
+import axios from 'axios'
 import Highlight from 'react-highlight'
 import './Playground.scss'
 import { Button, Input, Label } from 'semantic-ui-react'
@@ -13,7 +12,7 @@ export default function DrPlayground() {
   const [bad, setBad] = useState(false)
   const [disabledBtn, setDisabledBtn] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
-  const [token] = useGetToken()
+
   const handleChange = e => {
     e.preventDefault()
     setUserAnswer({ ...userAnswer, [e.target.name]: e.target.value })
@@ -29,8 +28,10 @@ export default function DrPlayground() {
     setUserAnswer({ url: '' })
   }
   function makeCall(value) {
-    axiosWithAuth([token])
-      .get(`/sauti/client/playground/date?${value}`)
+    axios
+      .get(
+        `https://sauti-africa-market-master.herokuapp.com/sauti/client/playground/date?${value}`
+      )
       .then(res => {
         setData(res.data)
       })

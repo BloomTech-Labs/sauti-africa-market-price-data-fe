@@ -33,11 +33,11 @@ const Profile = ({ apiKey, setApiKey }) => {
 
       const response = await axios.post(
         '/api/apikeyRoute/private',
-        { id: sub },
         {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
+          id: sub
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
           baseURL:
             process.env.NODE_ENV !== 'development'
               ? 'https://sauti-africa-market-master.herokuapp.com/'
@@ -59,7 +59,9 @@ const Profile = ({ apiKey, setApiKey }) => {
     <Container className="mb-5">
       <Header as="h2" icon textAlign="center">
         <Icon name="users" circular />
-        <Header.Content>{`Welcome,  ${user.given_name}!`}</Header.Content>
+        <Header.Content>{`Welcome,  ${
+          user.given_name ? user.given_name : 'user'
+        }!`}</Header.Content>
       </Header>
       <Row className="align-items-center profile-header mb-5 text-center text-md-center">
         <Card>
