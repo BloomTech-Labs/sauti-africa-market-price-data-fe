@@ -43,7 +43,7 @@ export default function DrPlayground() {
       })
       .catch(error => {
         setBad(true)
-        setErrorMessage(error.response.data.errorMessage)
+        setErrorMessage(error.message)
       })
   }
   // useEffect(()=> {

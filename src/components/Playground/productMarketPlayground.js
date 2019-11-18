@@ -39,7 +39,7 @@ export default function PmPlayground() {
       })
       .catch(error => {
         setBad(true)
-        setErrorMessage(error.response.data.errorMessage)
+        setErrorMessage(error.message)
       })
   }
   // useEffect(()=> {
