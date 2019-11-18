@@ -342,7 +342,7 @@ const Grid = () => {
           )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
     setErr(false)
-    const query = `http://localhost:8888/sauti/client/export/?currency=${currency ||
+    const query = `https://sauti-africa-market-master.herokuapp.com/sauti/client/export/?currency=${currency ||
       'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
       ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
     axiosWithAuth([token], NOCACHE)
