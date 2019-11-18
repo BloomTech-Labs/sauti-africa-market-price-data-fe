@@ -21,7 +21,7 @@ import 'antd/dist/antd.css'
 import './Grid.scss'
 
 const { RangePicker } = DatePicker
-let callCache = []
+const NOCACHE = true
 
 const Grid = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
@@ -69,7 +69,7 @@ const Grid = () => {
   const [exportCSV, setExportCSV] = useState(null)
 
   useEffect(() => {
-    setSpinner(true)
+    setSpinner('One moment please...')
     restoreQuery()
     const cachedRowData = localStorage.getItem('rowdata')
     if (cachedRowData) {
@@ -217,7 +217,7 @@ const Grid = () => {
   }
 
   function resetSearch() {
-    setSpinner(true)
+    setSpinner('One moment please...')
     dropdownHandler([], setCountries, setCountryQuery, 'c')
     dropdownHandler([], setMarkets, setMarketQuery, 'm')
     dropdownHandler([], setProducts, setProductQuery, 'p')
@@ -272,7 +272,6 @@ const Grid = () => {
         await setPrev([...prev, res.data.prev])
         await setNext([...next, res.data.next])
         await setPage(currentPage)
-        callCache[currentPage] = res.data
         localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
         localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
         localStorage.setItem('page', JSON.stringify(currentPage))
@@ -314,7 +313,6 @@ const Grid = () => {
         await setNext([...next, res.data.next])
         await setPrev([...prev, res.data.prev])
         await setNext([...next, res.data.next])
-        callCache[currentPage] = res.data
         localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
         localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
       })
@@ -337,7 +335,7 @@ const Grid = () => {
     const query = `http://localhost:8888/sauti/client/export/?currency=${currency ||
       'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
       ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
-    axiosWithAuth([token])
+    axiosWithAuth([token], NOCACHE)
       .get(query)
       .then(async res => {
         window.location.href = res.config.url
@@ -345,6 +343,7 @@ const Grid = () => {
       .catch(e => {
         console.log({ apiCallErr: e })
         setErr(`${e}`)
+        setSpinner(false)
       })
   }
 
@@ -369,7 +368,6 @@ const Grid = () => {
         setSpinner(false)
 
         localStorage.setItem('rowdata', JSON.stringify(res.data.records))
-        callCache[currentPage] = res.data
         setNext([...next, res.data.next])
         localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
         let newCount = Math.ceil(parseInt(res.data.count[0]['count(*)']) / 30)
@@ -392,12 +390,12 @@ const Grid = () => {
     <Container className="flex-grow-1 mt-5">
       <GridContext.Provider value={{ store, dispatch }}>
         <div>
-          {err ? (
-            <div>
-              <h1>{err}</h1>
-            </div>
-          ) : token ? (
-            <LoadingOverlay active={spinner} spinner>
+          {token && (
+            <LoadingOverlay
+              active={spinner && spinner !== 'Getting data...'}
+              spinner
+              text={spinner}
+            >
               <Form>
                 <Dropdown
                   placeholder="Countries"
@@ -482,7 +480,7 @@ const Grid = () => {
                 <Button
                   onClick={() => {
                     apiCall()
-                    setSpinner(true)
+                    setSpinner('Getting data...')
                   }}
                 >
                   Update Grid
@@ -493,16 +491,29 @@ const Grid = () => {
                     <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
                       Export CSV Per Page
                     </Button>{' '}
-                    <Button onClick={() => apiCallForCSV()}>
+                    <Button
+                      onClick={() => {
+                        apiCallForCSV()
+                        setSpinner('This may take a while, please wait...')
+                      }}
+                    >
                       Export All Data as CSV
                     </Button>
                   </>
                 )}
               </div>
             </LoadingOverlay>
-          ) : null}
-
-          <LoadingOverlay active={spinner} spinner text="Getting Data...">
+          )}
+          {err && (
+            <div>
+              <h1>{err}</h1>
+            </div>
+          )}
+          <LoadingOverlay
+            active={spinner && spinner !== 'One moment please...'}
+            spinner
+            text={spinner}
+          >
             <div style={gridStyle} className="ag-theme-balham">
               <AgGridReact
                 // properties
@@ -524,7 +535,7 @@ const Grid = () => {
             <Button
               onClick={() => {
                 apiCall()
-                setSpinner(true)
+                setSpinner('Getting data...')
               }}
             >
               {'<'}
@@ -535,7 +546,7 @@ const Grid = () => {
             <Button
               onClick={() => {
                 prevApiCall()
-                setSpinner(true)
+                setSpinner('Getting data...')
               }}
             >
               {'<'}
@@ -545,7 +556,7 @@ const Grid = () => {
             <Button
               onClick={() => {
                 nextApiCall()
-                setSpinner(true)
+                setSpinner('Getting data...')
               }}
             >{`>`}</Button>
           ) : (
@@ -553,7 +564,7 @@ const Grid = () => {
               disabled
               onClick={() => {
                 nextApiCall()
-                setSpinner(true)
+                setSpinner('Getting data...')
               }}
             >{`>`}</Button>
           )}

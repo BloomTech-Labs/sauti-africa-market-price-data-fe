@@ -32,7 +32,7 @@ let cache = {
   }
 }
 
-export const axiosWithAuth = token => {
+export const axiosWithAuth = (token, exclude) => {
   return {
     get: function(path, params) {
       const found = cache.get(path)
@@ -46,7 +46,7 @@ export const axiosWithAuth = token => {
               ? 'https://sauti-africa-market-master.herokuapp.com/'
               : 'http://localhost:8888/'
         })
-        cache.set(path, response)
+        if (!exclude) cache.set(path, response)
         return response
       } catch (error) {
         cache.del(path)
