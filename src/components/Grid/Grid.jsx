@@ -69,7 +69,7 @@ const Grid = () => {
   const [exportCSV, setExportCSV] = useState(null)
 
   useEffect(() => {
-    setSpinner('One moment please...')
+    setSpinner('One moment please...') // Overlay on top of dropdowns while superlist is populating the dropdown menu options
     restoreQuery()
     const cachedRowData = localStorage.getItem('rowdata')
     if (cachedRowData) {
@@ -136,13 +136,14 @@ const Grid = () => {
     // localStorage.setItem(prefix, JSON.stringify(value))
   }
 
+  // Moment timestamps need special handling before running JSON.stringify on them
   function serialize(collection) {
     return JSON.stringify(collection, function(k, v) {
       if (
         typeof v === 'string' &&
         v.match(
           /\d{4}-[01]\d-[0-3]\dT?[0-2]\d:[0-5]\d(?::[0-5]\d(?:.\d{1,6})?)?(?:([+-])([0-2]\d):?([0-5]\d)|Z)/
-        )
+        ) // Check if ISO datetime is present, if so transform to timestamp, otherwise return unchanged
       ) {
         return 'moment:' + moment(v).valueOf()
       }
@@ -150,7 +151,9 @@ const Grid = () => {
     })
   }
 
+  // Moment timestamps need special handling before running JSON.parse on them
   function deserialize(serializedData) {
+    // If a moment timestamp is found, extract it for use. If not, return unchanged
     return JSON.parse(serializedData, function(k, v) {
       if (typeof v === 'string' && v.includes('moment:')) {
         return moment(parseInt(v.split(':')[1], 10))
@@ -167,6 +170,7 @@ const Grid = () => {
   }
 
   function restoreQuery() {
+    // Restore a saved query string from localstorage and parse into dropdown menu options for prepopulating most recent search
     const query = localStorage.getItem('q')
     if (query) {
       const {
@@ -217,6 +221,7 @@ const Grid = () => {
     }
   }
 
+  // Clear all search parameters and local storage
   function resetSearch() {
     setErr(false)
     setSpinner('One moment please...')
@@ -245,6 +250,8 @@ const Grid = () => {
     params.api.sizeColumnsToFit()
     setExportCSV(params.api)
   }
+
+  // For all API calls except CSV request, axiosWithAuth wraps a caching layer. If a query result is found in the cache, it will be returned without hitting the backend
 
   const nextApiCall = async () => {
     const dateRangeQuery =
@@ -326,7 +333,7 @@ const Grid = () => {
     setSpinner(false)
   }
 
-  //Call for Export All CSV
+  // Call for Export All CSV. Uncached
   const apiCallForCSV = async () => {
     const dateRangeQuery =
       dateRanges && dateRanges[0]
