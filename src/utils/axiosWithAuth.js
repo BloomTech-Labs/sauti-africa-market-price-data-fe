@@ -34,11 +34,11 @@ let cache = {
 
 export const axiosWithAuth = (token, exclude) => {
   return {
-    get: function(path, params) {
+    get: async function(path, params) {
       const found = cache.get(path)
       if (found) return found
       try {
-        const response = axios.get(path, {
+        const response = await axios.get(path, {
           ...params,
           headers: { Authorization: `Bearer ${token}` },
           baseURL:
@@ -50,7 +50,8 @@ export const axiosWithAuth = (token, exclude) => {
         return response
       } catch (error) {
         cache.del(path)
-        return new Error(error)
+        console.log(error)
+        return { error }
       }
     },
     post: function(path, params) {

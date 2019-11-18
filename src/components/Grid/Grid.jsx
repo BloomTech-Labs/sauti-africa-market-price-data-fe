@@ -78,13 +78,13 @@ const Grid = () => {
     axiosWithAuth([token])
       .get('/sauti/client/superlist')
       .then(res => {
+        if (res.error) throw new Error(res.error)
         setList(res.data)
         setSpinner(false)
       })
       .catch(err => {
         setSpinner(false)
-        setErr(`${err}`)
-        console.log(err.message)
+        setErr(`${err.message}`)
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -264,6 +264,7 @@ const Grid = () => {
     axiosWithAuth([token])
       .get(query)
       .then(async res => {
+        if (res.error) throw new Error(res.error)
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
         setSpinner(false)
 
@@ -279,8 +280,7 @@ const Grid = () => {
         localStorage.setItem('page', JSON.stringify(currentPage))
       })
       .catch(e => {
-        console.log({ apiCallErr: e })
-        setErr(`${e}`)
+        setErr(`${e.message}`)
         setSpinner(false)
       })
   }
@@ -310,6 +310,7 @@ const Grid = () => {
     axiosWithAuth([token])
       .get(query)
       .then(async res => {
+        if (res.error) throw new Error(res.error)
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
         setSpinner(false)
         await setNext([...next, res.data.next])
@@ -319,9 +320,8 @@ const Grid = () => {
         localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
       })
       .catch(e => {
-        console.log({ apiCallErr: e })
         setSpinner(false)
-        setErr(`${e}`)
+        setErr(`${e.message}`)
       })
     setSpinner(false)
   }
@@ -341,11 +341,11 @@ const Grid = () => {
     axiosWithAuth([token], NOCACHE)
       .get(query)
       .then(async res => {
+        if (res.error) throw new Error(res.error)
         window.location.href = res.config.url
       })
       .catch(e => {
-        console.log({ apiCallErr: e })
-        setErr(`${e}`)
+        setErr(`${e.message}`)
         setSpinner(false)
       })
   }
@@ -365,6 +365,7 @@ const Grid = () => {
     axiosWithAuth([token])
       .get(query)
       .then(async res => {
+        if (res.error) throw new Error(res.error)
         let p = page
         const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
@@ -383,8 +384,7 @@ const Grid = () => {
         localStorage.setItem('count', newCount)
       })
       .catch(e => {
-        console.log({ apiCallErr: e })
-        setErr(`${e}`)
+        setErr(`${e.message}`)
         setSpinner(false)
       })
   }
