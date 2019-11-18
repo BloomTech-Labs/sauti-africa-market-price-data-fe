@@ -83,6 +83,7 @@ const Grid = () => {
       })
       .catch(err => {
         setSpinner(false)
+        setErr(`${err}`)
         console.log(err.message)
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -217,6 +218,7 @@ const Grid = () => {
   }
 
   function resetSearch() {
+    setErr(false)
     setSpinner('One moment please...')
     dropdownHandler([], setCountries, setCountryQuery, 'c')
     dropdownHandler([], setMarkets, setMarketQuery, 'm')
@@ -332,6 +334,7 @@ const Grid = () => {
             'YYYY-MM-DD'
           )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
+    setErr(false)
     const query = `http://localhost:8888/sauti/client/export/?currency=${currency ||
       'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
       ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
