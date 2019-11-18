@@ -1,17 +1,28 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { Button, Container, Row, Col } from 'reactstrap'
-import loader from '../../assets/loading.svg'
+
+import { Header, Card, Image, Message, Icon } from 'semantic-ui-react'
 
 import Loading from '../Loading/Loading'
 import { useAuth0 } from '../../contexts'
 
-import Highlight from 'react-highlight'
-import 'highlight.js/styles/monokai-sublime.css'
+// import Highlight from 'react-highlight'
+// import 'highlight.js/styles/monokai-sublime.css'
 
 const Profile = ({ apiKey, setApiKey }) => {
   const { loading, user, getTokenSilently } = useAuth0()
   const [keyLoading, setKeyLoading] = useState(false)
+
+  const AlertMessage = () => (
+    <Message icon>
+      <Icon name="circle notched" loading />
+      <Message.Content>
+        <Message.Header>Just one second</Message.Header>
+        We are fetching that API for you.
+      </Message.Content>
+    </Message>
+  )
 
   const getApiKey = async () => {
     try {
@@ -22,11 +33,11 @@ const Profile = ({ apiKey, setApiKey }) => {
 
       const response = await axios.post(
         '/api/apikeyRoute/private',
-        { id: sub },
         {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
+          id: sub
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
           baseURL:
             process.env.NODE_ENV !== 'development'
               ? 'https://sauti-africa-market-master.herokuapp.com/'
@@ -46,44 +57,57 @@ const Profile = ({ apiKey, setApiKey }) => {
 
   return (
     <Container className="mb-5">
-      <Row className="align-items-center profile-header mb-5 text-center text-md-left">
-        <Col md={2}>
-          <img
-            src={user.picture}
-            alt="Profile"
-            className="rounded-circle img-fluid profile-picture mb-3 mb-md-0"
-          />
-        </Col>
+      <Header as="h2" icon textAlign="center">
+        <Icon name="users" circular />
+        <Header.Content>{`Welcome,  ${
+          user.given_name ? user.given_name : 'user'
+        }!`}</Header.Content>
+      </Header>
+      <Row className="align-items-center profile-header mb-5 text-center text-md-center">
+        <Card>
+          <Image src={user.picture} wrapped ui={false} />
+          <Card.Content>
+            <Card.Header>{user.name}</Card.Header>
+            <span></span>
+            <Card.Meta>
+              <span className="date">
+                <Icon name="mail" />
+                {user.email}
+              </span>
+            </Card.Meta>
+          </Card.Content>
+        </Card>
         <Col md>
-          <h2>{user.name}</h2>
-          <p className="lead text-muted">{user.email}</p>
-        </Col>
-        <Col md>
-          <h2>API Key</h2>
+          <h1>API Key</h1>
           {!apiKey ? (
-            <p>
+            <h3>
               Your API key will only be accessible for your current session. If
               you are a new user or need a replacement, please request one and
               then save it somewhere safe.
-            </p>
+            </h3>
           ) : null}
           {apiKey ? (
-            <p>
+            <h3>
               Here is your API key. It will only be accessible for your current
               session. Please save it somewhere safe.
-            </p>
+            </h3>
           ) : null}
-          {keyLoading ? <img src={loader} alt="Loading" /> : null}
-          {apiKey ? <h3>{apiKey}</h3> : null}
+          {keyLoading ? AlertMessage() : null}
+          {apiKey ? <h2>{apiKey}</h2> : null}
           {!apiKey && !keyLoading ? (
-            <Button size="md" color="primary" onClick={getApiKey}>
+            <Button
+              className="btn btn-danger float-middle"
+              size="lg"
+              color="tomato"
+              onClick={getApiKey}
+            >
               Get API Key
             </Button>
           ) : null}
         </Col>
       </Row>
       <Row>
-        <Highlight className="JSON">{JSON.stringify(user, null, 2)}</Highlight>
+        {/* <Highlight className='JSON'>{JSON.stringify(user, null, 2)}</Highlight> */}
       </Row>
     </Container>
   )

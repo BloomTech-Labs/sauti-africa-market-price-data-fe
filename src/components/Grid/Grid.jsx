@@ -1,19 +1,19 @@
 import React, { useReducer, useState, useEffect } from 'react'
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
-import axios from 'axios'
 import { AgGridReact } from 'ag-grid-react'
-// import DataGrid from '../DataGrid'
+import queryString from 'query-string'
 import useGetToken from '../../hooks/useGetToken'
 
 import { GridContext } from '../../contexts'
 import { initialState, reducer } from '../../store'
 
 import { Container } from 'reactstrap'
-import { Dropdown, Button, Form } from 'semantic-ui-react'
+import { Dropdown, Button, Form, Message } from 'semantic-ui-react'
 import moment from 'moment'
 import { DatePicker } from 'antd'
 
 import { currencyOptions } from '../../config/gridDropdown'
+import LoadingOverlay from 'react-loading-overlay'
 
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.css'
@@ -21,6 +21,7 @@ import 'antd/dist/antd.css'
 import './Grid.scss'
 
 const { RangePicker } = DatePicker
+const NOCACHE = true
 
 const Grid = () => {
   const [store, dispatch] = useReducer(reducer, initialState)
@@ -45,53 +46,47 @@ const Grid = () => {
   const [count, setCount] = useState(
     localStorage.getItem('count')
       ? JSON.parse(localStorage.getItem('count'))
-      : []
+      : 0
   )
   const [page, setPage] = useState(
-    localStorage.getItem('page') ? JSON.parse(localStorage.getItem('page')) : []
+    localStorage.getItem('page') ? JSON.parse(localStorage.getItem('page')) : 0
   )
-  const [countries, setCountries] = useState(
-    localStorage.getItem('c') ? JSON.parse(localStorage.getItem('c')) : []
-  )
-  const [markets, setMarkets] = useState(
-    localStorage.getItem('m') ? JSON.parse(localStorage.getItem('m')) : []
-  )
-  const [pCats, setPCats] = useState(
-    localStorage.getItem('pcat') ? JSON.parse(localStorage.getItem('pcat')) : []
-  )
-  const [pAggs, setPAggs] = useState(
-    localStorage.getItem('pagg') ? JSON.parse(localStorage.getItem('pagg')) : []
-  )
-  const [products, setProducts] = useState(
-    localStorage.getItem('p') ? JSON.parse(localStorage.getItem('p')) : []
-  )
-  const [currency, setCurrency] = useState(
-    localStorage.getItem('cur') ? JSON.parse(localStorage.getItem('cur')) : ''
+  const [countries, setCountries] = useState([])
+  const [markets, setMarkets] = useState([])
+  const [pCats, setPCats] = useState([])
+  const [pAggs, setPAggs] = useState([])
+  const [products, setProducts] = useState([])
+  const [currency, setCurrency] = useState('USD')
+
+  const [dateRanges, setDateRanges] = useState(
+    localStorage.getItem('dates')
+      ? deserialize(localStorage.getItem('dates'))
+      : []
   )
 
-  const [dateRanges, setDateRanges] = useState(null)
-
+  const [spinner, setSpinner] = useState(false)
   const [token] = useGetToken()
-  const [agGridAPI, setAPI] = useState(null)
+  const [exportCSV, setExportCSV] = useState(null)
 
   useEffect(() => {
+    setSpinner('One moment please...') // Overlay on top of dropdowns while superlist is populating the dropdown menu options
+    restoreQuery()
     const cachedRowData = localStorage.getItem('rowdata')
     if (cachedRowData) {
       dispatch({ type: 'SET_ROW_DATA', payload: JSON.parse(cachedRowData) })
     }
-    axios
-      .get('/sauti/client/superlist', {
-        baseURL:
-          process.env.NODE_ENV !== 'development'
-            ? 'https://sauti-africa-market-master.herokuapp.com/'
-            : 'http://localhost:8888/'
-      })
+    axiosWithAuth([token])
+      .get('/sauti/client/superlist')
       .then(res => {
+        if (res.error) throw new Error(res.error)
         setList(res.data)
+        setSpinner(false)
       })
       .catch(err => {
-        console.log(err.message)
+        setSpinner(false)
+        setErr(`${err.message}`)
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Options for dropDown
@@ -138,29 +133,112 @@ const Grid = () => {
         queryUpdater(null)
       }
     }
-    localStorage.setItem(prefix, JSON.stringify(value))
+    // localStorage.setItem(prefix, JSON.stringify(value))
+  }
+
+  // Moment timestamps need special handling before running JSON.stringify on them
+  function serialize(collection) {
+    return JSON.stringify(collection, function(k, v) {
+      if (
+        typeof v === 'string' &&
+        v.match(
+          /\d{4}-[01]\d-[0-3]\dT?[0-2]\d:[0-5]\d(?::[0-5]\d(?:.\d{1,6})?)?(?:([+-])([0-2]\d):?([0-5]\d)|Z)/
+        ) // Check if ISO datetime is present, if so transform to timestamp, otherwise return unchanged
+      ) {
+        return 'moment:' + moment(v).valueOf()
+      }
+      return v
+    })
+  }
+
+  // Moment timestamps need special handling before running JSON.parse on them
+  function deserialize(serializedData) {
+    // If a moment timestamp is found, extract it for use. If not, return unchanged
+    return JSON.parse(serializedData, function(k, v) {
+      if (typeof v === 'string' && v.includes('moment:')) {
+        return moment(parseInt(v.split(':')[1], 10))
+      }
+      return v
+    })
   }
 
   function datesHandler(dates) {
-    setDateRanges(dates)
-    localStorage.setItem('dates', JSON.stringify(dates))
+    if (dates) {
+      setDateRanges(dates)
+      localStorage.setItem('dates', serialize(dates))
+    } else localStorage.removeItem('dates')
   }
 
+  function restoreQuery() {
+    // Restore a saved query string from localstorage and parse into dropdown menu options for prepopulating most recent search
+    const query = localStorage.getItem('q')
+    if (query) {
+      const {
+        c = [],
+        m = [],
+        p = [],
+        pcat = [],
+        pagg = [],
+        currency = '',
+        startDate = null,
+        endDate = null
+      } = queryString.parse(query.split('?')[1])
+
+      dropdownHandler(
+        Array.isArray(c) ? c : [c],
+        setCountries,
+        setCountryQuery,
+        'c'
+      )
+      dropdownHandler(
+        Array.isArray(m) ? m : [m],
+        setMarkets,
+        setMarketQuery,
+        'm'
+      )
+      dropdownHandler(
+        Array.isArray(p) ? p : [p],
+        setProducts,
+        setProductQuery,
+        'p'
+      )
+      dropdownHandler(
+        Array.isArray(pcat) ? pcat : [pcat],
+        setPCats,
+        setPCatQuery,
+        'pcat'
+      )
+      dropdownHandler(
+        Array.isArray(pagg) ? pagg : [pagg],
+        setPAggs,
+        setPAggQuery,
+        'pagg'
+      )
+      dropdownHandler(currency, setCurrency, null, 'cur')
+      datesHandler(
+        startDate && endDate ? [moment(startDate), moment(endDate)] : []
+      )
+    }
+  }
+
+  // Clear all search parameters and local storage
   function resetSearch() {
+    setErr(false)
+    setSpinner('One moment please...')
     dropdownHandler([], setCountries, setCountryQuery, 'c')
     dropdownHandler([], setMarkets, setMarketQuery, 'm')
     dropdownHandler([], setProducts, setProductQuery, 'p')
     dropdownHandler([], setPCats, setPCatQuery, 'pcat')
     dropdownHandler([], setPAggs, setPAggQuery, 'pagg')
-    dropdownHandler('', setCurrency, null, 'cur')
-    'c,m,p,pcat,pagg,cur,rowdata,next,prev,count,page'
-      .split(',')
-      .forEach(key => localStorage.removeItem(key))
+    dropdownHandler('USD', setCurrency, null, 'cur')
+    datesHandler([])
+    localStorage.clear()
     setPage(0)
     setCount(0)
     setPrev([])
     setNext([])
     dispatch({ type: 'SET_ROW_DATA', payload: [] })
+    setSpinner(false)
   }
 
   function disabledDate(current) {
@@ -170,11 +248,12 @@ const Grid = () => {
 
   const onGridReady = params => {
     params.api.sizeColumnsToFit()
-    setAPI(params.api)
+    setExportCSV(params.api)
   }
 
+  // For all API calls except CSV request, axiosWithAuth wraps a caching layer. If a query result is found in the cache, it will be returned without hitting the backend
+
   const nextApiCall = async () => {
-    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
@@ -185,25 +264,20 @@ const Grid = () => {
     let nextCursor = null
     let n = next[next.length - 1]
     if (next) nextCursor = n
+    const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
+    localStorage.setItem('q', query)
     axiosWithAuth([token])
-      .get(
-        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
-          ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`,
-        {
-          baseURL:
-            process.env.NODE_ENV !== 'development'
-              ? 'https://sauti-africa-market-master.herokuapp.com/'
-              : 'http://localhost:8888/'
-        }
-      )
+      .get(query)
       .then(async res => {
-        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
+        if (res.error) throw new Error(res.error)
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
-        agGridAPI.hideOverlay()
+        setSpinner(false)
 
         const p = page
-        const currentPage = typeof p === 'number' ? p + 1 : 1
+        const currentPage =
+          typeof p === 'number' && p + 1 <= count ? p + 1 : count
 
         await setPrev([...prev, res.data.prev])
         await setNext([...next, res.data.next])
@@ -213,58 +287,54 @@ const Grid = () => {
         localStorage.setItem('page', JSON.stringify(currentPage))
       })
       .catch(e => {
-        console.log({ apiCallErr: e })
-        setErr(true)
+        setErr(`${e.message}`)
+        setSpinner(false)
       })
   }
 
   const prevApiCall = async () => {
-    agGridAPI.showLoadingOverlay()
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
             'YYYY-MM-DD'
           )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
+
     setErr(false)
     let p = page
     const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
     await setPage(currentPage)
+
     localStorage.setItem('page', JSON.stringify(currentPage))
     let nextCursor = null
     let nextPage = null
     if (prev && page) nextPage = prev[page - 2]
     if (nextPage) nextCursor = nextPage
+    const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
+    localStorage.setItem('q', query)
     axiosWithAuth([token])
-      .get(
-        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
-          ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`,
-        {
-          baseURL:
-            process.env.NODE_ENV !== 'development'
-              ? 'https://sauti-africa-market-master.herokuapp.com/'
-              : 'http://localhost:8888/'
-        }
-      )
+      .get(query)
       .then(async res => {
-        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
+        if (res.error) throw new Error(res.error)
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
-        agGridAPI.hideOverlay()
+        setSpinner(false)
         await setNext([...next, res.data.next])
         await setPrev([...prev, res.data.prev])
+        await setNext([...next, res.data.next])
         localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
         localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
       })
       .catch(e => {
-        console.log({ apiCallErr: e })
-        setErr(true)
+        setSpinner(false)
+        setErr(`${e.message}`)
       })
-    agGridAPI.hideOverlay()
+    setSpinner(false)
   }
 
-  const apiCall = async () => {
-    agGridAPI.showLoadingOverlay()
+  // Call for Export All CSV. Uncached
+  const apiCallForCSV = async () => {
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
@@ -272,38 +342,57 @@ const Grid = () => {
           )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
     setErr(false)
-    axiosWithAuth([token])
-      .get(
-        `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-          ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
-          ''}${productQuery || ''}${dateRangeQuery}`,
-        {
-          baseURL:
-            process.env.NODE_ENV !== 'development'
-              ? 'https://sauti-africa-market-master.herokuapp.com/'
-              : 'http://localhost:8888/'
-        }
-      )
+    const query = `https://sauti-africa-market-master.herokuapp.com/sauti/client/export/?currency=${currency ||
+      'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
+      ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
+    axiosWithAuth([token], NOCACHE)
+      .get(query)
       .then(async res => {
-        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
-        dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
-        agGridAPI.hideOverlay()
+        if (res.error) throw new Error(res.error)
+        window.location.href = res.config.url
+      })
+      .catch(e => {
+        setErr(`${e.message}`)
+        setSpinner(false)
+      })
+  }
 
+  const apiCall = async () => {
+    const dateRangeQuery =
+      dateRanges && dateRanges[0]
+        ? `&startDate=${dateRanges[0].format(
+            'YYYY-MM-DD'
+          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+        : ''
+    setErr(false)
+    const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
+      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${productQuery || ''}${dateRangeQuery}`
+    localStorage.setItem('q', query)
+    axiosWithAuth([token])
+      .get(query)
+      .then(async res => {
+        if (res.error) throw new Error(res.error)
+        let p = page
+        const currentPage = typeof p === 'number' && p > 1 ? p - 1 : 1
+        dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
+        setSpinner(false)
+
+        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
         setNext([...next, res.data.next])
         localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
-        let newCount = Math.ceil(parseInt(res.data.count[0]['count(*)']) / 50)
+        let newCount = Math.ceil(parseInt(res.data.count[0]['count(*)']) / 30)
 
         await setPrev([...prev, res.data.prev])
-        await setPage(1)
+        await setPage(currentPage)
         await setCount(newCount)
         localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
-        localStorage.setItem('page', JSON.stringify(1))
+        localStorage.setItem('page', JSON.stringify(currentPage))
         localStorage.setItem('count', newCount)
       })
       .catch(e => {
-        console.log({ apiCallErr: e })
-        setErr(true)
-        agGridAPI.hideOverlay()
+        setErr(`${e.message}`)
+        setSpinner(false)
       })
   }
 
@@ -311,10 +400,12 @@ const Grid = () => {
     <Container className="flex-grow-1 mt-5">
       <GridContext.Provider value={{ store, dispatch }}>
         <div>
-          {err ? (
-            <div>You've reached the max amount of calls!</div>
-          ) : token ? (
-            <>
+          {token && (
+            <LoadingOverlay
+              active={spinner && spinner !== 'Getting data...'}
+              spinner
+              text={spinner}
+            >
               <Form>
                 <Dropdown
                   placeholder="Countries"
@@ -322,7 +413,7 @@ const Grid = () => {
                   multiple
                   search
                   selection
-                  options={countriesOptions}
+                  options={countriesOptions || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setCountries, setCountryQuery, 'c')
                   }
@@ -334,7 +425,7 @@ const Grid = () => {
                   multiple
                   search
                   selection
-                  options={marketOptions}
+                  options={marketOptions || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setMarkets, setMarketQuery, 'm')
                   }
@@ -346,7 +437,7 @@ const Grid = () => {
                   multiple
                   search
                   selection
-                  options={pCategoryOptions}
+                  options={pCategoryOptions || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setPCats, setPCatQuery, 'pcat')
                   }
@@ -358,7 +449,7 @@ const Grid = () => {
                   multiple
                   search
                   selection
-                  options={pAggregatorOptions}
+                  options={pAggregatorOptions || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setPAggs, setPAggQuery, 'pagg')
                   }
@@ -370,7 +461,7 @@ const Grid = () => {
                   multiple
                   search
                   selection
-                  options={productOptions}
+                  options={productOptions || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setProducts, setProductQuery, 'p')
                   }
@@ -381,7 +472,7 @@ const Grid = () => {
                   fluid
                   search
                   selection
-                  options={currencyOptions}
+                  options={currencyOptions || ''}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setCurrency, null, 'cur')
                   }
@@ -396,41 +487,96 @@ const Grid = () => {
                 />
               </Form>
               <div>
-                <Button onClick={() => apiCall()}>Update Grid</Button>
-                <Button onClick={() => resetSearch()}>Reset</Button>
+                <Button
+                  onClick={() => {
+                    apiCall()
+                    setSpinner('Getting data...')
+                  }}
+                >
+                  Update Grid
+                </Button>{' '}
+                <Button onClick={() => resetSearch()}>Reset</Button>{' '}
                 {rowData[0] && (
-                  <Button onClick={() => agGridAPI.exportDataAsCsv(rowData)}>
-                    Export CSV
-                  </Button>
+                  <>
+                    <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
+                      Export CSV Per Page
+                    </Button>{' '}
+                    <Button
+                      onClick={() => {
+                        apiCallForCSV()
+                        setSpinner('This may take a while, please wait...')
+                      }}
+                    >
+                      Export All Data as CSV
+                    </Button>
+                  </>
                 )}
               </div>
-            </>
-          ) : null}
+            </LoadingOverlay>
+          )}
+          {err && (
+            <Message negative>
+              <Message.Header>{err}</Message.Header>
+            </Message>
+          )}
+          <LoadingOverlay
+            active={spinner && spinner !== 'One moment please...'}
+            spinner
+            text={spinner}
+          >
+            <div style={gridStyle} className="ag-theme-balham">
+              <AgGridReact
+                // properties
+                columnDefs={columnDefs}
+                rowData={rowData}
+                domLayout="autoHeight"
+                reactNext={true}
+                // events
+                onGridReady={onGridReady}
+              >
+                {/* On load of the grid, check for localstoragePut the ability to save RowData into local storage*/}
+              </AgGridReact>
+            </div>
+          </LoadingOverlay>
 
-          <div style={gridStyle} className="ag-theme-balham">
-            <AgGridReact
-              // properties
-              columnDefs={columnDefs}
-              rowData={rowData}
-              domLayout="autoHeight"
-              reactNext={true}
-              // events
-              onGridReady={onGridReady}
-            ></AgGridReact>
-          </div>
           {!page ? (
             <Button disabled>{'<'}</Button>
           ) : page === 2 ? (
-            <Button onClick={apiCall}>{'<'}</Button>
+            <Button
+              onClick={() => {
+                apiCall()
+                setSpinner('Getting data...')
+              }}
+            >
+              {'<'}
+            </Button>
           ) : page === 1 ? (
             <Button disabled>{'<'}</Button>
           ) : (
-            <Button onClick={prevApiCall}>{'<'}</Button>
+            <Button
+              onClick={() => {
+                prevApiCall()
+                setSpinner('Getting data...')
+              }}
+            >
+              {'<'}
+            </Button>
           )}
           {next && page < count ? (
-            <Button onClick={nextApiCall}>{`>`}</Button>
+            <Button
+              onClick={() => {
+                nextApiCall()
+                setSpinner('Getting data...')
+              }}
+            >{`>`}</Button>
           ) : (
-            <Button disabled onClick={nextApiCall}>{`>`}</Button>
+            <Button
+              disabled
+              onClick={() => {
+                nextApiCall()
+                setSpinner('Getting data...')
+              }}
+            >{`>`}</Button>
           )}
           {page ? <span>{`${page} of ${count}`}</span> : null}
         </div>

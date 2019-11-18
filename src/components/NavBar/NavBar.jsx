@@ -21,9 +21,7 @@ const NavBar = () => {
 
   const logoutWithRedirect = () => {
     // Clear local storage
-    'c,m,p,pcat,pagg,cur,rowdata,next,prev,count,page'
-      .split(',')
-      .forEach(key => localStorage.removeItem(key))
+    localStorage.clear()
     logout({
       returnTo: window.location.origin
     })
@@ -65,7 +63,7 @@ const NavBar = () => {
             exact
             activeClassName="router-link-exact-active"
           >
-            TABLE
+            GET DATA
           </NavLink>
           <a
             href="https://www.facebook.com/sautiorg/"
@@ -107,7 +105,6 @@ const NavBar = () => {
                 />
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem header>{user.name}</DropdownItem>
                 <DropdownItem
                   tag={RouterNavLink}
                   to="/profile"
