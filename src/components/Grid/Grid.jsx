@@ -38,14 +38,10 @@ const Grid = () => {
   const [pAggQuery, setPAggQuery] = useState()
   const [productQuery, setProductQuery] = useState()
   const [next, setNext] = useState(
-    localStorage.getItem('next')
-      ? JSON.parse(localStorage.getItem('next'))
-      : [null, null]
+    localStorage.getItem('next') ? JSON.parse(localStorage.getItem('next')) : []
   )
   const [prev, setPrev] = useState(
-    localStorage.getItem('prev')
-      ? JSON.parse(localStorage.getItem('prev'))
-      : [null, null]
+    localStorage.getItem('prev') ? JSON.parse(localStorage.getItem('prev')) : []
   )
   const [count, setCount] = useState(
     localStorage.getItem('count')
@@ -85,6 +81,7 @@ const Grid = () => {
   const [exportCSV, setExportCSV] = useState(null)
 
   useEffect(() => {
+    setSpinner(true)
     restoreQuery()
     const cachedRowData = localStorage.getItem('rowdata')
     if (cachedRowData) {
@@ -99,8 +96,10 @@ const Grid = () => {
       })
       .then(res => {
         setList(res.data)
+        setSpinner(false)
       })
       .catch(err => {
+        setSpinner(false)
         console.log(err.message)
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -194,7 +193,7 @@ const Grid = () => {
   }
 
   function resetSearch() {
-    callCache = []
+    setSpinner(true)
     dropdownHandler([], setCountries, setCountryQuery, 'c')
     dropdownHandler([], setMarkets, setMarketQuery, 'm')
     dropdownHandler([], setProducts, setProductQuery, 'p')
@@ -208,6 +207,7 @@ const Grid = () => {
     setPrev([])
     setNext([])
     dispatch({ type: 'SET_ROW_DATA', payload: [] })
+    setSpinner(false)
   }
 
   function disabledDate(current) {
@@ -261,7 +261,7 @@ const Grid = () => {
       })
       .catch(e => {
         console.log({ apiCallErr: e })
-        setErr(true)
+        setErr(`${e}`)
         setSpinner(false)
       })
   }
@@ -309,7 +309,7 @@ const Grid = () => {
       .catch(e => {
         console.log({ apiCallErr: e })
         setSpinner(false)
-        setErr(true)
+        setErr(`${e}`)
       })
     setSpinner(false)
   }
@@ -334,6 +334,7 @@ const Grid = () => {
       })
       .catch(e => {
         console.log({ apiCallErr: e })
+        setErr(`${e}`)
       })
   }
 
@@ -377,9 +378,8 @@ const Grid = () => {
         localStorage.setItem('count', newCount)
       })
       .catch(e => {
-        console.log(e)
         console.log({ apiCallErr: e })
-        setErr(true)
+        setErr(`${e}`)
         setSpinner(false)
       })
   }
@@ -389,9 +389,11 @@ const Grid = () => {
       <GridContext.Provider value={{ store, dispatch }}>
         <div>
           {err ? (
-            <div>You've reached the max amount of calls!</div>
+            <div>
+              <h1>{err}</h1>
+            </div>
           ) : token ? (
-            <>
+            <LoadingOverlay active={spinner} spinner>
               <Form>
                 <Dropdown
                   placeholder="Countries"
@@ -493,7 +495,7 @@ const Grid = () => {
                   </>
                 )}
               </div>
-            </>
+            </LoadingOverlay>
           ) : null}
 
           <LoadingOverlay active={spinner} spinner text="Getting Data...">

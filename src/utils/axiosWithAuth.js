@@ -20,28 +20,32 @@ let cache = {
       this.superlist = value
     } else {
       if (this.cacheData.size >= this.maxEntries) {
-        // least-recently used cache eviction strategy
+        // LRU cache eviction
         const keyToDelete = this.cacheData.keys().next().value
         this.cacheData.delete(keyToDelete)
       }
       this.cacheData.set(key, value)
     }
+  },
+  del: function(key) {
+    this.cacheData.delete(key)
   }
 }
 
 export const axiosWithAuth = token => {
   return {
-    get: async function(path, params) {
+    get: function(path, params) {
       const found = cache.get(path)
       if (found) return found
       try {
-        const response = await axios.get(path, {
+        const response = axios.get(path, {
           ...params,
           headers: { Authorization: `Bearer ${token}` }
         })
         cache.set(path, response)
         return response
-      } catch (error) {
+      } catch (error) {        
+        cache.del(path)
         return new Error(error)
       }
     },
