@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import { Button, Container, Row, Col } from 'reactstrap'
+import React, { useState } from "react";
+import axios from "axios";
+import { Button, Container, Row, Col } from "reactstrap";
 
-import { Header, Card, Image, Message, Icon } from 'semantic-ui-react'
+import { Header, Card, Image, Message, Icon } from "semantic-ui-react";
 
-import Loading from '../Loading/Loading'
-import { useAuth0 } from '../../contexts'
+import Loading from "../Loading/Loading";
+import { useAuth0 } from "../../contexts";
 
 // import Highlight from 'react-highlight'
 // import 'highlight.js/styles/monokai-sublime.css'
 
 const Profile = ({ apiKey, setApiKey }) => {
-  const { loading, user, getTokenSilently } = useAuth0()
-  const [keyLoading, setKeyLoading] = useState(false)
+  const { loading, user, getTokenSilently } = useAuth0();
+  const [keyLoading, setKeyLoading] = useState(false);
 
   const AlertMessage = () => (
     <Message icon>
@@ -22,45 +22,42 @@ const Profile = ({ apiKey, setApiKey }) => {
         We are fetching that API for you.
       </Message.Content>
     </Message>
-  )
+  );
 
   const getApiKey = async () => {
     try {
-      setKeyLoading(true)
-      const token = await getTokenSilently()
+      setKeyLoading(true);
+      const token = await getTokenSilently();
 
-      const { sub } = user
+      const { sub } = user;
 
       const response = await axios.post(
-        '/api/apikeyRoute/private',
+        "/api/apikeyRoute/private",
         {
           id: sub
         },
         {
           headers: { Authorization: `Bearer ${token}` },
-          baseURL:
-            process.env.NODE_ENV !== 'development'
-              ? 'https://sauti-africa-market-master.herokuapp.com/'
-              : 'http://localhost:8888/'
+          baseURL: "https://sauti-africa-market-master.herokuapp.com/"
         }
-      )
-      setApiKey(response.data.key)
-      setKeyLoading(false)
+      );
+      setApiKey(response.data.key);
+      setKeyLoading(false);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   if (loading || !user) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (
-    <Container className="mb-5">
+    <Container className="mb-5" style={{ paddingTop: "20px" }}>
       <Header as="h2" icon textAlign="center">
         <Icon name="users" circular />
         <Header.Content>{`Welcome,  ${
-          user.given_name ? user.given_name : 'user'
+          user.given_name ? user.given_name : "user"
         }!`}</Header.Content>
       </Header>
       <Row className="align-items-center profile-header mb-5 text-center text-md-center">
@@ -110,7 +107,7 @@ const Profile = ({ apiKey, setApiKey }) => {
         {/* <Highlight className='JSON'>{JSON.stringify(user, null, 2)}</Highlight> */}
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

@@ -24,7 +24,8 @@
 
   .menu-content {
     height: auto;
-    overflow: hidden;
+    max-height: 90vh;
+    overflow-x: hidden;
     @include for-non-widescreen {
       height: 0;
     }
