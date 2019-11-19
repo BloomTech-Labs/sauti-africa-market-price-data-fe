@@ -6,6 +6,9 @@ import axios from 'axios'
 // - if it already exists, remove it from its current position and add it to the head
 // If we've reached the cache size limit, remove the last item (least recently used) from the tail
 // Return cached value or undefined if not found
+//
+// `superlist` holds the data which populates the dropdowns on the data grid and never expires
+
 let cache = {
   maxEntries: 20,
   cacheData: new Map(),
