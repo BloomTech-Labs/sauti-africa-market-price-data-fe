@@ -5,6 +5,7 @@ import { Auth0Context } from '../contexts'
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname)
 
+// Primarily from auth0 SPA quick start: https://auth0.com/docs/quickstart/spa
 export const Auth0Provider = ({
   children,
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
@@ -15,7 +16,6 @@ export const Auth0Provider = ({
   const [auth0Client, setAuth0] = useState()
   const [loading, setLoading] = useState(true)
   const [popupOpen, setPopupOpen] = useState(false)
-  // const [apiKey, setApiKey] = useState();
 
   useEffect(() => {
     const initAuth0 = async () => {
@@ -43,6 +43,7 @@ export const Auth0Provider = ({
     // eslint-disable-next-line
   }, [])
 
+  // Unused currently, but included as an option for the future
   const loginWithPopup = async (params = {}) => {
     setPopupOpen(true)
     try {
@@ -65,6 +66,8 @@ export const Auth0Provider = ({
     setIsAuthenticated(true)
     setUser(user)
   }
+
+  // Configure auth0 provider
   return (
     <Auth0Context.Provider
       value={{
