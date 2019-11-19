@@ -1,10 +1,10 @@
 import React from 'react'
-import SideNav from '../SideNav'
+import Documentation from '../Documentation'
 
 const DocsPage = () => {
   return (
     <>
-      <SideNav />
+      <Documentation />
     </>
   )
 }

@@ -35,11 +35,12 @@ export default function PmPlayground() {
             : 'http://localhost:8888/'
       })
       .then(res => {
+
         setData(res.data)
       })
       .catch(error => {
         setBad(true)
-        setErrorMessage(error.message)
+        if(error.message === 'Network Error'){setErrorMessage(error.message)}else if(error.response.data.message){setErrorMessage(error.response.data.message)}
       })
   }
   // useEffect(()=> {
