@@ -7,12 +7,15 @@ import { Header, Card, Image, Message, Icon } from 'semantic-ui-react'
 import Loading from '../Loading/Loading'
 import { useAuth0 } from '../../contexts'
 
-// import Highlight from 'react-highlight'
-// import 'highlight.js/styles/monokai-sublime.css'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+
+import Highlight from 'react-highlight'
+import 'highlight.js/styles/monokai-sublime.css'
 
 const Profile = ({ apiKey, setApiKey }) => {
   const { loading, user, getTokenSilently } = useAuth0()
   const [keyLoading, setKeyLoading] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const AlertMessage = () => (
     <Message icon>
@@ -77,20 +80,34 @@ const Profile = ({ apiKey, setApiKey }) => {
         <Col md>
           <h1>API Key</h1>
           {!apiKey ? (
-            <h3>
-              Your API key will only be accessible for your current session. If
-              you are a new user or need a replacement, please request one and
-              then save it somewhere safe.
-            </h3>
+            <Message negative size="massive">
+              <Message.Header>
+                Your API key will only be visible for your current session.
+              </Message.Header>
+              If you are a new user or need a replacement, please request one
+              and then save it somewhere safe.
+            </Message>
           ) : null}
           {apiKey ? (
-            <h3>
-              Here is your API key. It will only be visible for your current
-              session. Please save it somewhere safe.
-            </h3>
+            <Message negative size="massive">
+              <Message.Header>Here is your API key.</Message.Header>
+              It will only be visible for your current session. Please save it
+              somewhere safe.
+            </Message>
           ) : null}
           {keyLoading ? AlertMessage() : null}
-          {apiKey ? <h2>{apiKey}</h2> : null}
+          {apiKey ? (
+            <>
+              <Highlight className="HTML">{apiKey}</Highlight>
+              {!copied ? (
+                <CopyToClipboard text={apiKey} onCopy={() => setCopied(true)}>
+                  <Button>Copy to Clipboard</Button>
+                </CopyToClipboard>
+              ) : (
+                <Message success>Copied!</Message>
+              )}
+            </>
+          ) : null}
           {!apiKey && !keyLoading ? (
             <Button
               className="btn btn-danger float-middle"
