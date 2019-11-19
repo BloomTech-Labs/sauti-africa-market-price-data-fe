@@ -1,5 +1,6 @@
 import CellRenderer from '../components/CellRenderer'
 
+// Set up columns for agGrid
 export const initialState = {
   rowData: [],
   columnDefs: [
@@ -114,6 +115,7 @@ export const initialState = {
   }
 }
 
+// Update grid state
 export const reducer = (state = { rowData: [] }, action) => {
   switch (action.type) {
     case 'SET_ROW_DATA':

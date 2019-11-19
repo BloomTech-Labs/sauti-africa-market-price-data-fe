@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Route } from 'react-router-dom'
 import { useAuth0 } from '../../contexts'
 
+// Enforces authentication on restricted routes
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
 
