@@ -59,7 +59,7 @@ const NavBar = () => {
           </NavLink>
           <NavLink
             tag={RouterNavLink}
-            to="/grid"
+            to="/data"
             exact
             activeClassName="router-link-exact-active"
           >

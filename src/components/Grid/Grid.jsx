@@ -165,7 +165,7 @@ const Grid = () => {
   function datesHandler(dates) {
     if (dates) {
       setDateRanges(dates)
-      localStorage.setItem('dates', serialize(dates))
+      localStorage.setItem('dates', serialize(dates)) // Stored in local storage to later restore parameters if user reloads page. Serialization needed to handle moment dates
     } else localStorage.removeItem('dates')
   }
 
@@ -221,10 +221,11 @@ const Grid = () => {
     }
   }
 
-  // Clear all search parameters and local storage
+  // Reset all stored search parameters and local storage
   function resetSearch() {
     setErr(false)
     setSpinner('One moment please...')
+    localStorage.clear()
     dropdownHandler([], setCountries, setCountryQuery, 'c')
     dropdownHandler([], setMarkets, setMarketQuery, 'm')
     dropdownHandler([], setProducts, setProductQuery, 'p')
@@ -232,7 +233,6 @@ const Grid = () => {
     dropdownHandler([], setPAggs, setPAggQuery, 'pagg')
     dropdownHandler('USD', setCurrency, null, 'cur')
     datesHandler([])
-    localStorage.clear()
     setPage(0)
     setCount(0)
     setPrev([])
@@ -247,7 +247,9 @@ const Grid = () => {
   }
 
   const onGridReady = params => {
+    // Responsive grid
     params.api.sizeColumnsToFit()
+    // Set up an Export CSV wrapper
     setExportCSV(params.api)
   }
 
@@ -267,7 +269,7 @@ const Grid = () => {
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
       ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
-    localStorage.setItem('q', query)
+    localStorage.setItem('q', query) // Stored in local storage to later restore parameters if user reloads page
     axiosWithAuth([token])
       .get(query)
       .then(async res => {
@@ -282,6 +284,7 @@ const Grid = () => {
         await setPrev([...prev, res.data.prev])
         await setNext([...next, res.data.next])
         await setPage(currentPage)
+        // Stored in local storage to later restore parameters if user reloads page
         localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
         localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
         localStorage.setItem('page', JSON.stringify(currentPage))
@@ -313,7 +316,7 @@ const Grid = () => {
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
       ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
-    localStorage.setItem('q', query)
+    localStorage.setItem('q', query) // Stored in local storage to later restore parameters if user reloads page
     axiosWithAuth([token])
       .get(query)
       .then(async res => {
@@ -323,6 +326,7 @@ const Grid = () => {
         await setNext([...next, res.data.next])
         await setPrev([...prev, res.data.prev])
         await setNext([...next, res.data.next])
+        // Stored in local storage to later restore parameters if user reloads page
         localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
         localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
       })
@@ -369,7 +373,7 @@ const Grid = () => {
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
       ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}`
-    localStorage.setItem('q', query)
+    localStorage.setItem('q', query) // Stored in local storage to later restore parameters if user reloads page
     axiosWithAuth([token])
       .get(query)
       .then(async res => {
@@ -379,14 +383,16 @@ const Grid = () => {
         dispatch({ type: 'SET_ROW_DATA', payload: res.data.records })
         setSpinner(false)
 
-        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
         setNext([...next, res.data.next])
-        localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
+
         let newCount = Math.ceil(parseInt(res.data.count[0]['count(*)']) / 30)
 
         await setPrev([...prev, res.data.prev])
         await setPage(currentPage)
         await setCount(newCount)
+        // Stored in local storage to later restore parameters if user reloads page
+        localStorage.setItem('rowdata', JSON.stringify(res.data.records))
+        localStorage.setItem('next', JSON.stringify([...next, res.data.next]))
         localStorage.setItem('prev', JSON.stringify([...prev, res.data.prev]))
         localStorage.setItem('page', JSON.stringify(currentPage))
         localStorage.setItem('count', newCount)
