@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react'
-import FilterPlayground from '../Playground/filterPlayground.js'
-import DrPlayground from '../Playground/dateRangePlayground.js'
-import PmPlayground from '../Playground/productMarketPlayground.js'
+import React, { useRef, useState } from "react";
+import FilterPlayground from "../Playground/filterPlayground.js";
+import DrPlayground from "../Playground/dateRangePlayground.js";
+import PmPlayground from "../Playground/productMarketPlayground.js";
 import {
   Container,
   Header,
@@ -10,53 +10,52 @@ import {
   Popup,
   Icon,
   Button
-} from 'semantic-ui-react'
-import Highlight from 'react-highlight'
+} from "semantic-ui-react";
+import Highlight from "react-highlight";
 
-import apiKeyGif from '../../assets/apiKey.gif'
-import listGif from '../../assets/listexample.gif'
-import filterGif from '../../assets/filterexample.gif'
-import priceAllGif from '../../assets/priceallmarketsexample.gif'
-import priceProductMarketGif from '../../assets/pricemarketproductexample.gif'
-import priceDateGif from '../../assets/pricedateexample.gif'
-import countryGif from '../../assets/country.gif'
-import currenciesGif from '../../assets/currencies.gif'
-import marketsGif from '../../assets/markets.gif'
-import productGif from '../../assets/product.gif'
-import dateRangeGif from '../../assets/date-range.gif'
+import apiKeyGif from "../../assets/apiKey.gif";
+import listGif from "../../assets/listexample.gif";
+import filterGif from "../../assets/filterexample.gif";
+import priceAllGif from "../../assets/priceallmarketsexample.gif";
+import priceProductMarketGif from "../../assets/pricemarketproductexample.gif";
+import priceDateGif from "../../assets/pricedateexample.gif";
+import countryGif from "../../assets/country.gif";
+import currenciesGif from "../../assets/currencies.gif";
+import marketsGif from "../../assets/markets.gif";
+import productGif from "../../assets/product.gif";
+import dateRangeGif from "../../assets/date-range.gif";
 
-import 'highlight.js/styles/monokai-sublime.css'
-import './SideNav.scss'
+import "highlight.js/styles/monokai-sublime.css";
+import "./SideNav.scss";
 
 const SideNav = () => {
   //Managing the state of Side Nav Tabbing between by setting the active item
   // const [active, setActive] = useState({ activeItem: 'Quick Start' })
   // const handleItemClick = (e, { name }) => setActive({ activeItem: name })
-  const [sidenav, toggleSidenav] = useState(true)
+  const [sidenav, toggleSidenav] = useState(true);
 
   //conditionally render playground components via boolean
-  const [playFilter, setPlayFilter] = useState(false)
-  const [playDate, setPlayDate] = useState(false)
-  const [playPrice, setPlayPrice] = useState(false)
+  const [playFilter, setPlayFilter] = useState(false);
+  const [playDate, setPlayDate] = useState(false);
+  const [playPrice, setPlayPrice] = useState(false);
 
   //Applying scrolling to places of the page
   const scrollToPlay = ref => {
-    if (window.innerWidth < 1600) toggleSidenav(!sidenav)
-    window.scrollTo(0, ref.current.offsetTop - 36)
-  }
-  const api = useRef()
-  const quick = useRef()
-  const refer = useRef()
-  const list = useRef()
-  const filter = useRef()
-  const latestPrice = useRef()
-  const lastestMarketPrice = useRef()
-  const dateRange = useRef()
-  const errorBox = useRef()
-  const pivotdocs = useRef()
+    window.scrollTo(0, ref.current.offsetTop - 40);
+  };
+  const api = useRef();
+  const quick = useRef();
+  const refer = useRef();
+  const list = useRef();
+  const filter = useRef();
+  const latestPrice = useRef();
+  const lastestMarketPrice = useRef();
+  const dateRange = useRef();
+  const errorBox = useRef();
+  const pivotdocs = useRef();
 
   return (
-    <div className={sidenav ? 'side-nav' : 'side-nav hide-nav'}>
+    <div className={sidenav ? "side-nav" : "side-nav hide-nav"}>
       <Menu size="massive" pointing vertical className="side-nav-items">
         <div className="menu-content">
           <Menu.Item name="API" onClick={() => scrollToPlay(api)} />
@@ -142,7 +141,7 @@ const SideNav = () => {
             </h5>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer"
               }
             </Highlight>
             <h5>Available Endpoints</h5>
@@ -150,14 +149,14 @@ const SideNav = () => {
             <h6>specific list - market, country, source, product</h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/"
               }
             </Highlight>
 
             <h6>filter</h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/"
               }
             </Highlight>
 
@@ -166,7 +165,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/latestprice/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/latestprice/"
               }
             </Highlight>
 
@@ -176,7 +175,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/pricebymarket/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/pricebymarket/"
               }
             </Highlight>
 
@@ -186,7 +185,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/range/'
+                "https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/range/"
               }
             </Highlight>
           </article>
@@ -196,9 +195,9 @@ const SideNav = () => {
             <Header as="h2">API Reference</Header>
 
             {/* Specific List: Market, Country, Source, Product */}
-            <h3 style={{ color: 'chartreuse' }} ref={list}>
-              GET{' '}
-              <span style={{ color: 'black' }}>
+            <h3 style={{ color: "chartreuse" }} ref={list}>
+              GET{" "}
+              <span style={{ color: "black" }}>
                 Specific List: Market, Country, Source, Product
               </span>
             </h3>
@@ -213,9 +212,9 @@ const SideNav = () => {
               />
             </p>
             <Highlight language="javascript" className="highlight">
-              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
               <br />
-              {'developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'}
+              {"developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]"}
             </Highlight>
             <h3>Request Parameters</h3>
             <Table celled>
@@ -247,8 +246,8 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Perform Filter Search */}
-            <h3 style={{ color: 'chartreuse' }} ref={filter}>
-              GET <span style={{ color: 'black' }}>Perform Filter Search</span>
+            <h3 style={{ color: "chartreuse" }} ref={filter}>
+              GET <span style={{ color: "black" }}>Perform Filter Search</span>
             </h3>
             <p>
               Returns array of records via query. Query filters accepted are
@@ -267,7 +266,7 @@ const SideNav = () => {
               topPageValue for ease of use in implementing pagination in
               applications. On initial calls (i.e. when no next value is passed
               in), a pageCount (total count of pages based on number of records
-              and count) will also be returned.{' '}
+              and count) will also be returned.{" "}
               <Popup
                 trigger={<Icon name="question circle" size="large" />}
                 content="You can scroll the URL below horizontally"
@@ -275,14 +274,14 @@ const SideNav = () => {
               />
             </p>
             <Highlight language="javascript">
-              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
               <br />
               {
-                'developer/filter/?p=[PRODUCT]&market=[MARKET]&pcat=[PRODUCT CATEGORY]'
+                "developer/filter/?p=[PRODUCT]&market=[MARKET]&pcat=[PRODUCT CATEGORY]"
               }
               <br />
               {
-                '&pagg=[PRODUCT AGGREGATE]&c=[COUNTRY]&count=[NUMBER OF RECORDS PER PAGE]&next=[NEXT VALUE]'
+                "&pagg=[PRODUCT AGGREGATE]&c=[COUNTRY]&count=[NUMBER OF RECORDS PER PAGE]&next=[NEXT VALUE]"
               }
             </Highlight>
             <h3>Request Parameters</h3>
@@ -332,7 +331,7 @@ const SideNav = () => {
               </Table.Body>
             </Table>
             <Button color="violet" onClick={() => setPlayFilter(!playFilter)}>
-              {!playFilter ? 'try it now' : 'close playground'}
+              {!playFilter ? "try it now" : "close playground"}
             </Button>
             {playFilter && <FilterPlayground />}
           </article>
@@ -347,9 +346,9 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Latest Prices on a Product across all Markets */}
-            <h3 style={{ color: 'chartreuse' }} ref={latestPrice}>
-              GET{' '}
-              <span style={{ color: 'black' }}>
+            <h3 style={{ color: "chartreuse" }} ref={latestPrice}>
+              GET{" "}
+              <span style={{ color: "black" }}>
                 Latest Prices on a Product across all Markets
               </span>
             </h3>
@@ -357,9 +356,9 @@ const SideNav = () => {
               Returns all records on given product. Pass the query /?product=
             </p>
             <Highlight language="javascript">
-              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
               <br />
-              {'developer/product/latestprice/?product=[PRODUCT]'}
+              {"developer/product/latestprice/?product=[PRODUCT]"}
             </Highlight>
             <h3>Request Parameters</h3>
             <Table celled>
@@ -389,14 +388,14 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Latest Price on a product in a particular market */}
-            <h3 style={{ color: 'chartreuse' }} ref={lastestMarketPrice}>
-              GET{' '}
-              <span style={{ color: 'black' }}>
+            <h3 style={{ color: "chartreuse" }} ref={lastestMarketPrice}>
+              GET{" "}
+              <span style={{ color: "black" }}>
                 Latest Price on a product in a particular market
               </span>
             </h3>
             <p>
-              Returns price of a single product from a single market.{' '}
+              Returns price of a single product from a single market.{" "}
               <Popup
                 trigger={<Icon name="question circle" size="large" />}
                 content="You can scroll the URL below horizontally"
@@ -404,10 +403,10 @@ const SideNav = () => {
               />
             </p>
             <Highlight language="javascript">
-              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
               <br />
               {
-                'developer/product/pricebymarket/?market=[MARKET]&product=[PRODUCT]'
+                "developer/product/pricebymarket/?market=[MARKET]&product=[PRODUCT]"
               }
             </Highlight>
             <h3>Request Parameters</h3>
@@ -431,7 +430,7 @@ const SideNav = () => {
               </Table.Body>
             </Table>
             <Button color="violet" onClick={() => setPlayPrice(!playPrice)}>
-              {!playPrice ? 'try it now' : 'close playground'}
+              {!playPrice ? "try it now" : "close playground"}
             </Button>
             {playPrice && <PmPlayground />}
           </article>
@@ -446,9 +445,9 @@ const SideNav = () => {
         <section className="articles-examples">
           <article className="left-article">
             {/* Find prices of a product across a date range */}
-            <h3 style={{ color: 'chartreuse' }} ref={dateRange}>
-              GET{' '}
-              <span style={{ color: 'black' }}>
+            <h3 style={{ color: "chartreuse" }} ref={dateRange}>
+              GET{" "}
+              <span style={{ color: "black" }}>
                 Find prices of a product across a date range
               </span>
             </h3>
@@ -472,10 +471,10 @@ const SideNav = () => {
               />
             </p>
             <Highlight language="javascript">
-              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              {"https://sauti-africa-market-master.herokuapp.com/sauti/"}
               <br />
               {
-                'developer/product/range/?product=[PRODUCT]&startDate=[START DATE]&endDate=[END DATE]&count=[COUNT]&next=[NEXT]'
+                "developer/product/range/?product=[PRODUCT]&startDate=[START DATE]&endDate=[END DATE]&count=[COUNT]&next=[NEXT]"
               }
             </Highlight>
             <h3>Request Parameters</h3>
@@ -520,7 +519,7 @@ const SideNav = () => {
               </Table.Body>
             </Table>
             <Button color="violet" onClick={() => setPlayDate(!playDate)}>
-              {!playDate ? 'try it now' : 'close playground'}
+              {!playDate ? "try it now" : "close playground"}
             </Button>
             {playDate && <DrPlayground />}
           </article>
@@ -546,7 +545,7 @@ const SideNav = () => {
               <Table.Body>
                 <Table.Row>
                   <Table.Cell>
-                    200{' '}
+                    200{" "}
                     <span role="img" aria-label="checkmark">
                       ✅
                     </span>
@@ -555,7 +554,7 @@ const SideNav = () => {
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>
-                    400{' '}
+                    400{" "}
                     <span role="img" aria-label="upside-down smiley face">
                       🙃
                     </span>
@@ -566,7 +565,7 @@ const SideNav = () => {
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>
-                    401{' '}
+                    401{" "}
                     <span role="img" aria-label="halt hand sign">
                       ✋
                     </span>
@@ -575,7 +574,7 @@ const SideNav = () => {
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>
-                    403{' '}
+                    403{" "}
                     <span role="img" aria-label="stop sign">
                       🛑
                     </span>
@@ -586,7 +585,7 @@ const SideNav = () => {
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>
-                    404{' '}
+                    404{" "}
                     <span role="img" aria-label="surprised face">
                       😱
                     </span>
@@ -597,7 +596,7 @@ const SideNav = () => {
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>
-                    500{' '}
+                    500{" "}
                     <span role="img" aria-label="crying face">
                       😭
                     </span>
@@ -800,7 +799,7 @@ const SideNav = () => {
         </section>
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default SideNav
+export default SideNav;
