@@ -348,6 +348,7 @@ const Grid = () => {
     axiosWithAuth([token], NOCACHE)
       .get(query)
       .then(async res => {
+        setSpinner(false)
         if (res.error) throw new Error(res.error)
         window.location.href = res.config.url
       })
