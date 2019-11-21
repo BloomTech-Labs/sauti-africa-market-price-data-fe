@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Message } from 'semantic-ui-react'
 import logo from '../../assets/sauti-logo.png'
 
 const Hero = () => (
@@ -15,7 +15,11 @@ const Hero = () => (
       A public-facing API that allows you to access Sauti Africa's market price
       data
     </p>
-    <p>Please login to view the table</p>
+    <Message error>
+      <Message.Header size="huge">
+        Please login to view the table
+      </Message.Header>
+    </Message>
   </div>
 )
 

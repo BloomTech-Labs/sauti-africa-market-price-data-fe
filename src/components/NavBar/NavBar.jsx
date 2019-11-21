@@ -84,7 +84,7 @@ const NavBar = () => {
         <div>
           {!isAuthenticated && (
             <button
-              class="ui button login-btn"
+              className="ui button login-btn"
               onClick={() => {
                 //google analytics event tracking
                 Event('Users', 'Login')
