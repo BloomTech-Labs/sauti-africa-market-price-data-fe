@@ -33,6 +33,8 @@ Sauti Africa Market Prices & API provides an easy to use interface to view and a
 - ag-Grid
 - Auth0
 - SASS
+- Semantic UI
+- Reactstrap
 - Express
 - SQL
 - Knex
@@ -55,18 +57,20 @@ Sauti Africa Market Prices & API provides an easy to use interface to view and a
 #### Cypress
 
 - Comprehensive testing suite for React apps
-- Allows E2E testing
+- Allows E2E testing with Auth0 [read here](https://auth0.com/blog/end-to-end-testing-with-cypress-and-auth0/)
 - Allows to test features through third-party libraries as well
 
 #### Front end deployed to `Netilify`
 
-#### [Back end](https://github.com/Lambda-School-Labs/sauti-africa-market-price-data-be) built using:
+#### [Back end](https://github.com/Lambda-School-Labs/sauti-africa-market-price-data-be) built using the following Framework & Libraries:
 
-#### Backend built using the following Framework & Libraries
-
+- Node
 - Express
+- Redis
 - Knex
 - SQL
+- SQLite3
+- Postgres
 - UUID API key generator
 - JWT
 
