@@ -33,6 +33,8 @@ Sauti Africa Market Prices & API provides an easy to use interface to view and a
 - ag-Grid
 - Auth0
 - SASS
+- Semantic UI
+- Reactstrap
 - Express
 - SQL
 - Knex
@@ -45,33 +47,30 @@ Sauti Africa Market Prices & API provides an easy to use interface to view and a
 - State Management done via React Hooks
 - Easy to integrate many other third party such ag-Grid, Auth0, etc
 
-#### Auth0
-
-## -
-
--
-
 #### ag-Grid
 
-## -
-
--
+- Easy to integrate with React
+- Contains easy to implement CSV feature for downloading data
+- Draggable columns
+- Framework agnostic 
 
 #### Cypress
 
 - Comprehensive testing suite for React apps
-- Allows E2E testing
+- Allows E2E testing with Auth0 [read here](https://auth0.com/blog/end-to-end-testing-with-cypress-and-auth0/)
 - Allows to test features through third-party libraries as well
 
 #### Front end deployed to `Netilify`
 
-#### [Back end](https://github.com/Lambda-School-Labs/sauti-africa-market-price-data-be) built using:
+#### [Back end](https://github.com/Lambda-School-Labs/sauti-africa-market-price-data-be) built using the following Framework & Libraries:
 
-#### Backend built using the following Framework & Libraries
-
+- Node
 - Express
+- Redis
 - Knex
 - SQL
+- SQLite3
+- Postgres
 - UUID API key generator
 - JWT
 
@@ -79,9 +78,7 @@ Sauti Africa Market Prices & API provides an easy to use interface to view and a
 
 ## Authentication
 
-🚫Replace text below with a description of the API
-
-Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do things A little happy sunlight shining through there. Let all these little things happen. Don't fight them. Learn to use them. Even the worst thing we can do here is good.
+We use Auth0 for authentication. Auth0 documentation can be found [here](https://auth0.com/docs)
 
 # Environment Variables
 
