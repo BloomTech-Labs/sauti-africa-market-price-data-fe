@@ -45,17 +45,12 @@ Sauti Africa Market Prices & API provides an easy to use interface to view and a
 - State Management done via React Hooks
 - Easy to integrate many other third party such ag-Grid, Auth0, etc
 
-#### Auth0
-
-## -
-
--
-
 #### ag-Grid
 
-## -
-
--
+- Easy to integrate with React
+- Contains easy to implement CSV feature for downloading data
+- Draggable columns
+- Framework agnostic 
 
 #### Cypress
 
@@ -79,9 +74,7 @@ Sauti Africa Market Prices & API provides an easy to use interface to view and a
 
 ## Authentication
 
-🚫Replace text below with a description of the API
-
-Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do things A little happy sunlight shining through there. Let all these little things happen. Don't fight them. Learn to use them. Even the worst thing we can do here is good.
+We use Auth0 for authentication. Auth0 documentation can be found [here](https://auth0.com/docs)
 
 # Environment Variables
 
