@@ -392,7 +392,6 @@ const Grid = () => {
       .get(query)
       .then(async res => {
         if (res.error) throw new Error(res.error);
-        let p = page;
         const currentPage = 1;
         dispatch({ type: "SET_ROW_DATA", payload: res.data.records });
         setSpinner(false);
