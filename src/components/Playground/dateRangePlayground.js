@@ -29,25 +29,25 @@ export default function DrPlayground() {
   }
   function makeCall(value) {
     axios
-      .get(
-        `/sauti/client/playground/date?${value}`,
-        {
-          baseURL:
-            process.env.NODE_ENV !== 'development'
-              ? 'https://sauti-africa-market-master.herokuapp.com/'
-              : 'http://localhost:8888/'
-        }
-      )
+      .get(`/sauti/client/playground/date?${value}`, {
+        baseURL:
+          process.env.NODE_ENV !== 'development'
+            ? 'https://sauti-africa-market-master.herokuapp.com/'
+            : 'http://localhost:8888/'
+      })
       .then(res => {
         setData(res.data)
       })
       .catch(error => {
         setBad(true)
-        if(error.message === 'Network Error'){setErrorMessage(error.message)}else if(error.response.data.message){setErrorMessage(error.response.data.message)}
-        
+        if (error.message === 'Network Error') {
+          setErrorMessage(error.message)
+        } else if (error.response.data.message) {
+          setErrorMessage(error.response.data.message)
+        }
       })
   }
- 
+
   return (
     <div className="playground">
       <form className="playForm">

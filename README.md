@@ -52,7 +52,7 @@ Sauti Africa Market Prices & API provides an easy to use interface to view and a
 - Easy to integrate with React
 - Contains easy to implement CSV feature for downloading data
 - Draggable columns
-- Framework agnostic 
+- Framework agnostic
 
 #### Cypress
 
