@@ -8,7 +8,7 @@ import NavBar from '../NavBar'
 import Footer from '../Footer'
 import Profile from '../Profile'
 import Landing from '../Landing/index.js'
-import DocsPage from '../Docs/index'
+import Documentation from '../Documentation/index'
 import GridPage from '../GridPage'
 import { useAuth0 } from '../../contexts'
 
@@ -21,7 +21,6 @@ initFontAwesome()
 const App = () => {
   const { loading } = useAuth0()
   const [apiKey, setApiKey] = useState()
-  // const [list, setList] = useState(null)
 
   useEffect(() => {
     /*=== function that initializes Google Analytics ===*/
@@ -34,24 +33,23 @@ const App = () => {
   }
 
   return (
-    <div className="appContainer">
+    <div className='appContainer'>
       {/*className="d-flex flex-column h-100"*/}
       <NavBar />
       <Switch>
-        <Route path="/" exact render={props => <Landing {...props} />} />
-        {/* <Route
-            path="/grid"
-            exact
-            render={props => <GridPage {...props} apiKey={apiKey} />}
-          /> */}
-        <Route exact path="/data" component={GridPage} />
+        <Route path='/' exact render={props => <Landing {...props} />} />
+        <Route
+          exact
+          path='/data'
+          render={props => <GridPage {...props} loading={loading} />}
+        />
         <PrivateRoute
-          path="/profile"
+          path='/profile'
           component={Profile}
           apiKey={apiKey}
           setApiKey={setApiKey}
         />
-        <Route exact path="/docs" component={DocsPage} />
+        <Route exact path='/docs' component={Documentation} />
       </Switch>
       <Footer />
     </div>

@@ -4,18 +4,25 @@ import { useAuth0 } from '../contexts'
 // Fetches the access token from auth0 without having to call all this code in each file.
 function useGetToken() {
   const [token, setToken] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const { getTokenSilently } = useAuth0()
 
   useEffect(() => {
     const fetchToken = async () => {
-      const result = await getTokenSilently()
-      setToken(result)
+      setLoading(true)
+      try {
+        const result = await getTokenSilently()
+        setToken(result)
+        setLoading(false)
+      } catch (error) {
+        setLoading(false)
+      }
     }
     fetchToken()
-  })
+  }, [])
 
-  return [token]
+  return [token, loading]
 }
 
 export default useGetToken
