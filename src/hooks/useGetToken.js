@@ -19,6 +19,7 @@ function useGetToken() {
       }
     };
     fetchToken();
+    // eslint-disable-next-line
   }, []);
 
   return [token, loading];
