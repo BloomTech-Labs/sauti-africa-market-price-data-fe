@@ -598,7 +598,7 @@ const Grid = () => {
               }}
             >{`>`}</Button>
           )}
-          {page ? <span>{`${page} of ${count}`}</span> : null}
+          {page && count > 0 ? <span>{`${page} of ${count}`}</span> : null}
         </div>
       </GridContext.Provider>
     </Container>
