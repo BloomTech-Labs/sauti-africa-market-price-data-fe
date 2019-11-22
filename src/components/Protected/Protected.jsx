@@ -1,6 +1,6 @@
-import React from "react";
-import { Message } from "semantic-ui-react";
-import logo from "../../assets/sauti-logo.png";
+import React from 'react'
+import { Message } from 'semantic-ui-react'
+import logo from '../../assets/sauti-logo.png'
 
 const Protected = () => (
   <div className="text-center hero my-5">
@@ -21,6 +21,6 @@ const Protected = () => (
       </Message.Header>
     </Message>
   </div>
-);
+)
 
-export default Protected;
+export default Protected
