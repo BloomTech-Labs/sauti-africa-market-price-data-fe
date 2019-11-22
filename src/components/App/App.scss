@@ -30,6 +30,14 @@
   right: 0;
 }
 
+.gridSpinner {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+}
+
 .ant-calendar-picker-input.ant-input {
   display: flex;
   width: 282%;

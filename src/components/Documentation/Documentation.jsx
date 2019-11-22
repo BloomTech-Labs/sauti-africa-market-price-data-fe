@@ -30,8 +30,6 @@ import "./Documentation.scss";
 
 const SideNav = () => {
   //Managing the state of Side Nav Tabbing between by setting the active item
-  // const [active, setActive] = useState({ activeItem: 'Quick Start' })
-  // const handleItemClick = (e, { name }) => setActive({ activeItem: name })
   const [sidenav, toggleSidenav] = useState(true);
 
   //conditionally render playground components via boolean
@@ -96,9 +94,6 @@ const SideNav = () => {
           <article className="left-article">
             <Header as="h2">API</Header>
             <p>
-              {/* Sauti Africa Market Prices API is designed to acquire acquire
-              specific data from an internal database and send out JSON
-              response. */}
               Sauti Africa Market Prices API is designed to provide up-to-date
               daily prices for over 150 products across more than 100
               marketplaces in East Africa. The API has resource-oriented URLs,
@@ -107,13 +102,10 @@ const SideNav = () => {
             </p>
           </article>
           <article className="right-article">
+            {/* Used for spacing with the right article */}
             <Header as="h2">
-              {/* Start Acquiring the API from Above in your Profile */}
             </Header>
             <p>
-              {/* Go ahead log in to your profile to acquire the API Key (See Above
-              for Log In or Profile Picture) <br /> Pass the API Key as part of
-              headers in request as <Highlight>key: your API Key</Highlight> */}
             </p>
           </article>
         </section>
