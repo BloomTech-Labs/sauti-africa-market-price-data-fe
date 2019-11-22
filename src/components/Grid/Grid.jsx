@@ -2,7 +2,6 @@ import React, { useReducer, useState, useEffect } from "react";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import { AgGridReact } from "ag-grid-react";
 import queryString from "query-string";
-import useGetToken from "../../hooks/useGetToken";
 
 import { GridContext } from "../../contexts";
 import { initialState, reducer } from "../../store";
@@ -23,7 +22,7 @@ import "./Grid.scss";
 const { RangePicker } = DatePicker;
 const NOCACHE = true;
 
-const Grid = () => {
+const Grid = ({ token }) => {
   const [store, dispatch] = useReducer(reducer, initialState);
   const { columnDefs, rowData, gridStyle } = store;
   const [err, setErr] = useState(false);
@@ -65,7 +64,6 @@ const Grid = () => {
   );
 
   const [spinner, setSpinner] = useState(false);
-  const [token] = useGetToken();
   const [exportCSV, setExportCSV] = useState(null);
 
   useEffect(() => {
