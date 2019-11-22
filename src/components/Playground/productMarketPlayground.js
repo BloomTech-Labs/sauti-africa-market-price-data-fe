@@ -35,15 +35,18 @@ export default function PmPlayground() {
             : 'http://localhost:8888/'
       })
       .then(res => {
-
         setData(res.data)
       })
       .catch(error => {
         setBad(true)
-        if(error.message === 'Network Error'){setErrorMessage(error.message)}else if(error.response.data.message){setErrorMessage(error.response.data.message)}
+        if (error.message === 'Network Error') {
+          setErrorMessage(error.message)
+        } else if (error.response.data.message) {
+          setErrorMessage(error.response.data.message)
+        }
       })
   }
-  
+
   return (
     <div className="playground">
       <form className="playForm">

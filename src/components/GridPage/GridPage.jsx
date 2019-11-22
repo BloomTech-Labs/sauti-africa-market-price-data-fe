@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react'
 
-import Grid from "../Grid";
-import Protected from "../Protected";
-import Loading from "../Loading";
+import Grid from '../Grid'
+import Protected from '../Protected'
+import Loading from '../Loading'
 
-import useGetToken from "../../hooks/useGetToken";
+import useGetToken from '../../hooks/useGetToken'
 
 const GridPage = props => {
-  const [token, loading] = useGetToken();
+  const [token, loading] = useGetToken()
 
   return (
     <div className="next-steps my-5">
@@ -19,7 +19,7 @@ const GridPage = props => {
         <Protected />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default GridPage;
+export default GridPage
