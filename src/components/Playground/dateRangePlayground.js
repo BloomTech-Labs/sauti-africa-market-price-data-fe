@@ -47,10 +47,7 @@ export default function DrPlayground() {
         
       })
   }
-  // useEffect(()=> {
-  //   makeCall()
-
-  // },[])
+ 
   return (
     <div className="playground">
       <form className="playForm">
