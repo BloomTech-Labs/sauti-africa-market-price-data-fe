@@ -1,14 +1,19 @@
 import React from 'react'
 
 import Grid from '../Grid'
-import Hero from '../Hero'
+import Protected from '../Protected'
+import Loading from '../Loading'
 
 import useGetToken from '../../hooks/useGetToken'
 
 const GridPage = props => {
-  const [token] = useGetToken()
+  const [token, loading] = useGetToken()
 
-  return <div className="next-steps my-5">{token ? <Grid /> : <Hero />}</div>
+  return (
+    <div className='next-steps my-5'>
+      {token ? <Grid /> : loading ? <Loading grid={true} /> : <Protected />}
+    </div>
+  )
 }
 
 export default GridPage

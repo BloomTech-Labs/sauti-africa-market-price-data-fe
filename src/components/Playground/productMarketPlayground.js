@@ -43,10 +43,7 @@ export default function PmPlayground() {
         if(error.message === 'Network Error'){setErrorMessage(error.message)}else if(error.response.data.message){setErrorMessage(error.response.data.message)}
       })
   }
-  // useEffect(()=> {
-  //   makeCall()
-
-  // },[])
+  
   return (
     <div className="playground">
       <form className="playForm">
