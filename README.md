@@ -60,7 +60,7 @@ Sauti Africa Market Prices & API provides an easy to use interface to view and a
 - Allows E2E testing with Auth0 [read here](https://auth0.com/blog/end-to-end-testing-with-cypress-and-auth0/)
 - Allows to test features through third-party libraries as well
 
-#### Front end deployed to `Netilify`
+#### Front end deployed to `Netlify`
 
 #### [Back end](https://github.com/Lambda-School-Labs/sauti-africa-market-price-data-be) built using the following Framework & Libraries:
 
