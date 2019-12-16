@@ -24,10 +24,10 @@ Andrew Garcia - [Github](https://github.com/aaamg)<br>
 
 ## Project Overview
 
-[Trello Board](https://trello.com/b/ytEKzcoL/sauti-africa-market-price-data)
-[Trello Board](https://trello.com/b/AxjamWWq/labs-19-sauti-africa-market-prices)
+[Labs 17 Trello Board](https://trello.com/b/ytEKzcoL/sauti-africa-market-price-data)<br>
+[Labs 19 Trello Board](https://trello.com/b/AxjamWWq/labs-19-sauti-africa-market-prices)
 
-[Product Vision Document](https://www.notion.so/Sauti-Africa-Market-Prices-7bd55c3d12824385bffb467b12487705)
+[Product Vision Document](https://www.notion.so/Sauti-Africa-Market-Prices-7bd55c3d12824385bffb467b12487705)<br>
 [Product Canvases](https://www.notion.so/e27b7bbc8c3c4df387950ffadb4f9b38?v=9561b9c6a4f74c08bf69e78805ed8040)
 
 Sauti Africa Market Prices & API provides an easy to use interface to view and acquire data from Sauti Africa internal databases, and an API which provides JSON responses for developers to use for any purpose.
