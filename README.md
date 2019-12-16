@@ -4,6 +4,7 @@ You can find the deployed project at [Sauti Africa Market Data](http://price-api
 
 ## Contributors
 
+### Labs 17
 <strong>Team Lead</strong> - Angela La Salle [Github](https://github.com/alasalle)<br>
 Adnan Chowdhury - [Github](https://github.com/AdnanCodes)<br>
 Alexis Carr - [Github](https://github.com/alexisjcarr)<br>
@@ -13,11 +14,21 @@ Michael Hart - [Github](https://github.com/worksofhart)<br>
 Miguel Peralta - [Github](https://github.com/Miguelperalta723)<br>
 Shawn McManus - [Github](https://github.com/ShawnM76)<br>
 
+### Labs 19
+<strong>Team Lead</strong> - Kayla Crow [Github](https://github.com/blackmacaroon)<br>
+Himmat Gill - [Github](https://github.com/mxxt1)<br>
+Igor Tavarez - [Github](https://github.com/itava0)<br>
+Chazaray Robinson - [Github](https://github.com/cjrobinson831)<br>
+Bao Pham - [Github](https://github.com/BaoPham92)<br>
+Andrew Garcia - [Github](https://github.com/aaamg)<br>
+
 ## Project Overview
 
 [Trello Board](https://trello.com/b/ytEKzcoL/sauti-africa-market-price-data)
+[Trello Board](https://trello.com/b/AxjamWWq/labs-19-sauti-africa-market-prices)
 
-[Product Canvas](https://www.notion.so/Sauti-Africa-Market-Prices-7bd55c3d12824385bffb467b12487705)
+[Product Vision Document](https://www.notion.so/Sauti-Africa-Market-Prices-7bd55c3d12824385bffb467b12487705)
+[Product Canvases](https://www.notion.so/e27b7bbc8c3c4df387950ffadb4f9b38?v=9561b9c6a4f74c08bf69e78805ed8040)
 
 Sauti Africa Market Prices & API provides an easy to use interface to view and acquire data from Sauti Africa internal databases, and an API which provides JSON responses for developers to use for any purpose.
 
