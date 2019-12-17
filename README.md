@@ -19,8 +19,8 @@ Shawn McManus - [Github](https://github.com/ShawnM76)<br>
 Chazaray Robinson - [Github](https://github.com/cjrobinson831)<br>
 Andrew Garcia - [Github](https://github.com/aaamg)<br>
 Igor Tavarez - [Github](https://github.com/itava0)<br>
-Bao Pham - [Github](https://github.com/BaoPham92)<br>
 Himmat Gill - [Github](https://github.com/mxxt1)<br>
+Bao Pham - [Github](https://github.com/BaoPham92)<br>
 
 
 ## Project Overview
