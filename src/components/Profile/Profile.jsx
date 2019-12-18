@@ -33,7 +33,7 @@ const Profile = ({ apiKey, setApiKey }) => {
       const token = await getTokenSilently()
 
       const { sub } = user
-
+      
       const response = await axios.post(
         '/api/apikeyRoute/private',
         {
