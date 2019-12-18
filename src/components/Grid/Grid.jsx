@@ -136,7 +136,7 @@ const Grid = ({ token }) => {
 
   // Moment timestamps need special handling before running JSON.stringify on them
   function serialize(collection) {
-    return JSON.stringify(collection, function(k, v) {
+    return JSON.stringify(collection, function (k, v) {
       if (
         typeof v === 'string' &&
         v.match(
@@ -152,7 +152,7 @@ const Grid = ({ token }) => {
   // Moment timestamps need special handling before running JSON.parse on them
   function deserialize(serializedData) {
     // If a moment timestamp is found, extract it for use. If not, return unchanged
-    return JSON.parse(serializedData, function(k, v) {
+    return JSON.parse(serializedData, function (k, v) {
       if (typeof v === 'string' && v.includes('moment:')) {
         return moment(parseInt(v.split(':')[1], 10))
       }
@@ -224,7 +224,7 @@ const Grid = ({ token }) => {
     setErr(false)
     setSpinner('One moment please...')
     localStorage.clear()
-    dropdownHandler([], setCountries, setCountryQuery, 'c')
+    dropdownHandler([], setCountries, setCountryQuery, 'C')
     dropdownHandler([], setMarkets, setMarketQuery, 'm')
     dropdownHandler([], setProducts, setProductQuery, 'p')
     dropdownHandler([], setPCats, setPCatQuery, 'pcat')
@@ -258,8 +258,8 @@ const Grid = ({ token }) => {
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
-            'YYYY-MM-DD'
-          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+          'YYYY-MM-DD'
+        )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
     setErr(false)
     // next values (the top value of the next page (1 page forward) that's passed back with each page) are stored as an array.
@@ -303,8 +303,8 @@ const Grid = ({ token }) => {
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
-            'YYYY-MM-DD'
-          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+          'YYYY-MM-DD'
+        )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
 
     setErr(false)
@@ -354,8 +354,8 @@ const Grid = ({ token }) => {
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
-            'YYYY-MM-DD'
-          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+          'YYYY-MM-DD'
+        )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
     setErr(false)
     const query = `https://sauti-africa-market-master.herokuapp.com/sauti/client/export/?currency=${currency ||
@@ -378,8 +378,8 @@ const Grid = ({ token }) => {
     const dateRangeQuery =
       dateRanges && dateRanges[0]
         ? `&startDate=${dateRanges[0].format(
-            'YYYY-MM-DD'
-          )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
+          'YYYY-MM-DD'
+        )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
     setErr(false)
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
@@ -462,7 +462,7 @@ const Grid = ({ token }) => {
                   value={pCats}
                 />
                 <Dropdown
-                  placeholder="Product Aggregator"
+                  placeholder="Product sub-category"
                   fluid
                   multiple
                   search
@@ -571,15 +571,15 @@ const Grid = ({ token }) => {
           ) : page === 1 ? (
             <Button disabled>{'<'}</Button>
           ) : (
-            <Button
-              onClick={() => {
-                prevApiCall()
-                setSpinner('Getting data...')
-              }}
-            >
-              {'<'}
-            </Button>
-          )}
+                  <Button
+                    onClick={() => {
+                      prevApiCall()
+                      setSpinner('Getting data...')
+                    }}
+                  >
+                    {'<'}
+                  </Button>
+                )}
           {next && page < count ? (
             <Button
               onClick={() => {
@@ -588,14 +588,14 @@ const Grid = ({ token }) => {
               }}
             >{`>`}</Button>
           ) : (
-            <Button
-              disabled
-              onClick={() => {
-                nextApiCall()
-                setSpinner('Getting data...')
-              }}
-            >{`>`}</Button>
-          )}
+              <Button
+                disabled
+                onClick={() => {
+                  nextApiCall()
+                  setSpinner('Getting data...')
+                }}
+              >{`>`}</Button>
+            )}
           {page && count > 0 ? <span>{`${page} of ${count}`}</span> : null}
         </div>
       </GridContext.Provider>
