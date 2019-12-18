@@ -1,6 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faServer, faBook, faTable } from '@fortawesome/free-solid-svg-icons'
+import './landing.css'
 
 const Main = () => {
   return (
