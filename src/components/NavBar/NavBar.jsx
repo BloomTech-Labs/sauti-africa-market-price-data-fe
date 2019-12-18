@@ -55,7 +55,7 @@ const NavBar = () => {
             exact
             activeClassName="router-link-exact-active"
           >
-            DOCS
+            API
           </NavLink>
           <NavLink
             tag={RouterNavLink}
