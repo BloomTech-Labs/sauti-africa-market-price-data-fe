@@ -40,6 +40,8 @@ const SideNav = () => {
   //Applying scrolling to places of the page
   const scrollToPlay = ref => {
     window.scrollTo(0, ref.current.offsetTop - 40)
+    toggleSidenav(!sidenav)
+    console.log(sidenav)
   }
   const api = useRef()
   const quick = useRef()
