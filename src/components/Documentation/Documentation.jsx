@@ -38,10 +38,10 @@ const SideNav = () => {
   const [playPrice, setPlayPrice] = useState(false)
 
   //Applying scrolling to places of the page
+  
   const scrollToPlay = ref => {
     window.scrollTo(0, ref.current.offsetTop - 40)
-    toggleSidenav(!sidenav)
-    console.log(sidenav)
+    toggleSidenav(!sidenav) //Closes the menu once scrolling is initiated
   }
   const api = useRef()
   const quick = useRef()
