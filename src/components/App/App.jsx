@@ -11,6 +11,7 @@ import Landing from '../Landing/index.js'
 import Documentation from '../Documentation/index'
 import GridPage from '../GridPage'
 import { useAuth0 } from '../../contexts'
+import UserRoles from '../Profile/UserRoles'
 import './App.scss'
 
 // fontawesome
@@ -45,6 +46,7 @@ const App = () => {
           setApiKey={setApiKey}
         />
         <Route exact path="/docs" component={Documentation} />
+        <Route exact path="/plan" component={UserRoles} />
       </Switch>
       <Footer />
     </div>
