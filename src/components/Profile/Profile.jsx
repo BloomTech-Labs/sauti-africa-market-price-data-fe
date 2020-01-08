@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { Button, Container, Row, Col } from 'reactstrap'
-import UserRoles from './UserRoles';
 
 import { Header, Card, Image, Message, Icon } from 'semantic-ui-react'
 
@@ -124,7 +123,6 @@ const Profile = ({ apiKey, setApiKey }) => {
       <Row>
         {/* <Highlight className='JSON'>{JSON.stringify(user, null, 2)}</Highlight> */}
       </Row>
-      <UserRoles />
     </Container>
   )
 }
