@@ -12,6 +12,7 @@ import Documentation from '../Documentation/index'
 import GridPage from '../GridPage'
 import { useAuth0 } from '../../contexts'
 import './App.scss'
+import io from 'socket.io-client';
 
 // fontawesome
 import initFontAwesome from '../../utils/initFontAwesome'
@@ -22,6 +23,15 @@ const App = () => {
   const [apiKey, setApiKey] = useState()
 
   useEffect(() => {
+
+    // * SOCKET.IO-CLIENT BELOW
+    const socket = io('http://localhost:5000');
+
+    if (!!socket === true) socket.on(
+      'client-operations',
+      (data) => console.log('Redis API key count data.', JSON.parse(data))
+    )
+
     /*=== function that initializes Google Analytics ===*/
     initGA(process.env.REACT_APP_GOOGLE_TRACKING_ID)
     PageView()
