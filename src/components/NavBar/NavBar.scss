@@ -98,10 +98,9 @@
 
       @media (max-width: 500px) {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
-        width: 70%;
       }
 
       @media (max-width: 414px) {
