@@ -1,6 +1,8 @@
 # Sauti Africa Market Price Data & API
 
-You can find the deployed project at [Sauti Africa Market Data](http://price-api.sautiafrica.org/).
+You can find the deployed production site at [Sauti Africa Market Data](http://price-api.sautiafrica.org/).
+
+Zeit deployment: https://sauti-africa-market-price-data-fe.sautiafricamarketprices.now.sh/
 
 ## Contributors
 
