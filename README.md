@@ -2,7 +2,7 @@
 
 You can find the deployed production site at [Sauti Africa Market Data](http://price-api.sautiafrica.org/).
 
-Staging deployment: https://jolly-panini-1f3c1c.netlify.com/
+[Staging deployment](https://jolly-panini-1f3c1c.netlify.com/)
 
 ## Contributors
 
