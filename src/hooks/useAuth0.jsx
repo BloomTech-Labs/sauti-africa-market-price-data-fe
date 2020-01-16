@@ -16,8 +16,11 @@ export const Auth0Provider = ({
   const [auth0Client, setAuth0] = useState()
   const [loading, setLoading] = useState(true)
   const [popupOpen, setPopupOpen] = useState(false)
+  // const [url, setURL] = useState()
 
   useEffect(() => {
+    // ! BELOW IS TESTING CHANGES IN REDIRECT URL
+    // if (!!url === true) initOptions.redirect_uri = url && console.log('REDIRECT URL IS NOW:', initOptions.redirect_uri)
     const initAuth0 = async () => {
       const auth0FromHook = await createAuth0Client(initOptions)
       setAuth0(auth0FromHook)
@@ -71,6 +74,7 @@ export const Auth0Provider = ({
   return (
     <Auth0Context.Provider
       value={{
+        // setURL,
         isAuthenticated,
         user,
         loading,

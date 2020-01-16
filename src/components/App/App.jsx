@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import PrivateRoute from '../../hoc/PrivateRoute'
-
 import { PageView, initGA } from '../Tracking/Tracking'
 import Loading from '../Loading'
 import NavBar from '../NavBar'
@@ -13,30 +12,34 @@ import GridPage from '../GridPage'
 import { useAuth0 } from '../../contexts'
 import UserRoles from '../Profile/UserRoles'
 import './App.scss'
-import io from 'socket.io-client';
+import { validateRole, setRedirectURL } from '../../utils/roles'
 
 // fontawesome
 import initFontAwesome from '../../utils/initFontAwesome'
 initFontAwesome()
 
 const App = () => {
-  const { loading } = useAuth0()
+  const { loading, user, isAuthenticated, setURL } = useAuth0()
+  console.log(useAuth0())
   const [apiKey, setApiKey] = useState()
+  // const [status, setStatus] = useState()
+  // const [userInfo, setUserInfo] = useState(user)
 
   useEffect(() => {
 
-    // * SOCKET.IO-CLIENT BELOW
-    const socket = io('http://localhost:5000');
+    // setUserInfo(user)
 
-    if (!!socket === true) socket.on(
-      'client-operations',
-      (data) => console.log('Redis API key count data.', JSON.parse(data))
-    )
+    // * IF USER OBJ AND IS AUTHENTICATED, THEN VALIDATE USER ROLE DATA, AND SET STATE.
+    // if (!!user === true && isAuthenticated === true){
+    //   validateRole({ sub: user.sub }, setStatus)
+    //   console.log('STATUS', status)
+    //   !!status === true && setRedirectURL(status, setURL)
+    // }
 
     /*=== function that initializes Google Analytics ===*/
     initGA(process.env.REACT_APP_GOOGLE_TRACKING_ID)
     PageView()
-  })
+  }, [])
 
   if (loading) {
     return <Loading />
