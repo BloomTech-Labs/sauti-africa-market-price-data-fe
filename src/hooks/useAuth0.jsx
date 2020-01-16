@@ -32,7 +32,19 @@ export const Auth0Provider = ({
 
       const isAuthenticated = await auth0FromHook.isAuthenticated()
 
+      // * CHECK IF USER HAS ALREADY LOGGED IN, RETREIVE USER INFO IF TRUE.
+      const validateAuthentication = async () => {
+        await auth0FromHook.loginWithRedirect({
+          appState: { targetUrl: window.location.pathname }
+        })
+        const user = await auth0FromHook.getUser()
+
+        setUser(user)
+      }
+      // * VALIDATE IF USER IS AUTHENTICATED.
       setIsAuthenticated(isAuthenticated)
+
+      if (!isAuthenticated) return validateAuthentication()
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser()
