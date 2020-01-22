@@ -462,7 +462,7 @@ const Grid = ({ token }) => {
                   value={pCats}
                 />
                 <Dropdown
-                  placeholder="Product sub-category"
+                  placeholder="Product Subcategory"
                   fluid
                   multiple
                   search
