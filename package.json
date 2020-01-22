@@ -16,6 +16,7 @@
     "ci": "^1.0.0",
     "cypress": "3.6.1",
     "highlight.js": "^9.15.10",
+    "history": "^4.10.1",
     "moment": "^2.24.0",
     "node-sass": "^4.12.0",
     "pure-react-carousel": "^1.23.2",
