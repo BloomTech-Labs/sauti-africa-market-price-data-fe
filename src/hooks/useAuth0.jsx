@@ -17,7 +17,7 @@ export const Auth0Provider = ({
   const [loading, setLoading] = useState(true)
   const [popupOpen, setPopupOpen] = useState(false)
   // const [url, setURL] = useState()
-
+  
   useEffect(() => {
     // ! BELOW IS TESTING CHANGES IN REDIRECT URL
     // if (!!url === true) initOptions.redirect_uri = url && console.log('REDIRECT URL IS NOW:', initOptions.redirect_uri)
