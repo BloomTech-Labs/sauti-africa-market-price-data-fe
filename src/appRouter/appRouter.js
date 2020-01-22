@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {Router} from 'react-router-dom';
 import App from '../components/App'
 import {Auth0Provider} from '../hooks/useAuth0';
@@ -18,15 +18,11 @@ const onRedirectCallback = appState => {
     )
   }
 
-
-
-
-
-export default const AppRouter = () => {
+const AppRouter = () => {
        
     return (
             <Router history={history} >
-                <div>
+                <React.Fragment>
                     <Auth0Provider
                        domain={process.env.REACT_APP_DOMAIN}
                        client_id={process.env.REACT_APP_CLIENT_ID}
@@ -37,7 +33,9 @@ export default const AppRouter = () => {
                     >
                         <App />
                     </Auth0Provider>
-                </div>
+                </React.Fragment>
             </Router>
     )
 }
+
+export default AppRouter
