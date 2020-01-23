@@ -19,7 +19,6 @@ Shawn McManus - [Github](https://github.com/ShawnM76)<br>
 ### Labs 19
 <strong>Team Lead</strong> - Kayla Crow [Github](https://github.com/blackmacaroon)<br>
 Andrew Garcia - [Github](https://github.com/aaamg)<br>
-Igor Tavarez - [Github](https://github.com/itava0)<br>
 Himmat Gill - [Github](https://github.com/mxxt1)<br>
 Bao Pham - [Github](https://github.com/BaoPham92)<br>
 
