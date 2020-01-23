@@ -13,6 +13,10 @@ const onRedirectCallback = appState => {
 }
 
 const AppRouter = () => {
+
+
+    //based on whether app_metadata.role exists, conditionally set redirect uri to baseUrl/plan or baseUrl/profile 
+       
     return (
         <Router history={history} >
             <React.Fragment>
