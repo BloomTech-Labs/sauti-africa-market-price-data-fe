@@ -12,29 +12,16 @@ import GridPage from '../GridPage'
 import { useAuth0 } from '../../contexts'
 import UserRoles from '../Profile/UserRoles'
 import './App.scss'
-import { validateRole, setRedirectURL } from '../../utils/roles'
 
 // fontawesome
 import initFontAwesome from '../../utils/initFontAwesome'
 initFontAwesome()
 
 const App = () => {
-  const { loading, user, isAuthenticated, setURL } = useAuth0()
-  console.log(useAuth0())
+  const { loading } = useAuth0()
   const [apiKey, setApiKey] = useState()
-  // const [status, setStatus] = useState()
-  // const [userInfo, setUserInfo] = useState(user)
 
   useEffect(() => {
-
-    // setUserInfo(user)
-
-    // * IF USER OBJ AND IS AUTHENTICATED, THEN VALIDATE USER ROLE DATA, AND SET STATE.
-    // if (!!user === true && isAuthenticated === true){
-    //   validateRole({ sub: user.sub }, setStatus)
-    //   console.log('STATUS', status)
-    //   !!status === true && setRedirectURL(status, setURL)
-    // }
 
     /*=== function that initializes Google Analytics ===*/
     initGA(process.env.REACT_APP_GOOGLE_TRACKING_ID)
@@ -44,7 +31,7 @@ const App = () => {
   if (loading) {
     return <Loading />
   }
-
+  //! Move Routes to appRouter and privateRouter
   return (
     <div className="appContainer">
       {/*className="d-flex flex-column h-100"*/}
