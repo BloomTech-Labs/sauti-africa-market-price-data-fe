@@ -26,14 +26,14 @@ const Profile = ({ apiKey, setApiKey }) => {
       </Message.Content>
     </Message>
   )
-
+    
   const getApiKey = async () => {
     try {
       setKeyLoading(true)
       const token = await getTokenSilently()
 
       const { sub } = user
-
+      
       const response = await axios.post(
         '/api/apikeyRoute/private',
         {
@@ -41,7 +41,7 @@ const Profile = ({ apiKey, setApiKey }) => {
         },
         {
           headers: { Authorization: `Bearer ${token}` },
-          baseURL: 'https://sauti-africa-market-master.herokuapp.com/'
+          baseURL: 'https://sauti-africa-market-staging-3.herokuapp.com/'
         }
       )
       setApiKey(response.data.key)
