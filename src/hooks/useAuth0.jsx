@@ -85,14 +85,14 @@ export const Auth0Provider = ({
 
   // * GET AND SET USER ROLE IF AUTHENTICATED
   const getRole = () => axios
-    .post(`http://localhost:8888/api/users/`, user)
+    .post(`https://sauti-africa-market-staging-3.herokuapp.com/api/users/`, user)
     .then(res => {
       const user = res.data;
       return !!user === true && setRole({ ...user.app_metadata })
     })
     .catch(err => console.log(err))
 
-  if (user) getRole()
+  if (loading === false && !!user === true && isAuthenticated) getRole()
 
   // * REDIRECT BASED ON ROLE STATUS
   if (role && !!role.role === false && window.location.pathname !== '/plan') {
