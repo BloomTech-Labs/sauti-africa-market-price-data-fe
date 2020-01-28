@@ -450,6 +450,18 @@ const Grid = ({ token }) => {
                   value={markets}
                 />
                 <Dropdown
+                  class="currency"
+                  placeholder="Currency"
+                  fluid
+                  search
+                  selection
+                  options={currencyOptions || ''}
+                  onChange={(e, { value }) =>
+                    dropdownHandler(value, setCurrency, null, 'cur')
+                  }
+                  value={currency}
+                />
+                <Dropdown
                   placeholder="Product Category"
                   fluid
                   multiple
@@ -484,17 +496,6 @@ const Grid = ({ token }) => {
                     dropdownHandler(value, setProducts, setProductQuery, 'p')
                   }
                   value={products}
-                />
-                <Dropdown
-                  placeholder="Currency"
-                  fluid
-                  search
-                  selection
-                  options={currencyOptions || ''}
-                  onChange={(e, { value }) =>
-                    dropdownHandler(value, setCurrency, null, 'cur')
-                  }
-                  value={currency}
                 />
                 <RangePicker
                   value={dateRanges}
