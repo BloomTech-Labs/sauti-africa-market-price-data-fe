@@ -8,9 +8,8 @@ const UserRoles = () => {
 
   const updateUserRole = (userId, user) => {
     axios
-      .put(`https://sauti-africa-market-staging-3.herokuapp.com/api/users/${userId}`, user)
+      .put(`https://sauti-africa-market-master.herokuapp.com/api/users/${userId}`, user)
       .then(res => {
-        // console.log(res.data)
       })
       .catch(err => console.log(err))
   }
@@ -22,7 +21,6 @@ const UserRoles = () => {
         role: 'paidUser'
       }
     }
-    console.log('Paid User =>')
     updateUserRole(user.sub, paidUser)
   }
 
@@ -33,7 +31,6 @@ const UserRoles = () => {
         role: 'freeUser'
       }
     }
-    console.log('Free User =>')
     updateUserRole(user.sub, freeUser)
   }
 
@@ -47,9 +44,9 @@ const UserRoles = () => {
               <div className="card__content">
                 <div className="card__title">Free</div>
                 <p className="card__text">
-                  Rate-limited to 10k API calls/month
+                  Up to 10,000 API calls per month
                 </p>
-                <p className="card__text">7 days of historical data</p>
+                <p className="card__text">Up to 7 days of market data</p>
                 <button className="btn" onClick={handleFreeUser}>
                   Select Plan
                 </button>
@@ -60,9 +57,9 @@ const UserRoles = () => {
             <div className="card">
               <div className="card__content">
                 <div className="card__title">Unlimited</div>
-                <p className="card__text">Unlimited API calls/month</p>
+                <p className="card__text">Unlimited API calls per month</p>
                 <p className="card__text">
-                  restricted to 2 years of historical data
+                  Up to 2 years of market data
                 </p>
                 <button className="btn" onClick={handlePaidUser}>
                   Select Plan
