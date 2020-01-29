@@ -33,6 +33,7 @@ const Grid = ({ token }) => {
   // UseState to set queries in URL
   const [countryQuery, setCountryQuery] = useState()
   const [marketQuery, setMarketQuery] = useState()
+  const [sourceQuery, setSourceQuery] = useState()
   const [pCatQuery, setPCatQuery] = useState()
   const [pAggQuery, setPAggQuery] = useState()
   const [productQuery, setProductQuery] = useState()
@@ -52,6 +53,7 @@ const Grid = ({ token }) => {
   )
   const [countries, setCountries] = useState([])
   const [markets, setMarkets] = useState([])
+  const [sources, setSources] = useState([])
   const [pCats, setPCats] = useState([])
   const [pAggs, setPAggs] = useState([])
   const [products, setProducts] = useState([])
@@ -194,6 +196,12 @@ const Grid = ({ token }) => {
         setMarketQuery,
         'm'
       )
+      // dropdownHandler(
+      //   Array.isArray(s) ? s : [s],
+      //   setSources,
+      //   setSourceQuery,
+      //   's'
+      // )
       dropdownHandler(
         Array.isArray(p) ? p : [p],
         setProducts,
@@ -226,6 +234,7 @@ const Grid = ({ token }) => {
     localStorage.clear()
     dropdownHandler([], setCountries, setCountryQuery, 'C')
     dropdownHandler([], setMarkets, setMarketQuery, 'm')
+    dropdownHandler([], setSources, setSourceQuery, 's')
     dropdownHandler([], setProducts, setProductQuery, 'p')
     dropdownHandler([], setPCats, setPCatQuery, 'pcat')
     dropdownHandler([], setPAggs, setPAggQuery, 'pagg')
@@ -270,7 +279,7 @@ const Grid = ({ token }) => {
     let n = next[next.length - 1]
     if (next) nextCursor = n
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${marketQuery || ''}${sourceQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
     localStorage.setItem('q', query) // Stored in local storage to later restore parameters if user reloads page
     axiosWithAuth([token])
@@ -326,7 +335,7 @@ const Grid = ({ token }) => {
     if (prev && page) nextPage = prev[page - 2]
     if (nextPage) nextCursor = nextPage
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${marketQuery || ''}${sourceQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
     localStorage.setItem('q', query) // Stored in local storage to later restore parameters if user reloads page
     axiosWithAuth([token])
@@ -359,7 +368,7 @@ const Grid = ({ token }) => {
         : ''
     setErr(false)
     const query = `https://sauti-africa-market-master.herokuapp.com/sauti/client/export/?currency=${currency ||
-      'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
+      'USD'}${countryQuery || ''}${marketQuery || ''}${sourceQuery || ''}${pCatQuery ||
       ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
     axiosWithAuth([token], NOCACHE)
       .get(query)
@@ -383,7 +392,7 @@ const Grid = ({ token }) => {
         : ''
     setErr(false)
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${marketQuery || ''}${sourceQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}`
     localStorage.setItem('q', query) // Stored in local storage to later restore parameters if user reloads page
     axiosWithAuth([token])
@@ -449,18 +458,17 @@ const Grid = ({ token }) => {
                   }
                   value={markets}
                 />
-                <Dropdown
-                  class="currency"
-                  placeholder="Currency"
+                {/* <Dropdown
+                  placeholder="Source"
                   fluid
                   search
                   selection
-                  options={currencyOptions || ''}
+                  options={sourceOptions || []}
                   onChange={(e, { value }) =>
-                    dropdownHandler(value, setCurrency, null, 'cur')
+                    dropdownHandler(value, setSource, setSourceQuery, 's')
                   }
-                  value={currency}
-                />
+                  value={sources}
+                /> */}
                 <Dropdown
                   placeholder="Product Category"
                   fluid
@@ -496,6 +504,18 @@ const Grid = ({ token }) => {
                     dropdownHandler(value, setProducts, setProductQuery, 'p')
                   }
                   value={products}
+                />
+                <Dropdown
+                  class="currency"
+                  placeholder="Currency"
+                  fluid
+                  search
+                  selection
+                  options={currencyOptions || ''}
+                  onChange={(e, { value }) =>
+                    dropdownHandler(value, setCurrency, null, 'cur')
+                  }
+                  value={currency}
                 />
               </Form>
               <div class="grid-nav">
