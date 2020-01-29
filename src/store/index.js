@@ -5,6 +5,7 @@ export const initialState = {
     {
       headerName: 'ID',
       field: 'id',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
       // cellRendererFramework: CellRenderer
@@ -15,72 +16,84 @@ export const initialState = {
     {
       headerName: 'Country',
       field: 'country',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Market',
       field: 'market',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Source',
       field: 'source',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Category',
       field: 'product_cat',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Aggregator',
       field: 'product_agg',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Product',
       field: 'product',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Retail',
       field: 'retail',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Wholesale',
       field: 'wholesale',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Currency',
       field: 'currency',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Unit',
       field: 'unit',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Date',
       field: 'date',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Udate',
       field: 'udate',
+      resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
     }

@@ -57,6 +57,7 @@
   .ant-input {
     width: 100% !important;
     margin: 5px;
+    height: 60px;
 
     .ant-calendar-range-picker-input {
       @media (max-width: 500px) {
@@ -70,5 +71,17 @@
   @media (max-width: 550px) {
     display: flex;
     flex-direction: column;
+  }
+}
+
+.next-steps.my-5 {
+  .flex-grow-1.mt-5.container { 
+    padding: 0;
+  }
+}
+.container {
+  width: 90%;
+  @media (min-width: 1200px) {
+    max-width: 1600px;
   }
 }
