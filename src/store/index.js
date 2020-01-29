@@ -5,6 +5,7 @@ export const initialState = {
     {
       headerName: 'ID',
       field: 'id',
+      width: 130,
       resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
@@ -16,6 +17,7 @@ export const initialState = {
     {
       headerName: 'Country',
       field: 'country',
+      width: 130,
       resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
@@ -23,6 +25,7 @@ export const initialState = {
     {
       headerName: 'Market',
       field: 'market',
+      width: 150,
       resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
@@ -72,6 +75,7 @@ export const initialState = {
     {
       headerName: 'Currency',
       field: 'currency',
+      width: 150,
       resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
@@ -79,6 +83,7 @@ export const initialState = {
     {
       headerName: 'Unit',
       field: 'unit',
+      width: 100,
       resizable: true,
       sortable: true,
       cellStyle: { textAlign: 'left' }
