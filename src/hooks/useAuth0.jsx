@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import createAuth0Client from '@auth0/auth0-spa-js'
 import { Auth0Context } from '../contexts'
+import axios from 'axios'
 
-const DEFAULT_REDIRECT_CALLBACK = () =>
-  window.history.replaceState({}, document.title, window.location.pathname)
+// const DEFAULT_REDIRECT_CALLBACK = () =>
+//   window.history.replaceState({}, document.title, window.location.pathname)
 
 // Primarily from auth0 SPA quick start: https://auth0.com/docs/quickstart/spa
 export const Auth0Provider = ({
   children,
-  onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
+  history,
+  onRedirectCallback,
+  setUrl,
   ...initOptions
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState()
@@ -16,6 +19,7 @@ export const Auth0Provider = ({
   const [auth0Client, setAuth0] = useState()
   const [loading, setLoading] = useState(true)
   const [popupOpen, setPopupOpen] = useState(false)
+  const [role, setRole] = useState()
 
   useEffect(() => {
     const initAuth0 = async () => {
@@ -29,7 +33,19 @@ export const Auth0Provider = ({
 
       const isAuthenticated = await auth0FromHook.isAuthenticated()
 
+      // * CHECK IF USER HAS ALREADY LOGGED IN, RETREIVE USER INFO IF TRUE.
+      const validateAuthentication = async () => {
+        await auth0FromHook.loginWithRedirect({
+          appState: { targetUrl: window.location.pathname }
+        })
+        const user = await auth0FromHook.getUser()
+
+        setUser(user)
+      }
+      // * VALIDATE IF USER IS AUTHENTICATED.
       setIsAuthenticated(isAuthenticated)
+
+      if (!isAuthenticated) validateAuthentication()
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser()
@@ -65,6 +81,24 @@ export const Auth0Provider = ({
     setLoading(false)
     setIsAuthenticated(true)
     setUser(user)
+  }
+
+  // * GET AND SET USER ROLE IF AUTHENTICATED
+  const getRole = () => axios
+    .post(`https://sauti-africa-market-master.herokuapp.com/api/users/`, user)
+    .then(res => {
+      const user = res.data;
+      return !!user === true && setRole({ ...user.app_metadata })
+    })
+    .catch(err => console.log(err))
+
+  if (loading === false && !!user === true && isAuthenticated) getRole()
+
+  // * REDIRECT BASED ON ROLE STATUS
+  if (role && !!role.role === false && window.location.pathname !== '/plan') {
+    window.location.assign('plan')
+  } else if (role === true && window.location.pathname !== '/') {
+    window.location.assign('/')
   }
 
   // Configure auth0 provider

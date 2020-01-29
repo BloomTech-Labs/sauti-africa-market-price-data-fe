@@ -1,6 +1,8 @@
 # Sauti Africa Market Price Data & API
 
-You can find the deployed project at [Sauti Africa Market Data](http://price-api.sautiafrica.org/).
+You can find the deployed production site at [Sauti Africa Market Data](http://price-api.sautiafrica.org/).
+
+[Staging deployment](https://jolly-panini-1f3c1c.netlify.com/)
 
 ## Contributors
 
@@ -17,7 +19,6 @@ Shawn McManus - [Github](https://github.com/ShawnM76)<br>
 ### Labs 19
 <strong>Team Lead</strong> - Kayla Crow [Github](https://github.com/blackmacaroon)<br>
 Andrew Garcia - [Github](https://github.com/aaamg)<br>
-Igor Tavarez - [Github](https://github.com/itava0)<br>
 Himmat Gill - [Github](https://github.com/mxxt1)<br>
 Bao Pham - [Github](https://github.com/BaoPham92)<br>
 
