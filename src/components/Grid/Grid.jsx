@@ -497,15 +497,15 @@ const Grid = ({ token }) => {
                   }
                   value={products}
                 />
-                <RangePicker
+              </Form>
+              <div class="grid-nav">
+               <RangePicker
                   value={dateRanges}
                   disabledDate={disabledDate}
                   onChange={(dates, date) => {
                     datesHandler(dates)
                   }}
                 />
-              </Form>
-              <div>
                 <Button
                   onClick={() => {
                     apiCall()
@@ -518,7 +518,7 @@ const Grid = ({ token }) => {
                 {rowData[0] && (
                   <>
                     <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
-                      Export CSV Per Page
+                      Export Page as CSV
                     </Button>{' '}
                     <Button
                       onClick={() => {

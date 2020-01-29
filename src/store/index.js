@@ -5,7 +5,6 @@ export const initialState = {
     {
       headerName: 'ID',
       field: 'id',
-      autoSizePadding: 0,
       sortable: true,
       cellStyle: { textAlign: 'left' }
       // cellRendererFramework: CellRenderer

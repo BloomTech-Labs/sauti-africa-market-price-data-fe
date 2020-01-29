@@ -35,12 +35,28 @@
   }
 }
 
-.ant-calendar-picker {
-  width: 50%;
+.grid-nav {
   display: flex;
+  justify-content: space-between;
+
+  .ui.button {
+    margin: 5px;
+  }
+}
+.ant-calendar-picker {
+  width: 40%;
+  display: flex;
+  
+  @media (max-width: 992px) {
+    width: 100% !important;
+  }
+  @media (max-width: 500px) {
+    width: 100% !important;
+  }
 
   .ant-input {
-    width: 80% !important;
+    width: 100% !important;
+    margin: 5px;
 
     .ant-calendar-range-picker-input {
       @media (max-width: 500px) {
