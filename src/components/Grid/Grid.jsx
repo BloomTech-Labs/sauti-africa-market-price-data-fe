@@ -92,6 +92,7 @@ const Grid = ({ token }) => {
   // Options for dropDown
   let countriesOptions,
     marketOptions,
+    sourceOptions,
     pCategoryOptions,
     pAggregatorOptions,
     productOptions
@@ -105,6 +106,11 @@ const Grid = ({ token }) => {
       key: `market-${index}`,
       text: market.market,
       value: market.market
+    }))
+    sourceOptions = list.sources.map((source, index) => ({
+      key: `source-${index}`,
+      text: source.source,
+      value: source.source
     }))
     pCategoryOptions = list.categories.map((product_cat, index) => ({
       key: `category-${index}`,
@@ -176,6 +182,7 @@ const Grid = ({ token }) => {
       const {
         c = [],
         m = [],
+        s = [],
         p = [],
         pcat = [],
         pagg = [],
@@ -196,12 +203,12 @@ const Grid = ({ token }) => {
         setMarketQuery,
         'm'
       )
-      // dropdownHandler(
-      //   Array.isArray(s) ? s : [s],
-      //   setSources,
-      //   setSourceQuery,
-      //   's'
-      // )
+      dropdownHandler(
+        Array.isArray(s) ? s : [s],
+        setSources,
+        setSourceQuery,
+        's'
+      )
       dropdownHandler(
         Array.isArray(p) ? p : [p],
         setProducts,
@@ -458,19 +465,20 @@ const Grid = ({ token }) => {
                   }
                   value={markets}
                 />
-                {/* <Dropdown
-                  placeholder="Source"
+                <Dropdown
+                  placeholder="Sources"
                   fluid
+                  multiple
                   search
                   selection
                   options={sourceOptions || []}
                   onChange={(e, { value }) =>
-                    dropdownHandler(value, setSource, setSourceQuery, 's')
+                    dropdownHandler(value, setSources, setSourceQuery, 's')
                   }
                   value={sources}
-                /> */}
+                />
                 <Dropdown
-                  placeholder="Product Category"
+                  placeholder="Product category"
                   fluid
                   multiple
                   search
