@@ -525,15 +525,15 @@ const Grid = ({ token }) => {
                   }
                   value={currency}
                 />
-              </Form>
-              <div class="grid-nav">
-               <RangePicker
+                <RangePicker
                   value={dateRanges}
                   disabledDate={disabledDate}
                   onChange={(dates, date) => {
                     datesHandler(dates)
                   }}
                 />
+              </Form>
+              <div class="grid-nav">
                 <Button
                   onClick={() => {
                     apiCall()
