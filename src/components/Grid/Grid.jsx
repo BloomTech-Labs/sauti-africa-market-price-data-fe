@@ -103,7 +103,7 @@ const Grid = ({ token }) => {
       text: country.country
     }))
     // Translate country abbreviations for dropdown 
-    let abbr = countriesOptions.map((index)=>{
+    countriesOptions.map((index)=>{
       if(index.value === "BDI"){
         index.text = "Burundi"
       }
@@ -129,7 +129,6 @@ const Grid = ({ token }) => {
         index.text = "Uganda"
       }
     })
-    console.log(abbr)
     marketOptions = list.markets.map((market, index) => ({
       key: `market-${index}`,
       text: market.market,
