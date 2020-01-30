@@ -102,6 +102,34 @@ const Grid = ({ token }) => {
       value: country.country,
       text: country.country
     }))
+    // Translate country abbreviations for dropdown 
+    let abbr = countriesOptions.map((index)=>{
+      if(index.value === "BDI"){
+        index.text = "Burundi"
+      }
+      if(index.value === 'DRC'){
+        index.text = "Democratic Republic of the Congo"
+      }
+      if(index.value === 'KEN'){
+        index.text = "Kenya"
+      }
+      if(index.value === 'MWI'){
+        index.text = "Malawi"
+      }
+      if(index.value === 'RWA'){
+        index.text = "Rwanda"
+      }
+      if(index.value === 'SSD'){
+        index.text = "South Sudan"
+      }
+      if(index.value === 'TZA'){
+        index.text = "Tanzania"
+      }
+      if(index.value === 'UGA'){
+        index.text = "Uganda"
+      }
+    })
+    console.log(abbr)
     marketOptions = list.markets.map((market, index) => ({
       key: `market-${index}`,
       text: market.market,
@@ -128,6 +156,7 @@ const Grid = ({ token }) => {
       value: product.product
     }))
   }
+
 
   // Submit handlers for dropDown
   const dropdownHandler = (value, valueUpdater, queryUpdater, prefix) => {
@@ -447,7 +476,7 @@ const Grid = ({ token }) => {
                   multiple
                   search
                   selection
-                  options={countriesOptions || []}
+                  options={(countriesOptions) || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setCountries, setCountryQuery, 'c')
                   }
