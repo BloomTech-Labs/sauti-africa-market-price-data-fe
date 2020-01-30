@@ -1,9 +1,63 @@
-.ant-calendar-picker {
+._loading_overlay_wrapper.css-79elbk {
   width: 100%;
+  
+  form.ui.form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+    .ui.fluid.multiple.search.selection.dropdown {
+      width: 32%;
+      height: 60px;
+      margin: 5px;
+      @media (max-width: 992px) {
+        width: 48% !important;
+      }
+      @media (max-width: 580px) {
+        width: 100% !important;
+        height: 40px;
+      }
+      
+    }
+    .ui.fluid.search.selection.dropdown {
+      width: 32%;
+      height: 60px;
+      margin: 5px;
+      @media (max-width: 992px) {
+        width: 48% !important;
+      }
+      @media (max-width: 580px) {
+        width: 100% !important;
+        height: 40px;
+      }
+    }
+  }
+}
+
+.grid-nav {
   display: flex;
+  justify-content: space-around;
+
+  .ui.button {
+    margin: 5px;
+  }
+}
+.ant-calendar-picker {
+  width: 50%;
+  display: flex;
+  
+  @media (max-width: 992px) {
+    width: 48% !important;
+  }
+  @media (max-width: 500px) {
+    width: 100% !important;
+  }
 
   .ant-input {
     width: 100% !important;
+    margin: 5px;
+    height: 60px;
 
     .ant-calendar-range-picker-input {
       @media (max-width: 500px) {
@@ -17,5 +71,17 @@
   @media (max-width: 550px) {
     display: flex;
     flex-direction: column;
+  }
+}
+
+.next-steps.my-5 {
+  .flex-grow-1.mt-5.container { 
+    padding: 0;
+  }
+}
+.container {
+  width: 90%;
+  @media (min-width: 1200px) {
+    max-width: 1600px;
   }
 }
