@@ -8,7 +8,7 @@ const UserRoles = () => {
 
   const updateUserRole = (userId, user) => {
     axios
-      .put(`https://sauti-africa-market-master.herokuapp.com/api/users/${userId}`, user)
+      .put(`http://localhost:8888/api/users/${userId}`, user)
       .then(res => {
       })
       .catch(err => console.log(err))
