@@ -32,7 +32,7 @@ export default function DrPlayground() {
       .get(`/sauti/client/playground/date?${value}`, {
         baseURL:
           process.env.NODE_ENV !== 'development'
-            ? 'https://sauti-africa-market-master.herokuapp.com/'
+            ? 'https://sauti-marketprice-data.herokuapp.com/'
             : 'http://localhost:8888/'
       })
       .then(res => {
