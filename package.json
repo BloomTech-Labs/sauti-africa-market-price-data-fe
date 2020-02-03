@@ -38,17 +38,6 @@
     "semantic-ui-react": "^0.88.1",
     "socket.io-client": "^2.3.0"
   },
-  // "scripts": {
-  //   "start": "react-scripts start",
-  //   "build": "react-scripts build",
-  //   "dev": "react-scripts start",
-  //   "test": "react-scripts test --coverage",
-  //   "eject": "react-scripts eject",
-  //   "cypress": "node_modules/.bin/cypress run",
-  //   "cypress:open": "node_modules/.bin/cypress open",
-  //   "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
-  //   "format": "prettier --write \"**/*.{js,jsx,scss,css,html,json,md,less,tsx}\""
-  // },
   "scripts": {
     "start": "npm start",
     "build": "npm build",
