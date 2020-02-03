@@ -33,6 +33,7 @@ const Grid = ({ token }) => {
   // UseState to set queries in URL
   const [countryQuery, setCountryQuery] = useState()
   const [marketQuery, setMarketQuery] = useState()
+  const [sourceQuery, setSourceQuery] = useState()
   const [pCatQuery, setPCatQuery] = useState()
   const [pAggQuery, setPAggQuery] = useState()
   const [productQuery, setProductQuery] = useState()
@@ -52,6 +53,7 @@ const Grid = ({ token }) => {
   )
   const [countries, setCountries] = useState([])
   const [markets, setMarkets] = useState([])
+  const [sources, setSources] = useState([])
   const [pCats, setPCats] = useState([])
   const [pAggs, setPAggs] = useState([])
   const [products, setProducts] = useState([])
@@ -90,6 +92,7 @@ const Grid = ({ token }) => {
   // Options for dropDown
   let countriesOptions,
     marketOptions,
+    sourceOptions,
     pCategoryOptions,
     pAggregatorOptions,
     productOptions
@@ -99,10 +102,42 @@ const Grid = ({ token }) => {
       value: country.country,
       text: country.country
     }))
+    // Translate country abbreviations for dropdown 
+    countriesOptions.map((index)=>{
+      if(index.value === "BDI"){
+        index.text = "Burundi"
+      }
+      if(index.value === 'DRC'){
+        index.text = "Democratic Republic of the Congo"
+      }
+      if(index.value === 'KEN'){
+        index.text = "Kenya"
+      }
+      if(index.value === 'MWI'){
+        index.text = "Malawi"
+      }
+      if(index.value === 'RWA'){
+        index.text = "Rwanda"
+      }
+      if(index.value === 'SSD'){
+        index.text = "South Sudan"
+      }
+      if(index.value === 'TZA'){
+        index.text = "Tanzania"
+      }
+      if(index.value === 'UGA'){
+        index.text = "Uganda"
+      }
+    })
     marketOptions = list.markets.map((market, index) => ({
       key: `market-${index}`,
       text: market.market,
       value: market.market
+    }))
+    sourceOptions = list.sources.map((source, index) => ({
+      key: `source-${index}`,
+      text: source.source,
+      value: source.source
     }))
     pCategoryOptions = list.categories.map((product_cat, index) => ({
       key: `category-${index}`,
@@ -120,6 +155,7 @@ const Grid = ({ token }) => {
       value: product.product
     }))
   }
+
 
   // Submit handlers for dropDown
   const dropdownHandler = (value, valueUpdater, queryUpdater, prefix) => {
@@ -174,6 +210,7 @@ const Grid = ({ token }) => {
       const {
         c = [],
         m = [],
+        s = [],
         p = [],
         pcat = [],
         pagg = [],
@@ -193,6 +230,12 @@ const Grid = ({ token }) => {
         setMarkets,
         setMarketQuery,
         'm'
+      )
+      dropdownHandler(
+        Array.isArray(s) ? s : [s],
+        setSources,
+        setSourceQuery,
+        's'
       )
       dropdownHandler(
         Array.isArray(p) ? p : [p],
@@ -226,6 +269,7 @@ const Grid = ({ token }) => {
     localStorage.clear()
     dropdownHandler([], setCountries, setCountryQuery, 'C')
     dropdownHandler([], setMarkets, setMarketQuery, 'm')
+    dropdownHandler([], setSources, setSourceQuery, 's')
     dropdownHandler([], setProducts, setProductQuery, 'p')
     dropdownHandler([], setPCats, setPCatQuery, 'pcat')
     dropdownHandler([], setPAggs, setPAggQuery, 'pagg')
@@ -270,7 +314,7 @@ const Grid = ({ token }) => {
     let n = next[next.length - 1]
     if (next) nextCursor = n
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${marketQuery || ''}${sourceQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
     localStorage.setItem('q', query) // Stored in local storage to later restore parameters if user reloads page
     axiosWithAuth([token])
@@ -326,7 +370,7 @@ const Grid = ({ token }) => {
     if (prev && page) nextPage = prev[page - 2]
     if (nextPage) nextCursor = nextPage
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${marketQuery || ''}${sourceQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}&next=${nextCursor}`
     localStorage.setItem('q', query) // Stored in local storage to later restore parameters if user reloads page
     axiosWithAuth([token])
@@ -358,8 +402,8 @@ const Grid = ({ token }) => {
         )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
     setErr(false)
-    const query = `https://sauti-africa-market-master.herokuapp.com/sauti/client/export/?currency=${currency ||
-      'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
+    const query = `https://sauti-marketprice-data.herokuapp.com/sauti/client/export/?currency=${currency ||
+      'USD'}${countryQuery || ''}${marketQuery || ''}${sourceQuery || ''}${pCatQuery ||
       ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
     axiosWithAuth([token], NOCACHE)
       .get(query)
@@ -383,7 +427,7 @@ const Grid = ({ token }) => {
         : ''
     setErr(false)
     const query = `/sauti/client/?currency=${currency || 'USD'}${countryQuery ||
-      ''}${marketQuery || ''}${pCatQuery || ''}${pAggQuery ||
+      ''}${marketQuery || ''}${sourceQuery || ''}${pCatQuery || ''}${pAggQuery ||
       ''}${productQuery || ''}${dateRangeQuery}`
     localStorage.setItem('q', query) // Stored in local storage to later restore parameters if user reloads page
     axiosWithAuth([token])
@@ -431,7 +475,7 @@ const Grid = ({ token }) => {
                   multiple
                   search
                   selection
-                  options={countriesOptions || []}
+                  options={(countriesOptions) || []}
                   onChange={(e, { value }) =>
                     dropdownHandler(value, setCountries, setCountryQuery, 'c')
                   }
@@ -450,7 +494,19 @@ const Grid = ({ token }) => {
                   value={markets}
                 />
                 <Dropdown
-                  placeholder="Product Category"
+                  placeholder="Sources"
+                  fluid
+                  multiple
+                  search
+                  selection
+                  options={sourceOptions || []}
+                  onChange={(e, { value }) =>
+                    dropdownHandler(value, setSources, setSourceQuery, 's')
+                  }
+                  value={sources}
+                />
+                <Dropdown
+                  placeholder="Product category"
                   fluid
                   multiple
                   search
@@ -486,6 +542,7 @@ const Grid = ({ token }) => {
                   value={products}
                 />
                 <Dropdown
+                  class="currency"
                   placeholder="Currency"
                   fluid
                   search
@@ -504,7 +561,7 @@ const Grid = ({ token }) => {
                   }}
                 />
               </Form>
-              <div>
+              <div class="grid-nav">
                 <Button
                   onClick={() => {
                     apiCall()
@@ -517,7 +574,7 @@ const Grid = ({ token }) => {
                 {rowData[0] && (
                   <>
                     <Button onClick={() => exportCSV.exportDataAsCsv(rowData)}>
-                      Export CSV Per Page
+                      Export Page as CSV
                     </Button>{' '}
                     <Button
                       onClick={() => {

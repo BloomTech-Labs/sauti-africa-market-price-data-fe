@@ -28,14 +28,15 @@
     "react-landing-page": "^2.0.2",
     "react-loading-overlay": "^1.0.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "^3.2.0",
     "reactstrap": "^8.1.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.1",
+    "serve": "^11.3.0",
     "socket.io-client": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "dev": "react-scripts start",
     "test": "react-scripts test --coverage",
