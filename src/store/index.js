@@ -5,10 +5,9 @@ export const initialState = {
     {
       headerName: 'ID',
       field: 'id',
-      width: 130,
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
       // cellRendererFramework: CellRenderer
       //
       // You can attach custom renderering components to cells to customize processing / formatting of the contents
@@ -17,90 +16,86 @@ export const initialState = {
     {
       headerName: 'Country',
       field: 'country',
-      width: 130,
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Market',
       field: 'market',
-      width: 150,
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Source',
       field: 'source',
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Category',
       field: 'product_cat',
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Aggregator',
       field: 'product_agg',
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Product',
       field: 'product',
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Retail',
       field: 'retail',
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Wholesale',
       field: 'wholesale',
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Currency',
       field: 'currency',
-      width: 150,
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Unit',
       field: 'unit',
-      width: 100,
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Date',
       field: 'date',
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     },
     {
       headerName: 'Udate',
       field: 'udate',
       resizable: true,
       sortable: true,
-      cellStyle: { textAlign: 'left' }
+      cellStyle: { textAlign: 'right' }
     }
   ],
   gridStyle: {
