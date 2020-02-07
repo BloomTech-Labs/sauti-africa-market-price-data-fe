@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Router } from 'react-router-dom';
 import App from '../components/App'
 import { Auth0Provider } from '../hooks/useAuth0';

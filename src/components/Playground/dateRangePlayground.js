@@ -5,7 +5,7 @@ import './Playground.scss'
 import { Button, Input, Label } from 'semantic-ui-react'
 import 'highlight.js/styles/monokai-sublime.css'
 
-import { baseeURL } from '../../urls'
+import { baseURL } from '../../urls'
 
 export default function DrPlayground() {
   const [userAnswer, setUserAnswer] = useState({

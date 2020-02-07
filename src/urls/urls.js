@@ -7,15 +7,15 @@ export const baseURL =
 
 export const sautiDevURL = 
     deployEnv === "production"
-        ? `${baseURL}/sauti/developer`
-        : `${baseURL}/sauti/developer`
+        ? `${baseURL}sauti/developer`
+        : `${baseURL}sauti/developer`
 
 export const sautiClientURL = 
     deployEnv === "production"
-        ? `${baseURL}/sauti/client`
-        : `${baseURL}/sauti/client`
+        ? `${baseURL}sauti/client`
+        : `${baseURL}sauti/client`
 
 export const apiUserURL =
     deployEnv === "production"
-        ? `${baseURL}/api/users`
-        : `${baseURL}/api/users` 
+        ? `${baseURL}api/users`
+        : `${baseURL}api/users` 
