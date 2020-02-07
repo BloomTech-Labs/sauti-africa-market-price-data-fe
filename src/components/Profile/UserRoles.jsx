@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAuth0 } from '../../contexts'
+import { apiUserURL } from '../../urls'
 import axios from 'axios'
 import './UserRoles.scss'
 
@@ -8,7 +9,7 @@ const UserRoles = () => {
 
   const updateUserRole = (userId, user) => {
     axios
-      .put(`https://sauti-africa-market-master.herokuapp.com/api/users/${userId}`, user)
+      .put(`${apiUserURL}${userId}`, user)
       .then(res => {
       })
       .catch(err => console.log(err))

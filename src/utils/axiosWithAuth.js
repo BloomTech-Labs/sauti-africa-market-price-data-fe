@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { baseURL } from '../urls'
 
 // Basic caching implemented with a Least Recently Used eviction strategy
 // Check if key (URL) is in the cache.
@@ -55,7 +56,7 @@ export const axiosWithAuth = (token, exclude) => {
           headers: { Authorization: `Bearer ${token}` },
           baseURL:
             process.env.NODE_ENV !== 'development'
-              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              ? `${baseURL}`
               : 'http://localhost:8888/'
         })
         // If this path isn't excluded from caching, add the response from the API to the cache and return it

@@ -2,8 +2,8 @@ const deployEnv = process.env.REACT_APP_ENV
 
 export const baseURL = 
     deployEnv === "production"
-        ? 'https://sauti-marketprice-data.herokuapp.com'
-        : 'https://sauti-marketprice-data.herokuapp.com'
+        ? 'https://sauti-africa-market-master.herokuapp.com/'
+        : 'https://sauti-africa-market-master.herokuapp.com/'
 
 export const sautiDevURL = 
     deployEnv === "production"

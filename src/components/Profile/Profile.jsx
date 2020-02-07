@@ -6,6 +6,7 @@ import { Header, Card, Image, Message, Icon } from 'semantic-ui-react'
 
 import Loading from '../Loading/Loading'
 import { useAuth0 } from '../../contexts'
+import { baseURL } from '../../urls'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
@@ -41,7 +42,7 @@ const Profile = ({ apiKey, setApiKey }) => {
         },
         {
           headers: { Authorization: `Bearer ${token}` },
-          baseURL: 'https://sauti-africa-market-master.herokuapp.com/'
+          baseURL: {baseURL}
         }
       )
       setApiKey(response.data.key)
