@@ -5,6 +5,7 @@ import queryString from 'query-string'
 
 import { GridContext } from '../../contexts'
 import { initialState, reducer } from '../../store'
+import { sautiClientURL } from '../../urls'
 
 import { Container } from 'reactstrap'
 import { Dropdown, Button, Form, Message } from 'semantic-ui-react'
@@ -358,7 +359,7 @@ const Grid = ({ token }) => {
         )}&endDate=${dateRanges[1].format('YYYY-MM-DD')}`
         : ''
     setErr(false)
-    const query = `https://sauti-africa-market-master.herokuapp.com/sauti/client/export/?currency=${currency ||
+    const query = `${sautiClientURL}/export/?currency=${currency ||
       'USD'}${countryQuery || ''}${marketQuery || ''}${pCatQuery ||
       ''}${pAggQuery || ''}${productQuery || ''}${dateRangeQuery}`
     axiosWithAuth([token], NOCACHE)
