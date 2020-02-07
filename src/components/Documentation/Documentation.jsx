@@ -25,6 +25,8 @@ import marketsGif from '../../assets/markets.gif'
 import productGif from '../../assets/product.gif'
 import dateRangeGif from '../../assets/date-range.gif'
 
+import { baseURL, sautiDevURL } from '../../urls'
+
 import 'highlight.js/styles/monokai-sublime.css'
 import './Documentation.scss'
 
@@ -133,7 +135,7 @@ const SideNav = () => {
             </h5>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer'
+                `${sautiDevURL}`
               }
             </Highlight>
             <h5>Available Endpoints</h5>
@@ -141,14 +143,14 @@ const SideNav = () => {
             <h6>specific list - market, country, source, product</h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/lists/'
+                `${sautiDevURL}/lists/`
               }
             </Highlight>
 
             <h6>filter</h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/filter/'
+                `${sautiDevURL}/filter/`
               }
             </Highlight>
 
@@ -157,7 +159,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/latestprice/'
+                `${sautiDevURL}/product/latestprice/`
               }
             </Highlight>
 
@@ -167,7 +169,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/pricebymarket/'
+                `${sautiDevURL}/product/pricebymarket/`
               }
             </Highlight>
 
@@ -177,7 +179,7 @@ const SideNav = () => {
             </h6>
             <Highlight language="javascript">
               {
-                'https://sauti-africa-market-master.herokuapp.com/sauti/developer/product/range/'
+                `${sautiDevURL}/product/range/`
               }
             </Highlight>
           </article>
@@ -204,7 +206,7 @@ const SideNav = () => {
               />
             </p>
             <Highlight language="javascript" className="highlight">
-              {'https://sauti-africa-market-master.herokuapp.com/sauti/'}
+              {`${baseURL}/sauti/`}
               <br />
               {'developer/lists/?list=[MARKET][COUNTRY][SOURCE][PRODUCT]'}
             </Highlight>

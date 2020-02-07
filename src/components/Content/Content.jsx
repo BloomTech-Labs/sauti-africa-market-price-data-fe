@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 import Grid from '../Grid'
+import { baseURL} from '../../urls'
 import { Button } from 'reactstrap'
 
 import Highlight from 'react-highlight'
@@ -25,7 +26,7 @@ const Content = ({ apiKey }) => {
         {
           baseURL:
             process.env.NODE_ENV !== 'development'
-              ? 'https://sauti-africa-market-master.herokuapp.com/'
+              ? `${baseURL}`
               : 'http://localhost:8888/'
         }
       )
